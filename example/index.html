@@ -1,45 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
-	<title>Angularjs directives for Materialize CSS Framework</title>
-	<link rel="stylesheet" href="css/materialize.css">
-	<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+    <title>Angularjs directives for Materialize CSS Framework</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-     <div class="container" ng-app="materializeApp">
-     	<div class="row">
-     		<a href="https://github.com/kresCruz/angular-materialize"><h5>Angular-materialize</h5></a>	
-     	</div>
-     	<div class="row">
-     		<h5>Toasts</h5>
-     	</div>
-		<div class="row">
-	        <div class="input-field col s4">
-				<input id="message" type="text" ng-model="message">
-				<label for="message">Message</label>
-	        </div>
-	        <div class="input-field col s4">
-				<a class="waves-effect waves-light btn" data-message="{{ message }}" toast='click'>Toast!</a>
-			</div>
-		</div>
-		<div class="row">
-			Toast (ui.materialize.toast)
-			<blockquote>
-				This directive can be used to generate toast dynamic
-			</blockquote>
-		</div>
-     </div>
+<body ng-app="materializeApp" ng-controller="BodyController">
+<header>
+    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-closeonclick="true"><i
+            class="mdi-navigation-menu"></i></a></div>
+    <ul id="nav-mobile" class="side-nav fixed">
+        <!--Maybe a logo?-->
+        <!--<li class="logo" style="margin-left: -15px;"><a id="logo-container" href="http://materializecss.com/"class="brand-logo"><h3></h3></a></li>-->
+        <!--<li class="bold"><a href="about.html" class="waves-effect waves-teal">About</a></li>-->
+        <li class="bold"><a href="http://materializecss.com/" class="waves-effect waves-teal">Materialize</a></li>
+        <li class="bold"><a href="https://angularjs.org/" class="waves-effect waves-teal">AngularJS</a></li>
+    </ul>
+</header>
+<main>
+    <div class="section" id="index-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h1 class="header center-on-small-only"><a href="https://github.com/kresCruz/angular-materialize" style="color:white;">Angular-materialize</a></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" id="toast">
+            <h5>Toasts</h5>
+        </div>
+        <div class="row">
+            <div class="col s4" inputfield>
+                <input id="message" type="text" ng-model="dummyInputs.message">
+                <label for="message">Message</label>
+            </div>
+            <div class="input-field col s4">
+                <a class="waves-effect waves-light btn" data-message="{{ dummyInputs.message }}" toast='click'>Toast!</a>
+            </div>
+        </div>
 
-	<!--Import jQuery before materialize.js-->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
-	<script type="text/javascript" src="js/materialize.js"></script>
-	<script type="text/javascript" src="../src/angular-materialize-toast.js"></script>
-	
-	<!-- App -->
-	<script type="text/javascript" src="js/app.js"></script>
-	
+
+        <div class="row">
+            <h5>Material select</h5>
+        </div>
+        <div class="row">
+            <div class="section col s4">
+                <select class="" ng-model="select.value" material-select>
+                    <option ng-repeat="value in select.choices">{{value}}</option>
+                </select>
+            </div>
+            <div class="section col s4">
+                <a class="waves-effect waves-light btn" data-message="{{select.value}}" toast='click'>Toast it!</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <h5>Dropdown</h5>
+        </div>
+        <div class="row">
+            <div class="section col s4">
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' dropdown
+                   data-hover="false">
+                    This is a dropdown
+                </a>
+
+                <!-- Dropdown Structure -->
+                <ul id='demoDropdown' class='dropdown-content'>
+                    <li><a href="javascript:void(0);">Link 1</a></li>
+                    <li><a href="javascript:void(0);">Link 2</a></li>
+                    <li><a href="javascript:void(0);">Link 3</a></li>
+                    <li><a href="javascript:void(0);">Link 4</a></li>
+                    <li><a href="javascript:void(0);">Link 5</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <h5>Input-field</h5>
+            Instead of adding the class input-field, use the directive. This way it still works when angular dynamically
+            creates it.
+        </div>
+        <div class="row" ng-init="showInputLabel = true;dummyInputs.inputFieldInput = 'This is input'">
+            <div class="col s2">
+                <a class="btn waves-effect waves-light" ng-click="showInputLabel = !showInputLabel">Hide input</a>
+            </div>
+            <div class="col s4">
+                <div></div>
+                <div ng-if="showInputLabel" inputfield>
+                    <input type="text" ng-model="dummyInputs.inputFieldInput">
+                    <label>Input label</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h5>Sidenav</h5>
+        </div>
+        <div class="row">
+            <a href="#" data-activates="nav-mobile" class=" top-nav btn waves-effect waves-light" data-sidenav="left" data-closeonclick="true">
+                Show side-nav
+            </a>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+
+<!-- TODO: This version contains a bug with adjusting height in textarea's. Update when possible -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+
+<script type="text/javascript" src="../src/angular-materialize.js"></script>
+
+<!-- App -->
+<script type="text/javascript" src="js/app.js"></script>
+
 </body>
 </html>
