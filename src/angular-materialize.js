@@ -74,7 +74,7 @@
                 scope: {
                     inDuration: "@",
                     outDuration: "@",
-                    constrainWidth: "@",
+                    constrain_width: "@",
                     hover: "@",
                     alignment: "@",
                     gutter: "@",
@@ -86,7 +86,7 @@
                         element.dropdown({
                             inDuration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             outDuration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
-                            constrain_width: (angular.isDefined(scope.constrainWidth)) ? scope.constrainWidth : undefined,
+                            constrain_width: (angular.isDefined(scope.constrainWidth)) ? scope.constrain_width : undefined,
                             hover: (angular.isDefined(scope.hover)) ? scope.hover : undefined,
                             alignment: (angular.isDefined(scope.alignment)) ? scope.alignment : undefined,
                             gutter: (angular.isDefined(scope.gutter)) ? scope.gutter : undefined,
@@ -108,7 +108,7 @@
      </inputfield>
      */
     angular.module("ui.materialize.inputfield", [])
-        .directive('inputfield', ["$compile", "$timeout", function ($compile, $timeout) {
+        .directive('inputField', ["$compile", "$timeout", function ($compile, $timeout) {
             return {
                 transclude: true,
                 scope: {},
