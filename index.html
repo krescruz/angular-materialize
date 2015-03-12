@@ -51,6 +51,7 @@
                             <li><a href="#toast">Dialogs - Toast</a></li>
                             <li><a href="#dropdown">Dropdown</a></li>
                             <li><a href="#sidenav">SideNav</a></li>
+                            <li><a href="#tabs">Tabs</a></li>
                         </ul>
                     </div>
                 </li>
@@ -231,6 +232,45 @@
 &lt;a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="500" data-closeonclick="false"&gt;
     Show side-nav
 &lt;/a&gt;</code></pre>
+        </div>
+
+        <div class="row" id="tabs" ng-init="showTabs = true">
+            <h2 class="header">Tabs</h2>
+            <p>This is a very simple directive, that just calls the jQuery plugin when the element is initialized.</p>
+            <p>For the styling to work, you still need to have the class <code class="language-markup">tabs</code> on the <code class="language-markup">ul</code> tag</p>
+            <p>Because of the simple implementation, don't expect ng-repeat ng-model or similar to work inside the ul of the tabs (should work inside the content though).</p>
+            <a class="btn waves-effect waves-light" ng-click="showTabs = !showTabs">Show/hide the below tabs</a>
+        </div>
+        <div class="row" ng-if="showTabs">
+            <div class="col s12">
+                <ul class="tabs" tabs>
+                    <li class="tab col s3"><a href="#test1">Test 1</a></li>
+                    <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
+                    <li class="tab col s3"><a href="#test3">Test 3</a></li>
+                    <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                </ul>
+            </div>
+            <div id="test1" class="col s12">Test 1</div>
+            <div id="test2" class="col s12">Test 2</div>
+            <div id="test3" class="col s12">Test 3</div>
+            <div id="test4" class="col s12">Test 4</div>
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>
+&lt;div class="row" ng-if="showTabs"&gt;
+    &lt;div class="col s12"&gt;
+        &lt;ul class="tabs" tabs&gt;
+            &lt;li class="tab col s3"&gt;&lt;a href="#test1"&gt;Test 1&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="tab col s3"&gt;&lt;a class="active" href="#test2"&gt;Test 2&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="tab col s3"&gt;&lt;a href="#test3"&gt;Test 3&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="tab col s3"&gt;&lt;a href="#test4"&gt;Test 4&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div id="test1" class="col s12"&gt;Test 1&lt;/div&gt;
+    &lt;div id="test2" class="col s12"&gt;Test 2&lt;/div&gt;
+    &lt;div id="test3" class="col s12"&gt;Test 3&lt;/div&gt;
+    &lt;div id="test4" class="col s12"&gt;Test 4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
         </div>
     </div>
 </main>
