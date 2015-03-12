@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield"]);
+    angular.module("ui.materialize", ["ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.tabs"]);
 
     angular.module("ui.materialize.toast", [])
         .constant("toastConfig", {
@@ -18,6 +18,15 @@
                         var rounded = (angular.isDefined(attrs.rounded)) ? toastConfig.rounded : null;
                         toast(message, toastConfig.duration, rounded);
                     });
+                }
+            };
+        }]);
+
+    angular.module("ui.materialize.tabs", [])
+        .directive("tabs", [function(){
+            return {
+                link: function (scope, element, attrs) {
+                    element.tabs();
                 }
             };
         }]);
