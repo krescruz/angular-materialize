@@ -139,7 +139,7 @@
         paging-action="changePage(page)">
      */
     angular.module("ui.materialize.pagination", [])
-        .directive('pagination', function ($sce) {
+        .directive('pagination', ["$sce", function ($sce) {
 
             // Assign null-able scope values from settings
             function setScopeValues(scope, attrs) {
@@ -394,6 +394,6 @@
                     });
                 }
             };
-        });
+        }]);
 }(angular));
 
