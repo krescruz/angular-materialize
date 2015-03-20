@@ -139,7 +139,7 @@
         paging-action="changePage(page)">
      */
     angular.module("ui.materialize.pagination", [])
-        .directive('pagination', ["$sce", function ($sce) {
+        .directive('pagination', function () {
 
             // Assign null-able scope values from settings
             function setScopeValues(scope, attrs) {
@@ -161,7 +161,6 @@
             // This happens after we have set the
             // scope values
             function validateScopeValues(scope, pageCount) {
-
                 // Block where the page is larger than the pageCount
                 if (scope.page > pageCount) {
                     scope.page = pageCount;
@@ -186,7 +185,6 @@
 
             // Internal Pagination Click Action
             function internalAction(scope, page) {
-
                 // Block clicks we try to load the active page
                 if (scope.page == page) {
                     return;
@@ -218,7 +216,7 @@
                 var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
 
                 var prev = {
-                    value: '<i class="mdi-navigation-chevron-left"></i>',
+                    value: '<',
                     liClass: disabled ? scope.disabledClass : '',
                     action: function () {
                         if(!disabled) {
@@ -227,7 +225,6 @@
                     }
                 };
 
-                prev.value = $sce.trustAsHtml(prev.value);
                 scope.List.push(prev);
             }
 
@@ -245,7 +242,7 @@
                 var nextPage = scope.page + 1 >= pageCount ? pageCount : scope.page + 1;
 
                 var next = {
-                    value: '<i class="mdi-navigation-chevron-right"></i>',
+                    value: '>',
                     liClass: disabled ? scope.disabledClass : '',
                     action: function () {
                         if(!disabled) {
@@ -254,7 +251,6 @@
                     }
                 };
 
-                next.value = $sce.trustAsHtml(next.value);
                 scope.List.push(next);
             }
 
@@ -262,7 +258,6 @@
             function addRange(start, finish, scope) {
                 var i = 0;
                 for (i = start; i <= finish; i++) {
-
                     var item = {
                         value: i.toString(),
                         liClass: scope.page == i ? scope.activeClass : 'waves-effect',
@@ -271,14 +266,12 @@
                         }
                     };
 
-                    item.value = $sce.trustAsHtml(item.value);
                     scope.List.push(item);
                 }
             }
 
             // Add Dots ie: 1 2 [...] 10 11 12 [...] 56 57
             function addDots(scope) {
-                scope.dots = $sce.trustAsHtml(scope.dots);
                 scope.List.push({
                     value: scope.dots
                 });
@@ -368,23 +361,24 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    page: '=',
-                    pageSize: '=',
-                    total: '=',
+                    page: '@',
+                    pageSize: '@',
+                    total: '@',
                     dots: '@',
                     hideIfEmpty: '@',
                     adjacent: '@',
                     scrollTop: '@',
-                    pagingAction: '@'
+                    paginationAction: '&'
                 },
                 template:
                     '<ul ng-hide="Hide" ng-class="ulClass"> ' +
                         '<li ' +
                         'ng-class="Item.liClass" ' +
+                        'ng-click="Item.action()" ' +
                         'ng-repeat="Item in List"> ' +
-                        '<a href="#!" ng-click="Item.action()"> ' +
-                        '<span ng-bind-html="Item.value"></span> ' +
-                        '</a> ' +   
+                        '<a href> ' +
+                        '<span ng-bind="Item.value"></span> ' +
+                        '</a>' +   
                     '</ul>',
                 link: function (scope, element, attrs) {
                     
@@ -394,6 +388,5 @@
                     });
                 }
             };
-        }]);
+        });
 }(angular));
-
