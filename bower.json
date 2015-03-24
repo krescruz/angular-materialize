@@ -1,0 +1,11 @@
+{
+  "name": "angular-materialize",
+  "version": "0.1",
+  "main": "src/angular-materialize.js",
+  "ignore": [
+    "**/.*",
+    "index.html",
+    "Gruntfile.js",
+    "package.json"
+  ]
+}
