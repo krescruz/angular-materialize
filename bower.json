@@ -1,5 +1,5 @@
 {
-  "name": "angular-materialize",
+  "name": "ng-materialize",
   "version": "0.1",
   "main": "src/angular-materialize.js",
   "ignore": [
