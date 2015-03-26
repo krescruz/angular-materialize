@@ -1,4 +1,4 @@
 angular-materialize
 ===================
 
-Angularjs directives for Materialize CSS Framework https://github.com/Dogfalo/materialize
+**angular-materializ** in action http://krescruz.github.io/angular-materialize/
