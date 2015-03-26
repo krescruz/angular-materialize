@@ -57,6 +57,18 @@
                 </li>
             </ul>
         </li>
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Components</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#pagination">Pagination</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
     </ul>
 </header>
 <main>
@@ -271,6 +283,34 @@
     &lt;div id="test3" class="col s12"&gt;Test 3&lt;/div&gt;
     &lt;div id="test4" class="col s12"&gt;Test 4&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+        </div>
+
+        <div class="row" id="pagination">
+            <h2 class="header">Pagination</h2>
+            <p>This is only the pagination buttons, it doesn't do anything to change the page. That you'll have to do in the callback</p>
+            <p>In the below, changePage is a function defined on the controller. </p>
+        </div>
+        <div class="row" ng-controller="PaginationController">
+            <pagination
+                page="1"
+                page-size="10"
+                total="200"
+                dots="...."
+                hide-if-empty="false"
+                adjacent="2"
+                scroll-top="false"
+                pagination-action="changePage(page)" />
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>&lt;pagination
+    page="1"
+    page-size="10"
+    total="200"
+    dots="...."
+    hide-if-empty="false"
+    adjacent="2"
+    scroll-top="false"
+    pagination-action="changePage(page)" /&gt;</code></pre>
         </div>
     </div>
 </main>

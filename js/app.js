@@ -7,4 +7,10 @@ var app = angular.module('materializeApp', ['ui.materialize'])
         };
 
         $scope.dummyInputs = {};
+
+    }])
+    .controller('PaginationController', ["$scope", function ($scope) {
+        $scope.changePage = function (page) {
+            toast("Changed to page " + page, 1000);
+        }
     }]);

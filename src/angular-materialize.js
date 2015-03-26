@@ -136,7 +136,7 @@
         page="1"
         page-size="10"
         total="100"
-        paging-action="changePage(page)">
+        pagination-action="changePage(page)">
      */
     angular.module("ui.materialize.pagination", [])
         .directive('pagination', function () {
