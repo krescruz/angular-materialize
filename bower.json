@@ -1,5 +1,5 @@
 {
-  "name": "ng-materialize",
+  "name": "angular-materialize-bower",
   "version": "0.1",
   "main": "src/angular-materialize.js",
   "ignore": [
