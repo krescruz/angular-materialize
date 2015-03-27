@@ -278,8 +278,8 @@
             };
 
             return {
+                require: 'ngModel',
                 scope: {
-                    ngModel: "=",
                     format: "@",
                     formatSubmit: "@",
                     monthsFull: "@",
@@ -296,11 +296,15 @@
                     onSet: "&",
                     onStop: "&"
                 },
-                link: function (scope, element, attrs) {
+                link: function (scope, element, attrs, ngModelCtrl) {
                     
-                    if(angular.isDefined(scope.ngModel) && angular.isDefined(scope.format)) {
-                        scope.ngModel = scope.ngModel.format(scope.format);
-                    }
+                    ngModelCtrl.$formatters.unshift(function (modelValue) {
+                        if (modelValue) {
+                            var date = new Date(modelValue);
+                            return (angular.isDefined(scope.format)) ? date.format(scope.format) : date.format('d mmmm, yyyy');
+                        }
+                        return null;
+                    });
 
                     var monthsFull = (angular.isDefined(scope.monthsFull)) ? scope.$eval(scope.monthsFull) : undefined,
                         monthsShort = (angular.isDefined(scope.monthsShort)) ? scope.$eval(scope.monthsShort) : undefined,
