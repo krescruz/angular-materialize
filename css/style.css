@@ -3,6 +3,10 @@ code.language-markup {
 
 }
 
+pre[class*=language-]>code[data-language] {
+    max-height: 16em !important;
+}
+
 /* Copy from the style used on the materializecss.com */
 
 /***************

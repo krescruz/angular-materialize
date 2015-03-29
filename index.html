@@ -36,6 +36,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li><a href="#input-field">Input-field</a></li>
+                            <li><a href="#input-date">Input-date</a></li>
                             <li><a href="#select">Material select</a></li>
                         </ul>
                     </div>
@@ -118,6 +119,88 @@
     &lt;label&gt;Input label&lt;/label&gt;
 &lt;/input-field&gt;</code></pre>
         </div>
+
+
+        <div class="row" id="input-date">
+            <h2 class="header">Input-date</h2>
+            <p>The below example is where there are values in all the options, but all the options are optional. </p>
+        </div>
+        <div class="row" ng-controller="DateController">
+            <label for="inputCreated">Input date</label>
+            <input input-date
+                   type="text"
+                   name="created"
+                   id="inputCreated"
+                   ng-model="currentTime"
+                   format="dd/mm/yyyy"
+                   months-full="{{ month }}"
+                   months-short="{{ monthShort }}"
+                   weekdays-full="{{ weekdaysFull }}"
+                   weekdays-short="{{ weekdaysShort }}"
+                   weekdays-letter="{{ weekdaysLetter }}"
+                   today="today"
+                   clear="clear"
+                   close="close"
+                   on-start="onStart()"
+                   on-render="onRender()"
+                   on-open="onOpen()"
+                   on-close="onClose()"
+                   on-set="onSet()"
+                   on-stop="onStop()" />
+        </div>
+        <div class="row">
+            <p>The code in the HTML</p>
+<pre><code class="language-markup" ng-non-bindable>&lt;label for="inputCreated"&gt;Input date&lt;/label&gt;
+&lt;input input-date
+    type="text"
+    name="created"
+    id="inputCreated"
+    ng-model="currentTime"
+    format="dd/mm/yyyy"
+    months-full="{{ month }}"
+    months-short="{{ monthShort }}"
+    weekdays-full="{{ weekdaysFull }}"
+    weekdays-short="{{ weekdaysShort }}"
+    weekdays-letter="{{ weekdaysLetter }}"
+    today="today"
+    clear="clear"
+    close="close"
+    on-start="onStart()"
+    on-render="onRender()"
+    on-open="onOpen()"
+    on-close="onClose()"
+    on-set="onSet()"
+    on-stop="onStop()" /&gt;</code></pre>
+            <p>And the JavaScript in the controller</p>
+            <pre><code class="language-javascript">var currentTime = new Date();
+$scope.currentTime = currentTime;
+$scope.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+$scope.monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+$scope.weekdaysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+$scope.weekdaysLetter = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+$scope.today = 'Today';
+$scope.clear = 'Clear';
+$scope.close = 'Close';
+$scope.onStart = function () {
+    console.log('onStart');
+};
+$scope.onRender = function () {
+    console.log('onRender');
+};
+$scope.onOpen = function () {
+    console.log('onOpen');
+};
+$scope.onClose = function () {
+    console.log('onClose');
+};
+$scope.onSet = function () {
+    console.log('onSet');
+};
+$scope.onStop = function () {
+    console.log('onStop');
+};</code></pre>
+        </div>
+
 
         <div class="row" id="select">
             <h2 class="header">Material select</h2>
