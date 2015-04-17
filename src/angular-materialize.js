@@ -1,22 +1,25 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination"]);
 
-    angular.module('ui.materialize').directive("ngModel",function(){
-        return {
-            restrict: 'A',
-            priority: -1, // lower priority than built-in ng-model so it runs first
-            link: function(scope, element, attr) {
-                scope.$watch(attr.ngModel,function(value){
-                    if (value){
-                        element.trigger("change");
-                    } else if(value === undefined && element.attr('placeholder') === undefined) {
-                        if(!element.is(":focus"))
-                            element.trigger("blur");
-                    }
-                });
+    angular.module("ui.materialize.ngModel", [])
+        .directive("ngModel",["$timeout", function($timeout){
+            return {
+                restrict: 'A',
+                priority: -1, // lower priority than built-in ng-model so it runs first
+                link: function(scope, element, attr) {
+                    scope.$watch(attr.ngModel,function(value){
+                        $timeout(function () {
+                            if (value){
+                                element.trigger("change");
+                            } else if(value === undefined && element.attr('placeholder') === undefined) {
+                                if(!element.is(":focus"))
+                                    element.trigger("blur");
+                            }
+                        });
+                    });
+                }
             }
-        }
-    });
+        }]);
 
     angular.module("ui.materialize.toast", [])
         .constant("toastConfig", {
