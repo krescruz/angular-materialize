@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -19,6 +19,17 @@
                     });
                 }
             }
+        }]);
+
+    angular.module("ui.materialize.collapsible", [])
+        .directive("collapsible", ["$timeout", function($timeout){
+          return {
+            link: function(scope, element, attrs) {
+              $timeout(function(){
+                element.collapsible();
+              });
+            }
+          };
         }]);
 
     angular.module("ui.materialize.toast", [])
@@ -154,12 +165,12 @@
      * Add pickadate directive
      * Type text is mandatory
      * Example:
-     <input input-date 
+     <input input-date
         type="text"
-        name="created" 
-        id="inputCreated" 
-        ng-model="currentTime" 
-        format="dd/mm/yyyy" 
+        name="created"
+        id="inputCreated"
+        ng-model="currentTime"
+        format="dd/mm/yyyy"
         months-full="{{ monthFr }}"
         months-short="{{ monthShortFr }}"
         weekdays-full="{{ weekdaysFullFr }}"
@@ -317,7 +328,7 @@
                     onStop: "&"
                 },
                 link: function (scope, element, attrs, ngModelCtrl) {
-                    
+
                     ngModelCtrl.$formatters.unshift(function (modelValue) {
                         if (modelValue) {
                             var date = new Date(modelValue);
@@ -330,7 +341,7 @@
                         monthsShort = (angular.isDefined(scope.monthsShort)) ? scope.$eval(scope.monthsShort) : undefined,
                         weekdaysFull = (angular.isDefined(scope.weekdaysFull)) ? scope.$eval(scope.weekdaysFull) : undefined,
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
-                    
+
                     $compile(element.contents())(scope);
                     $timeout(function () {
                         element.pickadate({
@@ -429,7 +440,7 @@
 
             // Previous text
             function prev(scope, pageCount) {
-                
+
                 // Ignore if no page prev to display
                 if(pageCount < 1) {
                     return;
@@ -455,7 +466,7 @@
 
             // Next text
             function next(scope, pageCount) {
-                
+
                 // Ignore if no page next to display
                 if(pageCount < 1) {
                     return;
@@ -507,7 +518,7 @@
                 addRange(1, 2, scope);
 
                 // We ignore dots if the next value is 3
-                // ie: 1 2 [...] 3 4 5 becomes just 1 2 3 4 5 
+                // ie: 1 2 [...] 3 4 5 becomes just 1 2 3 4 5
                 if (next != 3) {
                     addDots(scope);
                 }
@@ -515,7 +526,7 @@
 
             function addLast(pageCount, scope, prev) {
                 // We ignore dots if the previous value is one less that our start range
-                // ie: 1 2 3 4 [...] 5 6  becomes just 1 2 3 4 5 6 
+                // ie: 1 2 3 4 [...] 5 6  becomes just 1 2 3 4 5 6
                 if (prev != pageCount -2) {
                     addDots(scope);
                 }
@@ -525,7 +536,7 @@
 
             // Main build function
             function build(scope, attrs) {
-                
+
                 // Block divide by 0 and empty page size
                 if (!scope.pageSize || scope.pageSize < 0)
                 {
@@ -603,10 +614,10 @@
                         'ng-repeat="Item in List"> ' +
                         '<a href> ' +
                         '<span ng-bind="Item.value"></span> ' +
-                        '</a>' +   
+                        '</a>' +
                     '</ul>',
                 link: function (scope, element, attrs) {
-                    
+
                     // Hook in our watched items
                     scope.$watchCollection('[page, total]', function () {
                         build(scope, attrs);
