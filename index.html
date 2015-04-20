@@ -30,6 +30,8 @@
         <li class="bold"><a href="http://materializecss.com/" class="waves-effect waves-teal">Materialize</a></li>
         <li class="bold"><a href="https://angularjs.org/" class="waves-effect waves-teal">AngularJS</a></li>
 
+        <li class="bold"><a href="#about" class="waves-effect waves-teal">About angular-materialize</a></li>
+
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
                 <li class="bold"><a class="collapsible-header waves-effect waves-teal active">Forms</a>
@@ -86,6 +88,17 @@
 
 
     <div class="container">
+        <div class="row" id="about">
+            <h2 class="header">About angular-materialize</h2>
+            <p>This plugin is useful for you if you wan't to use the <a href="http://materializecss.com/">Materialize UI framework</a> with angular. </p>
+            <p>It includes a number of directives, which makes sure that the components in materialize.js, which are mainly initialized on document ready, are handled by Angular in the right way.<p>
+            <p>So it is not a complete rewrite of Materialize. And it therefore depends on jQuery, because Materialize depends on jQuery.</p>
+            <p>The following sections are examples of the directives which are included in this plugin,
+                you can also use the menu to the left to see if the directive you are looking for is implemented.<br/>
+                Otherwise, you can <a href="https://github.com/krescruz/angular-materialize/issues/">suggest it to the developers</a>
+                or <a href="https://github.com/krescruz/angular-materialize/pulls">implement it yourself</a>.</p>
+        </div>
+
         <div class="row" id="input-field">
             <h2 class="header">Input-field</h2>
             <p>Materialize uses the class .input-field to manage animating labels and input-fields. But that doesn't work properly when angular dynamically creates element</p>
