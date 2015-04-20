@@ -11,7 +11,7 @@
                         $timeout(function () {
                             if (value){
                                 element.trigger("change");
-                            } else if(value === undefined && element.attr('placeholder') === undefined) {
+                            } else if(element.attr('placeholder') === undefined) {
                                 if(!element.is(":focus"))
                                     element.trigger("blur");
                             }
