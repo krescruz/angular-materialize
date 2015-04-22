@@ -9,7 +9,21 @@ var app = angular.module('materializeApp', ['ui.materialize'])
         $scope.dummyInputs = {};
 
     }])
-    .controller('PaginationController', ["$scope", function ($scope) {
+    .controller('CollapsibleController', ["$scope", function ($scope) {
+        $scope.collapsibleElements = [{
+            icon: 'mdi-image-filter-drama',
+            title: 'First',
+            content: 'Lorem ipsum dolor sit amet.'
+        },{
+            icon: 'mdi-maps-place',
+            title: 'Second',
+            content: 'Lorem ipsum dolor sit amet.'
+        },{
+            icon: 'mdi-social-whatshot',
+            title: 'Third',
+            content: 'Lorem ipsum dolor sit amet.'
+        }];
+    }]).controller('PaginationController', ["$scope", function ($scope) {
         $scope.changePage = function (page) {
             toast("Changed to page " + page, 1000);
         }
