@@ -7,6 +7,11 @@ pre[class*=language-]>code[data-language] {
     max-height: 16em !important;
 }
 
+.side-nav a {
+    height: 44px !important;
+    line-height: 44px !important;
+}
+
 /* Copy from the style used on the materializecss.com */
 
 /***************

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <title>Angularjs directives for Materialize CSS Framework</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -13,7 +13,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
     <!-- TODO: This version contains a bug with adjusting height in textarea's. Update when possible -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -51,6 +51,7 @@
                 <li class="bold"><a class="collapsible-header waves-effect waves-teal active">JavaScript</a>
                     <div class="collapsible-body">
                         <ul>
+                            <li><a href="#collapsible">Collapsible</a></li>
                             <li><a href="#toast">Dialogs - Toast</a></li>
                             <li><a href="#dropdown">Dropdown</a></li>
                             <li><a href="#sidenav">SideNav</a></li>
@@ -90,7 +91,7 @@
     <div class="container">
         <div class="row" id="about">
             <h2 class="header">About angular-materialize</h2>
-            <p>This plugin is useful for you if you wan't to use the <a href="http://materializecss.com/">Materialize UI framework</a> with angular. </p>
+            <p>This plugin is useful for you if you want to use the <a href="http://materializecss.com/">Materialize UI framework</a> with angular. </p>
             <p>It includes a number of directives, which makes sure that the components in materialize.js, which are mainly initialized on document ready, are handled by Angular in the right way.<p>
             <p>So it is not a complete rewrite of Materialize. And it therefore depends on jQuery, because Materialize depends on jQuery.</p>
             <p>The following sections are examples of the directives which are included in this plugin,
@@ -253,6 +254,47 @@ $scope.onStop = function () {
 &lt;select class="browser-default" ng-model="select.value2"&gt;
     &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
 &lt;/select&gt;</code></pre>
+        </div>
+
+        <div class="row" id="collapsible">
+            <h2 class="header">Collapsible</h2>
+            <p>The collapsible below is populated using ng-repeat, just to show that it is possible. You can also just manually put in the content. </p>
+            <p>In the below, the popout class is added, which makes a "Google inbox" effect. Just remove the popout class to get a normal accordion. </p>
+            <p>Since this is just a wrapper for materializes collapsible, <a href="http://materializecss.com/collapsible.html">all their customization</a> can be used. </p>
+            <a class="btn waves-effect waves-light" ng-init="showCollapsible = true" ng-click="showCollapsible = !showCollapsible">Show/hide the below collapsible</a>
+        </div>
+        <div class="row" ng-controller="CollapsibleController"  ng-if="showCollapsible">
+            <ul class="collapsible popout" data-collapsible="accordion">
+                <li ng-repeat="single in collapsibleElements">
+                    <div class="collapsible-header"><i class="{{single.icon}}"></i>{{single.title}}</div>
+                    <div class="collapsible-body"><p>{{single.content}}</p></div>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <p>The code in the HTML</p>
+<pre><code class="language-markup" ng-non-bindable>&lt;ul class="collapsible popout" data-collapsible="accordion"&gt;
+    &lt;li ng-repeat="single in collapsibleElements"&gt;
+        &lt;div class="collapsible-header"&gt;&lt;i class="{{single.icon}}"&gt;&lt;/i&gt;{{single.title}}&lt;/div&gt;
+        &lt;div class="collapsible-body"&gt;&lt;p&gt;{{single.content}}&lt;/p&gt;&lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+            <p>And the JavaScript in the controller</p>
+<pre><code class="language-javascript">$scope.collapsibleElements = [{
+        icon: 'mdi-image-filter-drama',
+        title: 'First',
+        content: 'Lorem ipsum dolor sit amet.'
+    },{
+        icon: 'mdi-maps-place',
+        title: 'Second',
+        content: 'Lorem ipsum dolor sit amet.'
+    },{
+        icon: 'mdi-social-whatshot',
+        title: 'Third',
+        content: 'Lorem ipsum dolor sit amet.'
+    }
+];</code></pre>
+
         </div>
 
 
