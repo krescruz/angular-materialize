@@ -65,13 +65,9 @@
                     var top    = attrs.pushpinTop || 0;
                     var offset = attrs.pushpinOffset || 0;
                     var bottom = attrs.pushpinBottom || Infinity;
-                    if (!element.pushpin) {
-                        setTimeout(function () {
-                            element.pushpin({top: top, offset: offset, bottom: bottom});
-                        }, 0);
-                    } else {
+                    setTimeout(function () {
                         element.pushpin({top: top, offset: offset, bottom: bottom});
-                    }
+                    }, 0);
 
                 }
             };
