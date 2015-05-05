@@ -61,12 +61,18 @@
                     '?pushpinOffset',
                     '?pushpinBottom'
                 ],
-                link: function(scope, element, attrs) {
+                link: function (scope, element, attrs) {
                     var top    = attrs.pushpinTop || 0;
                     var offset = attrs.pushpinOffset || 0;
                     var bottom = attrs.pushpinBottom || Infinity;
+                    if (!element.pushpin) {
+                        setTimeout(function () {
+                            element.pushpin({top: top, offset: offset, bottom: bottom});
+                        }, 0);
+                    } else {
+                        element.pushpin({top: top, offset: offset, bottom: bottom});
+                    }
 
-                    element.pushpin({ top: top, offset: offset, bottom: bottom });
                 }
             };
         }]);
