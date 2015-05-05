@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -48,6 +48,25 @@
                         var rounded = (angular.isDefined(attrs.rounded)) ? toastConfig.rounded : null;
                         Materialize.toast(message, toastConfig.duration, rounded);
                     });
+                }
+            };
+        }]);
+
+    angular.module('ui.materialize.pushpin', [])
+        .directive('pushpin', [function(){
+            return {
+                restrict: 'AE',
+                require: [
+                    '?pushpinTop',
+                    '?pushpinOffset',
+                    '?pushpinBottom'
+                ],
+                link: function(scope, element, attrs) {
+                    var top    = attrs.pushpinTop || 0;
+                    var offset = attrs.pushpinOffset || 0;
+                    var bottom = attrs.pushpinBottom || Infinity;
+
+                    element.pushpin({ top: top, offset: offset, bottom: bottom });
                 }
             };
         }]);

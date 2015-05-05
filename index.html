@@ -53,6 +53,7 @@
                         <ul>
                             <li><a href="#collapsible">Collapsible</a></li>
                             <li><a href="#toast">Dialogs - Toast</a></li>
+                            <li><a href="#pushpin">Pushpin</a></li>
                             <li><a href="#dropdown">Dropdown</a></li>
                             <li><a href="#sidenav">SideNav</a></li>
                             <li><a href="#tabs">Tabs</a></li>
@@ -321,6 +322,24 @@ $scope.onStop = function () {
     &lt;div class="input-field col s4"&gt;
         &lt;a class="waves-effect waves-light btn" data-message="{{ dummyInputs.message }}" toast='click'&gt;Toast!&lt;/a&gt;
     &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div class="row" id="pushpin">
+            <h2 class="header">Pushpin</h2>
+            <p>The <code class=" language-markup" data-language="markup">pushpin</code> attribute allows you to pin a particular element to the top of the page.</p>
+            <p>You can use the <code class=" language-markup" data-language="markup">pushpin-top</code> attribute to define distance in pixels from the top of the page where the element becomes fixed. The <code class=" language-markup" data-language="markup">pushpin-offset</code> attribute can be used to offset the distance from the top. The <code class=" language-markup" data-language="markup">pushpin-bottom</code> attribute can be used to set the distance in pixels from the top of the page where the elements stops being fixed.</p>
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>
+&lt;div class=&quot;sidebar&quot; pushpin pushpin-top=&quot;0&quot; pushpin-offset=&quot;0&quot; pushpin-bottom=&quot;Infinity&quot;&gt;
+  &lt;ul id=&quot;sidebarMenu&quot; class=&quot;menu&quot;&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+    &lt;li&gt;Item 2&lt;/li&gt;
+    &lt;li&gt;Item 3&lt;/li&gt;
+    &lt;li&gt;Item 4&lt;/li&gt;
+    &lt;li&gt;Item 5&lt;/li&gt;
+  &lt;/ul&gt;
 &lt;/div&gt;</code></pre>
         </div>
 
