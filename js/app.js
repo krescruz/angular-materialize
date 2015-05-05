@@ -25,7 +25,7 @@ var app = angular.module('materializeApp', ['ui.materialize'])
         }];
     }]).controller('PaginationController', ["$scope", function ($scope) {
         $scope.changePage = function (page) {
-            toast("Changed to page " + page, 1000);
+            Materialize.toast("Changed to page " + page, 1000);
         }
     }])
     .controller('DateController', ["$scope", function ($scope) {
