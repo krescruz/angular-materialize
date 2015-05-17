@@ -54,6 +54,7 @@
                             <li><a href="#toast">Dialogs - Toast</a></li>
                             <li><a href="#pushpin">Pushpin</a></li>
                             <li><a href="#dropdown">Dropdown</a></li>
+                            <li><a href="#parallax">Parallax</a></li>
                             <li><a href="#sidenav">SideNav</a></li>
                             <li><a href="#tabs">Tabs</a></li>
                         </ul>
@@ -379,6 +380,26 @@ $scope.onStop = function () {
     &lt;li&gt;&lt;a href="javascript:void(0);"&gt;Link 4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="javascript:void(0);"&gt;Link 5&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
+        </div>
+
+
+
+        <div class="row" id="parallax" ng-init="showParallax = true">
+            <h2 class="header">Parallax</h2>
+            <p>Adding the parallax attribute makes sure that <a href="http://materializecss.com/parallax.html">the jQuery plugin from Materialize</a> is run.</p>
+            <p>It works just like the code below the image shows, and fills the entire width of the container it is put in. </p>
+            <a class="btn waves-effect waves-light" ng-click="showParallax = !showParallax">Show/hide the below parallax</a>
+        </div>
+    </div>
+    <div class="parallax-container" ng-if="showParallax" style="margin: 20px 0;">
+        <div parallax><img src="images/parallax1.jpg"></div>
+    </div>
+    <div class="container">
+
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>&lt;div class="parallax-container"&gt;
+    &lt;div parallax&gt;&lt;img src="images/parallax1.jpg"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
         </div>
 
 
