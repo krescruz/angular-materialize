@@ -185,7 +185,7 @@
                 scope: {},
                 link: function (scope, element) {
                     $timeout(function () {
-                        angular.element(element).find("input").change();
+                        Materialize.updateTextFields();
                     });
                 },
                 template: '<div ng-transclude class="input-field"></div>'
