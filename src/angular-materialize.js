@@ -122,6 +122,11 @@
                         $timeout(function () {
                             element.material_select();
                         });
+                        if (attrs.ngModel) {
+                            scope.$watch(attrs.ngModel, function() {
+                                element.material_select();
+                            });
+                        }
                     }
                 }
             };
