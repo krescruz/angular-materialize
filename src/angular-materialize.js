@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -122,6 +122,11 @@
                         $timeout(function () {
                             element.material_select();
                         });
+                        if (attrs.ngModel) {
+                            scope.$watch(attrs.ngModel, function() {
+                                element.material_select();
+                            });
+                        }
                     }
                 }
             };
@@ -185,7 +190,7 @@
                 scope: {},
                 link: function (scope, element) {
                     $timeout(function () {
-                        angular.element(element).find("input").change();
+                        Materialize.updateTextFields();
                     });
                 },
                 template: '<div ng-transclude class="input-field"></div>'
@@ -656,4 +661,45 @@
                 }
             };
         });
+
+    /*     example usage:
+     <!-- Modal Trigger -->
+     <a class='btn' href='#demoModal' modal>show Modal</a>
+
+     <!-- Modal Structure -->
+     <div id="demoModal" class="modal">
+     <div class="modal-content">
+     <h4>Modal Header</h4>
+
+     <p>A bunch of text</p>
+     </div>
+     <div class="modal-footer">
+     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+     </div>
+     </div>
+
+     */
+    angular.module("ui.materialize.modal", [])
+        .directive("modal", ["$compile", "$timeout", function ($compile, $timeout) {
+            return {
+                scope: {
+                    dismissible: "@",
+                    opacity: "@",
+                    in_duration: "@",
+                    out_duration: "@"
+                },
+                link: function (scope, element, attrs) {
+                    $compile(element.contents())(scope);
+                    $timeout(function () {
+                        element.leanModal({
+                            dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
+                            opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
+                            in_duration: (angular.isDefined(scope.in_duration)) ? scope.in_duration : undefined,
+                            out_duration: (angular.isDefined(scope.out_duration)) ? scope.out_duration : undefined
+                        });
+                    });
+                }
+            };
+        }]);
+
 }(angular));
