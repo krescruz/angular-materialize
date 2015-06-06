@@ -664,7 +664,7 @@
 
     /*     example usage:
      <!-- Modal Trigger -->
-     <a class='btn' data-activates='demoModal' modal>show Modal</a>
+     <a class='btn' href='#demoModal' modal>show Modal</a>
 
      <!-- Modal Structure -->
      <div id="demoModal" class="modal">
