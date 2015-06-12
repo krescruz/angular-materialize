@@ -51,13 +51,14 @@
         .directive("toast", ["toastConfig", function (toastConfig) {
             return {
                 scope: {
-                    message: "@"
+                    message: "@",
+                    duration: "@"
                 },
                 link: function (scope, element, attrs) {
                     element.bind(attrs.toast, function () {
                         var message = (angular.isDefined(scope.message)) ? scope.message : "";
                         var rounded = (angular.isDefined(attrs.rounded)) ? toastConfig.rounded : null;
-                        Materialize.toast(message, toastConfig.duration, rounded);
+                        Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, rounded);
                     });
                 }
             };
