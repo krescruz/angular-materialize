@@ -18,7 +18,7 @@
                         });
                     });
                 }
-            }
+            };
         }]);
 
     angular.module("ui.materialize.collapsible", [])
@@ -108,7 +108,7 @@
                         menuWidth: (angular.isDefined(scope.menuwidth)) ? scope.menuwidth : undefined,
                         edge: attrs.sidenav ? attrs.sidenav : "left",
                         closeOnClick: (angular.isDefined(scope.closeonclick)) ? scope.closeonclick == "true" : undefined
-                    })
+                    });
                 }
             };
         }]);
@@ -255,7 +255,7 @@
                     }
 
                     // Passing date through Date applies Date.parse, if necessary
-                    date = date ? new Date(date) : new Date;
+                    date = date ? new Date(date) : new Date();
                     if (isNaN(date)) throw SyntaxError("invalid date");
 
                     mask = String(dF.masks[mask] || mask || dF.masks["default"]);
@@ -393,12 +393,12 @@
                             today: (angular.isDefined(scope.today)) ? scope.today : undefined,
                             clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
                             close: (angular.isDefined(scope.close)) ? scope.close : undefined,
-                            onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart() } : undefined,
-                            onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender() } : undefined,
-                            onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen() } : undefined,
-                            onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose() } : undefined,
-                            onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet() } : undefined,
-                            onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop() } : undefined
+                            onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
+                            onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
+                            onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
+                            onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
+                            onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
+                            onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
                         });
                     });
                 }
@@ -487,7 +487,7 @@
 
                 // Calculate the previous page and if the click actions are allowed
                 // blocking and disabling where page <= 0
-                var disabled = scope.page - 1 <= 0
+                var disabled = scope.page - 1 <= 0;
                 var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
 
                 var prev = {
