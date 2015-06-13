@@ -348,7 +348,7 @@
             return {
                 require: 'ngModel',
                 scope: {
-                    container "@", //
+                    container: "@",
                     format: "@",
                     formatSubmit: "@",
                     monthsFull: "@",
