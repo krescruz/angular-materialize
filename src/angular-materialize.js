@@ -348,6 +348,7 @@
             return {
                 require: 'ngModel',
                 scope: {
+                    container "@", //
                     format: "@",
                     formatSubmit: "@",
                     monthsFull: "@",
@@ -382,6 +383,7 @@
                     $compile(element.contents())(scope);
                     $timeout(function () {
                         element.pickadate({
+                            container : (angular.isDefined(scope.container)) ? scope.container : 'body',
                             format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                             formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
                             monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
