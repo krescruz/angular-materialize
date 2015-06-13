@@ -51,13 +51,14 @@
         .directive("toast", ["toastConfig", function (toastConfig) {
             return {
                 scope: {
-                    message: "@"
+                    message: "@",
+                    duration: "@"
                 },
                 link: function (scope, element, attrs) {
                     element.bind(attrs.toast, function () {
                         var message = (angular.isDefined(scope.message)) ? scope.message : "";
                         var rounded = (angular.isDefined(attrs.rounded)) ? toastConfig.rounded : null;
-                        Materialize.toast(message, toastConfig.duration, rounded);
+                        Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, rounded);
                     });
                 }
             };
@@ -347,6 +348,7 @@
             return {
                 require: 'ngModel',
                 scope: {
+                    container: "@",
                     format: "@",
                     formatSubmit: "@",
                     monthsFull: "@",
@@ -381,6 +383,7 @@
                     $compile(element.contents())(scope);
                     $timeout(function () {
                         element.pickadate({
+                            container : (angular.isDefined(scope.container)) ? scope.container : 'body',
                             format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                             formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
                             monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,

@@ -302,26 +302,34 @@ $scope.onStop = function () {
 
         <div class="row" id="toast">
             <h2 class="header">Toasts</h2>
-            <p>Materializes toast is a global function. Using this directive you can call a toast using a custom event (in the below click), and show a message determined by a variable in the scope.</p>
+            <p>Materializes toast is a global function. Using this directive you can call a toast using a custom event (in the below click), and show a message determined by a variable in the scope. <br />
+            The message is specified through the message attribute, and the duration is set though the duration attribute (defaults to 3000ms if not set).</p>
         </div>
         <div class="row">
             <div class="col s4" input-field>
-                <input id="message" type="text" ng-model="dummyInputs.message">
+                <input id="message" type="text" ng-model="dummyInputs.message" ng-init="dummyInputs.message = 'I\'m a message'">
                 <label for="message">Message</label>
             </div>
+            <div class="col s2" input-field>
+                <input id="toastDuration" type="text" ng-model="dummyInputs.duration" ng-init="dummyInputs.duration = 1000">
+                <label for="toastDuration">Toast duration</label>
+            </div>
             <div class="input-field col s4">
-                <a class="waves-effect waves-light btn" data-message="{{ dummyInputs.message }}" toast='click'>Toast!</a>
+                <a class="waves-effect waves-light btn" message="{{dummyInputs.message}}" duration="{{dummyInputs.duration}}" toast='click'>Toast!</a>
             </div>
         </div>
         <div class="row">
-<pre><code class="language-markup" ng-non-bindable>
-&lt;div class="row"&gt;
+<pre><code class="language-markup" ng-non-bindable>&lt;div class="row"&gt;
     &lt;div class="col s4" input-field&gt;
-        &lt;input id="message" type="text" ng-model="dummyInputs.message"&gt;
+        &lt;input id="message" type="text" ng-model="dummyInputs.message" ng-init="dummyInputs.message = 'I\'m a message'"&gt;
         &lt;label for="message"&gt;Message&lt;/label&gt;
     &lt;/div&gt;
+    &lt;div class="col s2" input-field&gt;
+        &lt;input id="toastDuration" type="text" ng-model="dummyInputs.duration" ng-init="dummyInputs.duration = 1000"&gt;
+        &lt;label for="toastDuration"&gt;Toast duration&lt;/label&gt;
+    &lt;/div&gt;
     &lt;div class="input-field col s4"&gt;
-        &lt;a class="waves-effect waves-light btn" data-message="{{ dummyInputs.message }}" toast='click'&gt;Toast!&lt;/a&gt;
+        &lt;a class="waves-effect waves-light btn" message="{{dummyInputs.message}}" duration="{{dummyInputs.duration}}" toast='click'&gt;Toast!&lt;/a&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
