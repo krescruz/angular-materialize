@@ -704,5 +704,29 @@
                 }
             };
         }]);
+        
+        
+    /*     example usage:
+
+    <!-- data-position can be : bottom, top, left, or right -->
+    <!-- data-delay controls delay before tooltip shows (in milliseconds)-->
+    <a class="btn" tooltipped data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
+
+     */
+    angular.module("ui.materialize.tooltipped", [])
+        .directive("tooltipped", ["$compile", "$timeout", function ($compile, $timeout) {
+            return {
+                restrict: "EA",
+                scope: true,
+                link: function (scope, element, attrs) {
+                    element.addClass("tooltipped");
+                    $compile(element.contents())(scope);
+                    $timeout(function () {
+                        element.tooltip();
+                    });
+                }
+            };
+        }]);
+
 
 }(angular));
