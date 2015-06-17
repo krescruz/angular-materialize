@@ -52,6 +52,7 @@
                         <ul>
                             <li><a href="#collapsible">Collapsible</a></li>
                             <li><a href="#toast">Dialogs - Toast</a></li>
+                            <li><a href="#tooltip">Tooltip</a></li>
                             <li><a href="#pushpin">Pushpin</a></li>
                             <li><a href="#dropdown">Dropdown</a></li>
                             <li><a href="#modals">Modals</a></li>
@@ -334,6 +335,26 @@ $scope.onStop = function () {
         &lt;a class="waves-effect waves-light btn" message="{{dummyInputs.message}}" duration="{{dummyInputs.duration}}" toast='click'&gt;Toast!&lt;/a&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+        </div>
+        <div class="row" id="Tooltip">
+            <h2 class="header">Tooltip</h2>
+            <p>The tooltipped attribute in the below makes sure that the jQuery plugin is run.<br /> 
+                You can set attributes on the tag, matching the names of the options in the materializeCSS's version.
+            </p>
+        </div>
+        <div class="row">
+            <div class="input-field col s4">
+              <!-- data-position can be : bottom, top, left, or right -->
+              <!-- data-delay controls delay before tooltip shows (in milliseconds)-->
+              <a class="btn" tooltipped data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
+            </div>
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>&lt;div class="row"&gt;
+    &lt;div class="col s4" input-field&gt;
+              &lt;a class="btn" tooltipped data-position="bottom" data-delay="50" data-tooltip="I am tooltip"&gt;Hover me!&lt;/a&gt;
+    &lt;/div&gt;
+</code></pre>
         </div>
         <div class="row" id="pushpin">
             <h2 class="header">Pushpin</h2>
