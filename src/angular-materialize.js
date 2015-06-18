@@ -722,7 +722,7 @@
                     element.addClass("tooltipped");
                     $compile(element.contents())(scope);
                     $timeout(function () {
-                        element.tooltip();
+                        $(".tooltipped").tooltip();
                     });
                 }
             };
