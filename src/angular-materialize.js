@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -704,5 +704,29 @@
                 }
             };
         }]);
+        
+        
+    /*     example usage:
+
+    <!-- data-position can be : bottom, top, left, or right -->
+    <!-- data-delay controls delay before tooltip shows (in milliseconds)-->
+    <a class="btn" tooltipped data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
+
+     */
+    angular.module("ui.materialize.tooltipped", [])
+        .directive("tooltipped", ["$compile", "$timeout", function ($compile, $timeout) {
+            return {
+                restrict: "EA",
+                scope: true,
+                link: function (scope, element, attrs) {
+                    element.addClass("tooltipped");
+                    $compile(element.contents())(scope);
+                    $timeout(function () {
+                        $(".tooltipped").tooltip();
+                    });
+                }
+            };
+        }]);
+
 
 }(angular));
