@@ -192,12 +192,13 @@
                 link: function (scope, element) {
                     $timeout(function () {
                         Materialize.updateTextFields();
-                        var canHasCharCount = element.find('textarea, input');
-                        if (canHasCharCount.length > 0) {
-                            angular.forEach(canHasCharCount, function(value, key) {
-                                angular.element(value).characterCounter();
-                            });
-                        }
+
+                        element.find('textarea, input').each(function (index, countable) {
+                            countable = angular.element(countable);
+                            if (!countable.siblings('span[class="character-counter"]').length) {
+                                countable.characterCounter();
+                            }
+                        });
                     });
                 },
                 template: '<div ng-transclude class="input-field"></div>'
