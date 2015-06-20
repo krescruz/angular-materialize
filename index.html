@@ -106,17 +106,16 @@
         <div class="row" id="input-field">
             <h2 class="header">Input-field</h2>
             <p>Materialize uses the class .input-field to manage animating labels and input-fields. But that doesn't work properly when angular dynamically creates element</p>
-            <p>Instead of adding the class input-field, use the input-field directive. This way it still works when angular dynamically
-            creates it.</p>
+            <p>Instead of adding the class input-field, use the input-field directive. This way it still works when angular dynamically creates it.</p>
+            <p>Just in Materialize, if you add the length attribute, a character-counter will appear (in the below length is set to 150). </p>
         </div>
         <div class="row" ng-init="showInputLabel = true;dummyInputs.inputFieldInput = 'This is input'">
             <div class="col s2">
                 <a class="btn waves-effect waves-light" ng-click="showInputLabel = !showInputLabel">Toggle input</a>
             </div>
-            <div class="col s4">
-                <div></div>
-                <div ng-if="showInputLabel" input-field>
-                    <input type="text" ng-model="dummyInputs.inputFieldInput">
+            <div class="col s4" ng-if="showInputLabel">
+                <div input-field>
+                    <input type="text" ng-model="dummyInputs.inputFieldInput" length="150">
                     <label>Input label</label>
                 </div>
             </div>
@@ -124,7 +123,7 @@
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
 &lt;div input-field&gt;
-    &lt;input type="text" ng-model="dummyInputs.inputFieldInput"&gt;
+    &lt;input type="text" ng-model="dummyInputs.inputFieldInput" length="150"&gt;
     &lt;label&gt;Input label&lt;/label&gt;
 &lt;/div&gt;</code></pre>
         </div>
