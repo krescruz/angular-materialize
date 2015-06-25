@@ -648,7 +648,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    page: '@',
+                    page: '=',
                     pageSize: '@',
                     total: '@',
                     dots: '@',
