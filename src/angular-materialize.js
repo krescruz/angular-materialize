@@ -420,7 +420,10 @@
         page="1"
         page-size="10"
         total="100"
-        pagination-action="changePage(page)">
+        pagination-action="changePage(page)"
+        ul-class="customClass">
+
+     * ul-class could be either an object or a string
      */
     angular.module("ui.materialize.pagination", [])
         .directive('pagination', function () {
@@ -432,7 +435,7 @@
                 scope.page = parseInt(scope.page) || 1;
                 scope.total = parseInt(scope.total) || 0;
                 scope.dots = scope.dots || '...';
-                scope.ulClass = 'pagination';
+                scope.ulClass = scope.ulClass || attrs.ulClass || 'pagination';
                 scope.adjacent = parseInt(scope.adjacent) || 2;
                 scope.activeClass = 'active';
                 scope.disabledClass = 'disabled';
@@ -645,14 +648,15 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    page: '@',
+                    page: '=',
                     pageSize: '@',
                     total: '@',
                     dots: '@',
                     hideIfEmpty: '@',
                     adjacent: '@',
                     scrollTop: '@',
-                    paginationAction: '&'
+                    paginationAction: '&',
+                    ulClass: '='
                 },
                 template:
                     '<ul ng-hide="Hide" ng-class="ulClass"> ' +
@@ -695,10 +699,10 @@
         .directive("modal", ["$compile", "$timeout", function ($compile, $timeout) {
             return {
                 scope: {
-                    dismissible: "@",
+                    dismissible: "=",
                     opacity: "@",
-                    in_duration: "@",
-                    out_duration: "@"
+                    inDuration: "@",
+                    outDuration: "@"
                 },
                 link: function (scope, element, attrs) {
                     $compile(element.contents())(scope);
@@ -706,8 +710,8 @@
                         element.leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
-                            in_duration: (angular.isDefined(scope.in_duration)) ? scope.in_duration : undefined,
-                            out_duration: (angular.isDefined(scope.out_duration)) ? scope.out_duration : undefined
+                            in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
+                            out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined
                         });
                     });
                 }
