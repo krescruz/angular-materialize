@@ -137,7 +137,10 @@
      Example usage, notice the empty dropdown tag in the dropdown trigger.
 
      <!-- Dropdown Trigger -->
-     <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' dropdown>Select a demo</a>
+     <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' 
+     	dropdown constrain-width="false">
+     	Select a demo
+     </a>
 
      <!-- Dropdown Structure -->
      <ul id='demoDropdown' class='dropdown-content'>
@@ -151,7 +154,7 @@
                 scope: {
                     inDuration: "@",
                     outDuration: "@",
-                    constrain_width: "@",
+                    constrainWidth: "@",
                     hover: "@",
                     alignment: "@",
                     gutter: "@",
@@ -163,7 +166,7 @@
                         element.dropdown({
                             inDuration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             outDuration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
-                            constrain_width: (angular.isDefined(scope.constrainWidth)) ? scope.constrain_width : undefined,
+                            constrain_width: (angular.isDefined(scope.constrainWidth)) ? scope.constrainWidth : undefined,
                             hover: (angular.isDefined(scope.hover)) ? scope.hover : undefined,
                             alignment: (angular.isDefined(scope.alignment)) ? scope.alignment : undefined,
                             gutter: (angular.isDefined(scope.gutter)) ? scope.gutter : undefined,
