@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -21,6 +21,20 @@
             };
         }]);
 
+    angular.module("ui.materialize.slider", [])
+        .directive("slider", ["$timeout", function($timeout){
+            return {
+                link: function(scope, element, attrs) {
+                    $timeout(function(){
+                    	element.slider({
+                    	    full_width: false
+                    	});
+                    	element.slider();
+                    });
+                }
+            };
+        }]);
+    
     angular.module("ui.materialize.collapsible", [])
         .directive("collapsible", ["$timeout", function($timeout){
           return {
