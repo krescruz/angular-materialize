@@ -26,11 +26,24 @@
             return {
                 link: function(scope, element, attrs) {
                     $timeout(function(){
-                    	element.slider({
-                    	    full_width: false
-                    	});
                     	element.slider();
+                    	scope.$watch(
+                            function () {
+                                element.slider(
+                                {
+                                    'full_width' : false,
+                                    'indicators' : true,
+                                    'height' : 400,
+                                    'transition' : 1000,
+                                    'interval' : 7000
+                                });
+                            },
+                            function (newValue, oldValue) {
+                    	       //element.slider();
+                            }
+                         );
                     });
+                   
                 }
             };
         }]);
