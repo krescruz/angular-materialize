@@ -232,6 +232,10 @@
      */
     angular.module("ui.materialize.input_date", [])
         .directive('inputDate', ["$compile", "$timeout", function ($compile, $timeout) {
+            // Fix for issue 46. This gotta be a bug in the materialize code, but this fixes it.
+            var style = $('<style>#inputCreated_root {outline: none;}</style>');
+            $('html > head').append(style);
+
             // Define Prototype Date format
             // Use like this
             // today = new Date();
@@ -735,7 +739,10 @@
                     element.addClass("tooltipped");
                     $compile(element.contents())(scope);
                     $timeout(function () {
-                        $(".tooltipped").tooltip();
+                        element.tooltip();
+                    });
+                    scope.$on('$destroy', function () {
+                        element.tooltip("remove");
                     });
                 }
             };
