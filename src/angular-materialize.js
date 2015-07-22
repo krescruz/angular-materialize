@@ -120,14 +120,11 @@
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
                         $compile(element.contents())(scope);
-                        $timeout(function () {
+
+                        if(!attrs.ngModel) attrs.ngModel = {};
+                        scope.$watch(attrs.ngModel, function() {
                             element.material_select();
                         });
-                        if (attrs.ngModel) {
-                            scope.$watch(attrs.ngModel, function() {
-                                element.material_select();
-                            });
-                        }
                     }
                 }
             };
