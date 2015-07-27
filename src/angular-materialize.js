@@ -120,13 +120,13 @@
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
                         $compile(element.contents())(scope);
-                        $timeout(function () {
+                        function initSelect() {
+                            element.siblings(".caret").remove();
                             element.material_select();
-                        });
+                        }
+                        $timeout(initSelect);
                         if (attrs.ngModel) {
-                            scope.$watch(attrs.ngModel, function() {
-                                element.material_select();
-                            });
+                            scope.$watch(attrs.ngModel, initSelect);
                         }
                     }
                 }
