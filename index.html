@@ -269,10 +269,13 @@ $scope.onStop = function () {
             <p>The collapsible below is populated using ng-repeat, just to show that it is possible. You can also just manually put in the content. </p>
             <p>In the below, the popout class is added, which makes a "Google inbox" effect. Just remove the popout class to get a normal accordion. </p>
             <p>Since this is just a wrapper for materializes collapsible, <a href="http://materializecss.com/collapsible.html">all their customization</a> can be used. </p>
+            <p>If you add the attribute <code class=" language-markup" data-language="markup">watch</code>, then the collapsible will re-initialize whenever something changes in the content within the collapsible. <br />
+                That includes if the number of lists elements change. <br />
+                But beware, while the implementation works, it is very heavy in computation, so tread lightly. </p>
             <a class="btn waves-effect waves-light" ng-init="showCollapsible = true" ng-click="showCollapsible = !showCollapsible">Show/hide the below collapsible</a>
         </div>
-        <div class="row" ng-controller="CollapsibleController"  ng-if="showCollapsible">
-            <ul class="collapsible popout" data-collapsible="accordion">
+        <div class="row" ng-controller="CollapsibleController" ng-if="showCollapsible">
+            <ul class="collapsible popout" data-collapsible="accordion" watch>
                 <li ng-repeat="single in collapsibleElements">
                     <div class="collapsible-header"><i class="{{single.icon}}"></i>{{single.title}}</div>
                     <div class="collapsible-body"><p>{{single.content}}</p></div>
@@ -281,7 +284,7 @@ $scope.onStop = function () {
         </div>
         <div class="row">
             <p>The code in the HTML</p>
-<pre><code class="language-markup" ng-non-bindable>&lt;ul class="collapsible popout" data-collapsible="accordion"&gt;
+<pre><code class="language-markup" ng-non-bindable>&lt;ul class="collapsible popout" data-collapsible="accordion" watch&gt;
     &lt;li ng-repeat="single in collapsibleElements"&gt;
         &lt;div class="collapsible-header"&gt;&lt;i class="{{single.icon}}"&gt;&lt;/i&gt;{{single.title}}&lt;/div&gt;
         &lt;div class="collapsible-body"&gt;&lt;p&gt;{{single.content}}&lt;/p&gt;&lt;/div&gt;

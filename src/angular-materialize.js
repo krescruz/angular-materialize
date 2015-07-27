@@ -22,14 +22,25 @@
         }]);
 
     angular.module("ui.materialize.collapsible", [])
-        .directive("collapsible", ["$timeout", function($timeout){
-          return {
-            link: function(scope, element, attrs) {
-              $timeout(function(){
-                element.collapsible();
-              });
-            }
-          };
+        .directive("collapsible", ["$timeout", function ($timeout) {
+            return {
+                link: function (scope, element, attrs) {
+                    $timeout(function () {
+                        element.collapsible();
+                    });
+                    if ("watch" in attrs) {
+                        scope.$watch(function () {
+                            return element[0].innerHTML;
+                        }, function (oldVal, newVal) {
+                            if (oldVal !== newVal) {
+                                $timeout(function () {
+                                    element.collapsible();
+                                });
+                            }
+                        });
+                    }
+                }
+            };
         }]);
 
     angular.module("ui.materialize.parallax", [])
