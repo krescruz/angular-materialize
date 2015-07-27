@@ -227,12 +227,13 @@ $scope.onStop = function () {
             <p>Add the material-select as an attribute to the select where you want material-select.</p>
             <p>Not needed if you add the class browser-default.</p>
             <p>It doesn't support changing content within the select, add the class browser-default if you want that.</p>
-            <p>If you add a value to the material-select attribute, then the material-select will update whenever that value changes. <br />
-                So this value is needed if the select doesn't select from static values. </p>
+            <p>If you add the attribute <code class=" language-markup" data-language="markup">watch</code>, then the material-select will re-initialize whenever something changes in the content within the select. <br />
+                That includes if the number of list elements change. <br />
+                But beware, while the implementation works, it is very heavy in computation, so tread lightly. </p>
         </div>
         <div class="row">
             <div class="section col s4">
-                <select class="" ng-model="select.value1" material-select="select.choices">
+                <select class="" ng-model="select.value1" material-select watch>
                     <option ng-repeat="value in select.choices">{{value}}</option>
                 </select>
             </div>
@@ -242,7 +243,7 @@ $scope.onStop = function () {
         </div>
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
-&lt;select class="" ng-model="select.value1" material-select="select.choices"&gt;
+&lt;select class="" ng-model="select.value1" material-select watch&gt;
     &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
 &lt;/select&gt;</code></pre>
         </div>
@@ -270,7 +271,7 @@ $scope.onStop = function () {
             <p>In the below, the popout class is added, which makes a "Google inbox" effect. Just remove the popout class to get a normal accordion. </p>
             <p>Since this is just a wrapper for materializes collapsible, <a href="http://materializecss.com/collapsible.html">all their customization</a> can be used. </p>
             <p>If you add the attribute <code class=" language-markup" data-language="markup">watch</code>, then the collapsible will re-initialize whenever something changes in the content within the collapsible. <br />
-                That includes if the number of lists elements change. <br />
+                That includes if the number of list elements change. <br />
                 But beware, while the implementation works, it is very heavy in computation, so tread lightly. </p>
             <a class="btn waves-effect waves-light" ng-init="showCollapsible = true" ng-click="showCollapsible = !showCollapsible">Show/hide the below collapsible</a>
         </div>

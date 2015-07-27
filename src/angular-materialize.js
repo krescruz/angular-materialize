@@ -139,9 +139,13 @@
                         if (attrs.ngModel) {
                             scope.$watch(attrs.ngModel, initSelect);
                         }
-                        if (attrs.materialSelect) {
-                            scope.$watch(attrs.materialSelect, function () {
-                                $timeout(initSelect);
+                        if ("watch" in attrs) {
+                            scope.$watch(function () {
+                                return element[0].innerHTML;
+                            }, function (oldVal, newVal) {
+                                if (oldVal !== newVal) {
+                                    $timeout(initSelect);
+                                }
                             });
                         }
                     }
