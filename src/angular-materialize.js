@@ -121,7 +121,6 @@
                     if (element.is("select")) {
                         $compile(element.contents())(scope);
                         function initSelect() {
-                            console.log("Update material");
                             element.siblings(".caret").remove();
                             element.material_select();
                         }
