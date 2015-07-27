@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -21,6 +21,33 @@
             };
         }]);
 
+    angular.module("ui.materialize.slider", [])
+        .directive("slider", ["$timeout", function($timeout){
+            return {
+                link: function(scope, element, attrs) {
+                    $timeout(function(){
+                    	element.slider();
+                    	scope.$watch(
+                            function () {
+                                element.slider(
+                                {
+                                    'full_width' : false,
+                                    'indicators' : true,
+                                    'height' : 400,
+                                    'transition' : 1000,
+                                    'interval' : 7000
+                                });
+                            },
+                            function (newValue, oldValue) {
+                    	       //element.slider();
+                            }
+                         );
+                    });
+                   
+                }
+            };
+        }]);
+    
     angular.module("ui.materialize.collapsible", [])
         .directive("collapsible", ["$timeout", function ($timeout) {
             return {
@@ -157,7 +184,10 @@
      Example usage, notice the empty dropdown tag in the dropdown trigger.
 
      <!-- Dropdown Trigger -->
-     <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' dropdown>Select a demo</a>
+     <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' 
+     	dropdown constrain-width="false">
+     	Select a demo
+     </a>
 
      <!-- Dropdown Structure -->
      <ul id='demoDropdown' class='dropdown-content'>
@@ -171,7 +201,7 @@
                 scope: {
                     inDuration: "@",
                     outDuration: "@",
-                    constrain_width: "@",
+                    constrainWidth: "@",
                     hover: "@",
                     alignment: "@",
                     gutter: "@",
@@ -183,7 +213,7 @@
                         element.dropdown({
                             inDuration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             outDuration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
-                            constrain_width: (angular.isDefined(scope.constrainWidth)) ? scope.constrain_width : undefined,
+                            constrain_width: (angular.isDefined(scope.constrainWidth)) ? scope.constrainWidth : undefined,
                             hover: (angular.isDefined(scope.hover)) ? scope.hover : undefined,
                             alignment: (angular.isDefined(scope.alignment)) ? scope.alignment : undefined,
                             gutter: (angular.isDefined(scope.gutter)) ? scope.gutter : undefined,
