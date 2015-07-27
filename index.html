@@ -227,10 +227,12 @@ $scope.onStop = function () {
             <p>Add the material-select as an attribute to the select where you want material-select.</p>
             <p>Not needed if you add the class browser-default.</p>
             <p>It doesn't support changing content within the select, add the class browser-default if you want that.</p>
+            <p>If you add a value to the material-select attribute, then the material-select will update whenever that value changes. <br />
+                So this value is needed if the select doesn't select from static values. </p>
         </div>
         <div class="row">
             <div class="section col s4">
-                <select class="" ng-model="select.value1" material-select>
+                <select class="" ng-model="select.value1" material-select="select.choices">
                     <option ng-repeat="value in select.choices">{{value}}</option>
                 </select>
             </div>
@@ -240,7 +242,7 @@ $scope.onStop = function () {
         </div>
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
-&lt;select class="" ng-model="select.value1" material-select&gt;
+&lt;select class="" ng-model="select.value1" material-select="select.choices"&gt;
     &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
 &lt;/select&gt;</code></pre>
         </div>

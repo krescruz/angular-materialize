@@ -121,12 +121,18 @@
                     if (element.is("select")) {
                         $compile(element.contents())(scope);
                         function initSelect() {
+                            console.log("Update material");
                             element.siblings(".caret").remove();
                             element.material_select();
                         }
                         $timeout(initSelect);
                         if (attrs.ngModel) {
                             scope.$watch(attrs.ngModel, initSelect);
+                        }
+                        if (attrs.materialSelect) {
+                            scope.$watch(attrs.materialSelect, function () {
+                                $timeout(initSelect);
+                            });
                         }
                     }
                 }
