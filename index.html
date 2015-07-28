@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <title>Angularjs directives for Materialize CSS Framework</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -12,12 +12,14 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
     <!-- App -->
     <script type="text/javascript" src="js/app.js"></script>
+    <!-- TODO: Consider slider directive https://github.com/krescruz/angular-materialize/issues/43.
+    TODO: Also something about tooltips? -->
 </head>
 <body ng-app="materializeApp" ng-controller="BodyController">
 <header>
@@ -58,6 +60,7 @@
                             <li><a href="#modals">Modals</a></li>
                             <li><a href="#parallax">Parallax</a></li>
                             <li><a href="#sidenav">SideNav</a></li>
+                            <li><a href="#slider">Slider</a></li>
                             <li><a href="#tabs">Tabs</a></li>
                         </ul>
                     </div>
@@ -227,10 +230,13 @@ $scope.onStop = function () {
             <p>Add the material-select as an attribute to the select where you want material-select.</p>
             <p>Not needed if you add the class browser-default.</p>
             <p>It doesn't support changing content within the select, add the class browser-default if you want that.</p>
+            <p>If you add the attribute <code class=" language-markup" data-language="markup">watch</code>, then the material-select will re-initialize whenever something changes in the content within the select. <br />
+                That includes if the number of list elements change. <br />
+                But beware, while the implementation works, it is very heavy in computation, so tread lightly. </p>
         </div>
         <div class="row">
             <div class="section col s4">
-                <select class="" ng-model="select.value1" material-select>
+                <select class="" ng-model="select.value1" material-select watch>
                     <option ng-repeat="value in select.choices">{{value}}</option>
                 </select>
             </div>
@@ -240,7 +246,7 @@ $scope.onStop = function () {
         </div>
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
-&lt;select class="" ng-model="select.value1" material-select&gt;
+&lt;select class="" ng-model="select.value1" material-select watch&gt;
     &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
 &lt;/select&gt;</code></pre>
         </div>
@@ -267,10 +273,13 @@ $scope.onStop = function () {
             <p>The collapsible below is populated using ng-repeat, just to show that it is possible. You can also just manually put in the content. </p>
             <p>In the below, the popout class is added, which makes a "Google inbox" effect. Just remove the popout class to get a normal accordion. </p>
             <p>Since this is just a wrapper for materializes collapsible, <a href="http://materializecss.com/collapsible.html">all their customization</a> can be used. </p>
+            <p>If you add the attribute <code class=" language-markup" data-language="markup">watch</code>, then the collapsible will re-initialize whenever something changes in the content within the collapsible. <br />
+                That includes if the number of list elements change. <br />
+                But beware, while the implementation works, it is very heavy in computation, so tread lightly. </p>
             <a class="btn waves-effect waves-light" ng-init="showCollapsible = true" ng-click="showCollapsible = !showCollapsible">Show/hide the below collapsible</a>
         </div>
-        <div class="row" ng-controller="CollapsibleController"  ng-if="showCollapsible">
-            <ul class="collapsible popout" data-collapsible="accordion">
+        <div class="row" ng-controller="CollapsibleController" ng-if="showCollapsible">
+            <ul class="collapsible popout" data-collapsible="accordion" watch>
                 <li ng-repeat="single in collapsibleElements">
                     <div class="collapsible-header"><i class="{{single.icon}}"></i>{{single.title}}</div>
                     <div class="collapsible-body"><p>{{single.content}}</p></div>
@@ -279,7 +288,7 @@ $scope.onStop = function () {
         </div>
         <div class="row">
             <p>The code in the HTML</p>
-<pre><code class="language-markup" ng-non-bindable>&lt;ul class="collapsible popout" data-collapsible="accordion"&gt;
+<pre><code class="language-markup" ng-non-bindable>&lt;ul class="collapsible popout" data-collapsible="accordion" watch&gt;
     &lt;li ng-repeat="single in collapsibleElements"&gt;
         &lt;div class="collapsible-header"&gt;&lt;i class="{{single.icon}}"&gt;&lt;/i&gt;{{single.title}}&lt;/div&gt;
         &lt;div class="collapsible-body"&gt;&lt;p&gt;{{single.content}}&lt;/p&gt;&lt;/div&gt;
@@ -337,6 +346,7 @@ $scope.onStop = function () {
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
+        <!-- TODO: This is broken -->
         <div class="row" id="tooltip">
             <h2 class="header">Tooltip</h2>
             <p>The tooltipped attribute in the below makes sure that the jQuery plugin is run.<br />
@@ -503,6 +513,79 @@ $scope.onStop = function () {
 &lt;/a&gt;</code></pre>
         </div>
 
+        <div class="row" id="slider">
+            <h2 class="header">Slider</h2>
+            <p>An extremely simple directive, that just enables the slider, without any options. Just add the attribute <code class=" language-markup" data-language="markup">slider</code>, and the slider will be initialized. </p>
+        </div>
+        <div class="row">
+            <div slider>
+                <ul class="slides">
+                    <li>
+                        <img src="http://lorempixel.com/580/250/nature/1"> <!-- random image -->
+                        <div class="caption center-align">
+                            <h3>This is our big Tagline!</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="http://lorempixel.com/580/250/nature/2"> <!-- random image -->
+                        <div class="caption left-align">
+                            <h3>Left Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="http://lorempixel.com/580/250/nature/3"> <!-- random image -->
+                        <div class="caption right-align">
+                            <h3>Right Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="http://lorempixel.com/580/250/nature/4"> <!-- random image -->
+                        <div class="caption center-align">
+                            <h3>This is our big Tagline!</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>&lt;div class="slider" slider&gt;
+    &lt;ul class="slides"&gt;
+        &lt;li&gt;
+            &lt;img src="http://lorempixel.com/580/250/nature/1"&gt; &lt;!-- random image --&gt;
+            &lt;div class="caption center-align"&gt;
+                &lt;h3&gt;This is our big Tagline!&lt;/h3&gt;
+                &lt;h5 class="light grey-text text-lighten-3"&gt;Here's our small slogan.&lt;/h5&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;img src="http://lorempixel.com/580/250/nature/2"&gt; &lt;!-- random image --&gt;
+            &lt;div class="caption left-align"&gt;
+                &lt;h3&gt;Left Aligned Caption&lt;/h3&gt;
+                &lt;h5 class="light grey-text text-lighten-3"&gt;Here's our small slogan.&lt;/h5&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+                &lt;img src="http://lorempixel.com/580/250/nature/3"&gt; &lt;!-- random image --&gt;
+                &lt;div class="caption right-align"&gt;
+            &lt;h3&gt;Right Aligned Caption&lt;/h3&gt;
+            &lt;h5 class="light grey-text text-lighten-3"&gt;Here's our small slogan.&lt;/h5&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;img src="http://lorempixel.com/580/250/nature/4"&gt; &lt;!-- random image --&gt;
+            &lt;div class="caption center-align"&gt;
+                &lt;h3&gt;This is our big Tagline!&lt;/h3&gt;
+                &lt;h5 class="light grey-text text-lighten-3"&gt;Here's our small slogan.&lt;/h5&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
         <div class="row" id="tabs" ng-init="showTabs = true">
             <h2 class="header">Tabs</h2>
             <p>This is a very simple directive, that just calls the jQuery plugin when the element is initialized.</p>
@@ -542,6 +625,7 @@ $scope.onStop = function () {
 &lt;/div&gt;</code></pre>
         </div>
 
+        <!-- TODO: Look at this thing -->
         <div class="row" id="pagination">
             <h2 class="header">Pagination</h2>
             <p>This is only the pagination buttons, it doesn't do anything to change the page. That you'll have to do in the callback</p>
