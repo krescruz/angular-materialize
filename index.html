@@ -622,7 +622,6 @@ $scope.onStop = function () {
 &lt;/div&gt;</code></pre>
         </div>
 
-        <!-- TODO: Look at this thing -->
         <div class="row" id="pagination">
             <h2 class="header">Pagination</h2>
             <p>This is only the pagination buttons, it doesn't do anything to change the page. That you'll have to do in the callback</p>
@@ -631,7 +630,8 @@ $scope.onStop = function () {
         <div class="row" ng-controller="PaginationController">
             <pagination
                 page="1"
-                pageSize="10"
+                page-size="10"
+                total="200"
                 dots="...."
                 hide-if-empty="false"
                 adjacent="2"

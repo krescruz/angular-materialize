@@ -697,7 +697,7 @@
                     adjacent: '@',
                     scrollTop: '@',
                     paginationAction: '&',
-                    ulClass: '='
+                    ulClass: '@'
                 },
                 template:
                     '<ul ng-hide="Hide" ng-class="ulClass"> ' +
