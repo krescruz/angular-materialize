@@ -697,7 +697,7 @@
                     adjacent: '@',
                     scrollTop: '@',
                     paginationAction: '&',
-                    ulClass: '='
+                    ulClass: '@'
                 },
                 template:
                     '<ul ng-hide="Hide" ng-class="ulClass"> ' +
@@ -775,12 +775,17 @@
                 link: function (scope, element, attrs) {
                     element.addClass("tooltipped");
                     $compile(element.contents())(scope);
+                    // TODO: The current Materialize implementation is broken, fixed here: https://github.com/Dogfalo/materialize/commit/30b2e1d525c5c4a721c9c84f2e33524831331e9a
+                    // When that commit reaches a release, the commented out version below will perform way better.
                     $timeout(function () {
+                        $('.tooltipped').tooltip();
+                    });
+                    /*$timeout(function () {
                         element.tooltip();
                     });
                     scope.$on('$destroy', function () {
                         element.tooltip("remove");
-                    });
+                    });*/
                 }
             };
         }]);
