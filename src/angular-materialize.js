@@ -195,10 +195,8 @@
                     belowOrigin: "@"
                 },
                 link: function (scope, element, attrs) {
-                    $timeout(function() {
-                        $compile(element.contents())(scope);
-                    });
                     $timeout(function () {
+                        $compile(element.contents())(scope);
                         element.dropdown({
                             inDuration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             outDuration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
@@ -699,7 +697,7 @@
                     adjacent: '@',
                     scrollTop: '@',
                     paginationAction: '&',
-                    ulClass: '='
+                    ulClass: '=?'
                 },
                 template:
                     '<ul ng-hide="Hide" ng-class="ulClass"> ' +
