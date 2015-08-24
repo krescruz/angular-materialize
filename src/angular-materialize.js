@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -793,5 +793,27 @@
             };
         }]);
 
+    /*     example usage:
+
+    <!-- normal materialboxed -->
+    <img materialboxed class="materialboxed responsive-img" width="650" src="images/sample-1.jpg">
+    
+    <!-- caption materialboxed -->
+    <img materialboxed class="materialboxed" data-caption="A picture of some deer and tons of trees" width="250" src="iamges/nature_portrait_by_pw_fotografie-d63tx0n.jpg">
+            
+     */
+    angular.module("ui.materialize.materialboxed", [])
+        .directive("materialboxed", ["$timeout", function($timeout){
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                   
+                    $timeout(function(){
+                        element.materialbox();
+                    });
+                   
+                }
+            };
+        }]);
 
 }(angular));

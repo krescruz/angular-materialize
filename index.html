@@ -59,6 +59,7 @@
                             <li><a href="#parallax">Parallax</a></li>
                             <li><a href="#sidenav">SideNav</a></li>
                             <li><a href="#slider">Slider</a></li>
+                            <li><a href="#media">Media</a></li>
                             <li><a href="#tabs">Tabs</a></li>
                         </ul>
                     </div>
@@ -582,6 +583,34 @@ $scope.onStop = function () {
     &lt;/ul&gt;
 &lt;/div&gt;</code></pre>
         </div>
+
+        <div class="row" id="media">
+            <h2 class="header">Media</h2>
+            <p class="caption">Materialbox is intialized automatically. However, if you add images dynamically, you will have to add this initialization code.</p>
+            <div class="material-placeholder"><img materialboxed class="materialboxed responsive-img " width="650" src="images/sample-1.jpg"></div>
+        </div>
+
+        <div class="row">
+
+            <p>Creating the above image with the effect is as simple as adding a  class to the image tag.</p>
+            <pre><code class="language-markup" ng-non-bindable>
+&lt;img materialboxed class="materialboxed responsive-img" width="650" src="images/sample-1.jpg"&gt;
+            </code></pre>
+        </div>
+        <div class="row">
+            <h4>Captions</h4>
+                <p>It is very easy to add a short caption to your photo. Just add the caption as a <code class=" language-markup">data-caption</code> attribute.</p>
+                <div class="material-placeholder"><img materialboxed class="materialboxed" data-caption="A picture of some deer and tons of trees" width="250" src="images/nature_portrait_by_pw_fotografie-d63tx0n.jpg"></div>
+        </div>
+        <div class="row">
+
+            <p>Creating the above image with the effect is as simple as adding a  class to the image tag.</p>
+            <pre><code class="language-markup" ng-non-bindable>
+&lt;img materialboxed class="materialboxed" data-caption="A picture of some deer and tons of trees" width="250" src="iamges/nature_portrait_by_pw_fotografie-d63tx0n.jpg"&gt;
+            </code></pre>
+     
+        <div class="row">
+
 
         <div class="row" id="tabs" ng-init="showTabs = true">
             <h2 class="header">Tabs</h2>
