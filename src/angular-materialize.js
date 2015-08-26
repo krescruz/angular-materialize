@@ -392,7 +392,7 @@
             Date.prototype.format = function (mask, utc) {
                 return dateFormat(this, mask, utc);
             };
-            
+
             /**
              * Validate date object
              * @param  {Date}  date
@@ -445,26 +445,6 @@
                         weekdaysFull = (angular.isDefined(scope.weekdaysFull)) ? scope.$eval(scope.weekdaysFull) : undefined,
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
 
-                    //pickadate API
-                    var picker = null;
-
-                    //watcher of min and max
-                    scope.$watch('max', function(newMax) {
-                        if( picker !== null && newMax !== null ) {
-                            var maxDate = new Date(newMax);
-                            if( isValidDate(maxDate) ) {
-                                picker.set({max: new Date(newMax)});
-                            }
-                        }
-                    });
-                    scope.$watch('min', function(newMin) {
-                        if( picker !== null && newMin !== null ) {
-                            var minDate = new Date(newMin);
-                            if( isValidDate(minDate) ) {
-                                picker.set({min: new Date(newMin)});
-                            }
-                        }
-                    });
 
                     $compile(element.contents())(scope);
                     if (!(scope.ngReadonly)) {
@@ -488,7 +468,29 @@
                                 onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
                                 onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
                             });
-                            picker = pickadateInput.pickadate('picker');
+                            //pickadate API
+                            var picker = pickadateInput.pickadate('picker');
+
+                            //watcher of min and max
+                            scope.$watch('max', function(newMax) {
+                                if( picker && newMax  ) {
+                                    var maxDate = new Date(newMax);
+                                    if( isValidDate(maxDate) ) {
+                                        picker.set({max: maxDate});
+                                    }
+                                }
+                            });
+                            scope.$watch('min', function(newMin) {
+                                console.log(newMin);
+                                console.log(picker);
+                                if( picker && newMin ) {
+                                    var minDate = new Date(newMin);
+                                    console.log(minDate);
+                                    if( isValidDate(minDate) ) {
+                                        picker.set({min: minDate});
+                                    }
+                                }
+                            });
                         });
                     }
                 }
