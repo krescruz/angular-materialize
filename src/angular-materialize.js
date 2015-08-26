@@ -392,6 +392,19 @@
             Date.prototype.format = function (mask, utc) {
                 return dateFormat(this, mask, utc);
             };
+            
+            /**
+             * Validate date object
+             * @param  {Date}  date
+             * @return {Boolean}
+             */
+            var isValidDate = function(date) {
+                if( Object.prototype.toString.call(date) === '[object Date]' ) {
+                    return !isNaN(date.getTime());
+                } else {
+                    return false;
+                }
+            };
 
             return {
                 require: 'ngModel',
@@ -413,7 +426,9 @@
                     onClose: "&",
                     onSet: "&",
                     onStop: "&",
-                    ngReadonly: "=?"
+                    ngReadonly: "=?",
+                    max: "@",
+                    min: "@"
                 },
                 link: function (scope, element, attrs, ngModelCtrl) {
 
@@ -430,10 +445,31 @@
                         weekdaysFull = (angular.isDefined(scope.weekdaysFull)) ? scope.$eval(scope.weekdaysFull) : undefined,
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
 
+                    //pickadate API
+                    var picker = null;
+
+                    //watcher of min and max
+                    scope.$watch('max', function(newMax) {
+                        if( picker !== null && newMax !== null ) {
+                            var maxDate = new Date(newMax);
+                            if( isValidDate(maxDate) ) {
+                                picker.set({max: new Date(newMax)});
+                            }
+                        }
+                    });
+                    scope.$watch('min', function(newMin) {
+                        if( picker !== null && newMin !== null ) {
+                            var minDate = new Date(newMin);
+                            if( isValidDate(minDate) ) {
+                                picker.set({min: new Date(newMin)});
+                            }
+                        }
+                    });
+
                     $compile(element.contents())(scope);
                     if (!(scope.ngReadonly)) {
                         $timeout(function () {
-                            element.pickadate({
+                            var pickadateInput = element.pickadate({
                                 container : (angular.isDefined(scope.container)) ? scope.container : 'body',
                                 format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                                 formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
@@ -452,6 +488,7 @@
                                 onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
                                 onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
                             });
+                            picker = pickadateInput.pickadate('picker');
                         });
                     }
                 }
