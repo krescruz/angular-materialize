@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -195,8 +195,8 @@
                     belowOrigin: "@"
                 },
                 link: function (scope, element, attrs) {
-                    $compile(element.contents())(scope);
                     $timeout(function () {
+                        $compile(element.contents())(scope);
                         element.dropdown({
                             inDuration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             outDuration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
@@ -412,7 +412,8 @@
                     onOpen: "&",
                     onClose: "&",
                     onSet: "&",
-                    onStop: "&"
+                    onStop: "&",
+                    ngReadonly: "=?"
                 },
                 link: function (scope, element, attrs, ngModelCtrl) {
 
@@ -430,27 +431,29 @@
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
 
                     $compile(element.contents())(scope);
-                    $timeout(function () {
-                        element.pickadate({
-                            container : (angular.isDefined(scope.container)) ? scope.container : 'body',
-                            format: (angular.isDefined(scope.format)) ? scope.format : undefined,
-                            formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
-                            monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
-                            monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
-                            weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
-                            weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
-                            today: (angular.isDefined(scope.today)) ? scope.today : undefined,
-                            clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
-                            close: (angular.isDefined(scope.close)) ? scope.close : undefined,
-                            selectYears: (angular.isDefined(scope.selectYears)) ? scope.selectYears : undefined,
-                            onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
-                            onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
-                            onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
-                            onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
-                            onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
-                            onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
+                    if (!(scope.ngReadonly)) {
+                        $timeout(function () {
+                            element.pickadate({
+                                container : (angular.isDefined(scope.container)) ? scope.container : 'body',
+                                format: (angular.isDefined(scope.format)) ? scope.format : undefined,
+                                formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
+                                monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
+                                monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
+                                weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
+                                weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
+                                today: (angular.isDefined(scope.today)) ? scope.today : undefined,
+                                clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
+                                close: (angular.isDefined(scope.close)) ? scope.close : undefined,
+                                selectYears: (angular.isDefined(scope.selectYears)) ? scope.selectYears : undefined,
+                                onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
+                                onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
+                                onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
+                                onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
+                                onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
+                                onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
+                            });
                         });
-                    });
+                    }
                 }
             };
         }]);
@@ -697,7 +700,7 @@
                     adjacent: '@',
                     scrollTop: '@',
                     paginationAction: '&',
-                    ulClass: '@'
+                    ulClass: '=?'
                 },
                 template:
                     '<ul ng-hide="Hide" ng-class="ulClass"> ' +
@@ -790,5 +793,27 @@
             };
         }]);
 
+    /*     example usage:
+
+    <!-- normal materialboxed -->
+    <img materialboxed class="materialboxed responsive-img" width="650" src="images/sample-1.jpg">
+    
+    <!-- caption materialboxed -->
+    <img materialboxed class="materialboxed" data-caption="A picture of some deer and tons of trees" width="250" src="iamges/nature_portrait_by_pw_fotografie-d63tx0n.jpg">
+            
+     */
+    angular.module("ui.materialize.materialboxed", [])
+        .directive("materialboxed", ["$timeout", function($timeout){
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                   
+                    $timeout(function(){
+                        element.materialbox();
+                    });
+                   
+                }
+            };
+        }]);
 
 }(angular));
