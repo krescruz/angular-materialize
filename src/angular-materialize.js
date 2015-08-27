@@ -401,9 +401,8 @@
             var isValidDate = function(date) {
                 if( Object.prototype.toString.call(date) === '[object Date]' ) {
                     return !isNaN(date.getTime());
-                } else {
-                    return false;
-                }
+                } 
+                return false;
             };
 
             return {
@@ -473,19 +472,15 @@
 
                             //watcher of min and max
                             scope.$watch('max', function(newMax) {
-                                if( picker && newMax  ) {
+                                if( picker ) {
                                     var maxDate = new Date(newMax);
-                                    if( isValidDate(maxDate) ) {
-                                        picker.set({max: maxDate});
-                                    }
+                                    picker.set({max: isValidDate(maxDate) ? maxDate : false});
                                 }
                             });
                             scope.$watch('min', function(newMin) {
                                 if( picker && newMin ) {
                                     var minDate = new Date(newMin);
-                                    if( isValidDate(minDate) ) {
-                                        picker.set({min: minDate});
-                                    }
+                                    picker.set({min: isValidDate(minDate) ? minDate : false});
                                 }
                             });
                         });
