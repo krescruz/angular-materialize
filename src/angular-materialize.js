@@ -478,7 +478,7 @@
                                 }
                             });
                             scope.$watch('min', function(newMin) {
-                                if( picker && newMin ) {
+                                if( picker ) {
                                     var minDate = new Date(newMin);
                                     picker.set({min: isValidDate(minDate) ? minDate : false});
                                 }
