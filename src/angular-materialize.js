@@ -393,6 +393,18 @@
                 return dateFormat(this, mask, utc);
             };
 
+            /**
+             * Validate date object
+             * @param  {Date}  date
+             * @return {Boolean}
+             */
+            var isValidDate = function(date) {
+                if( Object.prototype.toString.call(date) === '[object Date]' ) {
+                    return !isNaN(date.getTime());
+                } 
+                return false;
+            };
+
             return {
                 require: 'ngModel',
                 scope: {
@@ -413,7 +425,9 @@
                     onClose: "&",
                     onSet: "&",
                     onStop: "&",
-                    ngReadonly: "=?"
+                    ngReadonly: "=?",
+                    max: "@",
+                    min: "@"
                 },
                 link: function (scope, element, attrs, ngModelCtrl) {
 
@@ -430,10 +444,11 @@
                         weekdaysFull = (angular.isDefined(scope.weekdaysFull)) ? scope.$eval(scope.weekdaysFull) : undefined,
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
 
+
                     $compile(element.contents())(scope);
                     if (!(scope.ngReadonly)) {
                         $timeout(function () {
-                            element.pickadate({
+                            var pickadateInput = element.pickadate({
                                 container : (angular.isDefined(scope.container)) ? scope.container : 'body',
                                 format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                                 formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
@@ -451,6 +466,22 @@
                                 onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
                                 onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
                                 onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
+                            });
+                            //pickadate API
+                            var picker = pickadateInput.pickadate('picker');
+
+                            //watcher of min and max
+                            scope.$watch('max', function(newMax) {
+                                if( picker ) {
+                                    var maxDate = new Date(newMax);
+                                    picker.set({max: isValidDate(maxDate) ? maxDate : false});
+                                }
+                            });
+                            scope.$watch('min', function(newMin) {
+                                if( picker ) {
+                                    var minDate = new Date(newMin);
+                                    picker.set({min: isValidDate(minDate) ? minDate : false});
+                                }
                             });
                         });
                     }
