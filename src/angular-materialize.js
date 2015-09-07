@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.truncate"]);
 
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
@@ -28,7 +28,7 @@
                 link: function(scope, element, attrs) {
                     element.addClass("slider");
                     $timeout(function(){
-                    	element.slider();
+                        element.slider();
                     });
                    
                 }
@@ -86,6 +86,11 @@
                         Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, rounded);
                     });
                 }
+            };
+        }])
+        .factory('toast', [function(){
+            return function toast(message, time){
+                Materialize.toast(message, time);
             };
         }]);
 
@@ -172,8 +177,8 @@
 
      <!-- Dropdown Trigger -->
      <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' 
-     	dropdown constrain-width="false">
-     	Select a demo
+        dropdown constrain-width="false">
+        Select a demo
      </a>
 
      <!-- Dropdown Structure -->
@@ -257,6 +262,7 @@
         weekdays-full="{{ weekdaysFullFr }}"
         weekdays-short="{{ weekdaysShortFr }}"
         weekdays-letter="{{ weekdaysLetterFr }}"
+        disable="disable"
         today="today"
         clear="clear"
         close="close"
@@ -393,18 +399,6 @@
                 return dateFormat(this, mask, utc);
             };
 
-            /**
-             * Validate date object
-             * @param  {Date}  date
-             * @return {Boolean}
-             */
-            var isValidDate = function(date) {
-                if( Object.prototype.toString.call(date) === '[object Date]' ) {
-                    return !isNaN(date.getTime());
-                } 
-                return false;
-            };
-
             return {
                 require: 'ngModel',
                 scope: {
@@ -415,6 +409,7 @@
                     monthsShort: "@",
                     weekdaysFull: "@",
                     weekdaysLetter: "@",
+                    disable: "=",
                     today: "=",
                     clear: "=",
                     close: "=",
@@ -425,9 +420,7 @@
                     onClose: "&",
                     onSet: "&",
                     onStop: "&",
-                    ngReadonly: "=?",
-                    max: "@",
-                    min: "@"
+                    ngReadonly: "=?"
                 },
                 link: function (scope, element, attrs, ngModelCtrl) {
 
@@ -444,11 +437,10 @@
                         weekdaysFull = (angular.isDefined(scope.weekdaysFull)) ? scope.$eval(scope.weekdaysFull) : undefined,
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
 
-
                     $compile(element.contents())(scope);
                     if (!(scope.ngReadonly)) {
                         $timeout(function () {
-                            var pickadateInput = element.pickadate({
+                            element.pickadate({
                                 container : (angular.isDefined(scope.container)) ? scope.container : 'body',
                                 format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                                 formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
@@ -456,6 +448,7 @@
                                 monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
                                 weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
                                 weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
+                                disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
                                 today: (angular.isDefined(scope.today)) ? scope.today : undefined,
                                 clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
                                 close: (angular.isDefined(scope.close)) ? scope.close : undefined,
@@ -466,22 +459,6 @@
                                 onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
                                 onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
                                 onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
-                            });
-                            //pickadate API
-                            var picker = pickadateInput.pickadate('picker');
-
-                            //watcher of min and max
-                            scope.$watch('max', function(newMax) {
-                                if( picker ) {
-                                    var maxDate = new Date(newMax);
-                                    picker.set({max: isValidDate(maxDate) ? maxDate : false});
-                                }
-                            });
-                            scope.$watch('min', function(newMin) {
-                                if( picker ) {
-                                    var minDate = new Date(newMin);
-                                    picker.set({min: isValidDate(minDate) ? minDate : false});
-                                }
                             });
                         });
                     }
@@ -843,6 +820,28 @@
                         element.materialbox();
                     });
                    
+                }
+            };
+        }]);
+
+    angular.module('ui.materialize.truncate', [])
+        .directive('truncate', [function(){
+            // Runs during compile
+            return {
+                // name: '',
+                // priority: 1,
+                // terminal: true,
+                // scope: {}, // {} = isolate, true = child, false/undefined = no change
+                // controller: function($scope, $element, $attrs, $transclude) {},
+                // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+                restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
+                // template: '',
+                // templateUrl: '',
+                // replace: true,
+                // transclude: true,
+                // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+                link: function($scope, iElm, iAttrs, controller) {
+                    iElm.slice(0, iAttrs.limit);    
                 }
             };
         }]);
