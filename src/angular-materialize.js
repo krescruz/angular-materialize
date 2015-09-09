@@ -28,7 +28,7 @@
                 link: function(scope, element, attrs) {
                     element.addClass("slider");
                     $timeout(function(){
-                    	element.slider();
+                        element.slider();
                     });
                    
                 }
@@ -169,13 +169,11 @@
 
     /*
      Example usage, notice the empty dropdown tag in the dropdown trigger.
-
      <!-- Dropdown Trigger -->
      <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' 
-     	dropdown constrain-width="false">
-     	Select a demo
+        dropdown constrain-width="false">
+        Select a demo
      </a>
-
      <!-- Dropdown Structure -->
      <ul id='demoDropdown' class='dropdown-content'>
      <li ng-repeat="demo in demoDefiniftions">
@@ -257,6 +255,7 @@
         weekdays-full="{{ weekdaysFullFr }}"
         weekdays-short="{{ weekdaysShortFr }}"
         weekdays-letter="{{ weekdaysLetterFr }}"
+        disable="disable"
         today="today"
         clear="clear"
         close="close"
@@ -415,6 +414,7 @@
                     monthsShort: "@",
                     weekdaysFull: "@",
                     weekdaysLetter: "@",
+                    disable: "=",
                     today: "=",
                     clear: "=",
                     close: "=",
@@ -456,6 +456,7 @@
                                 monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
                                 weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
                                 weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
+                                disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
                                 today: (angular.isDefined(scope.today)) ? scope.today : undefined,
                                 clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
                                 close: (angular.isDefined(scope.close)) ? scope.close : undefined,
@@ -497,7 +498,6 @@
         total="100"
         pagination-action="changePage(page)"
         ul-class="customClass">
-
      * ul-class could be either an object or a string
      */
     angular.module("ui.materialize.pagination", [])
@@ -756,19 +756,16 @@
     /*     example usage:
      <!-- Modal Trigger -->
      <a class='btn' href='#demoModal' modal>show Modal</a>
-
      <!-- Modal Structure -->
      <div id="demoModal" class="modal">
      <div class="modal-content">
      <h4>Modal Header</h4>
-
      <p>A bunch of text</p>
      </div>
      <div class="modal-footer">
      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
      </div>
      </div>
-
      */
     angular.module("ui.materialize.modal", [])
         .directive("modal", ["$compile", "$timeout", function ($compile, $timeout) {
@@ -795,11 +792,9 @@
         
         
     /*     example usage:
-
     <!-- data-position can be : bottom, top, left, or right -->
     <!-- data-delay controls delay before tooltip shows (in milliseconds)-->
     <a class="btn" tooltipped data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
-
      */
     angular.module("ui.materialize.tooltipped", [])
         .directive("tooltipped", ["$compile", "$timeout", function ($compile, $timeout) {
@@ -825,7 +820,6 @@
         }]);
 
     /*     example usage:
-
     <!-- normal materialboxed -->
     <img materialboxed class="materialboxed responsive-img" width="650" src="images/sample-1.jpg">
     
