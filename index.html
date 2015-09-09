@@ -142,6 +142,7 @@
         <div class="row" id="input-date">
             <h2 class="header">Input-date</h2>
             <p>The below example is where there are values in all the options, but all the options are optional. </p>
+            <p>The attributes <code class="language-markup" data-language="markup">min</code> and <code class="language-markup" data-language="markup">max</code> can be any value representing a date. It should be in a format recognised by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" title="Date - JavaScript | MDN">Date Constructor</a>.</p>
         </div>
         <div class="row" ng-controller="DateController">
             <label for="inputCreated">Input date</label>
@@ -157,6 +158,9 @@
                    weekdays-full="{{ weekdaysFull }}"
                    weekdays-short="{{ weekdaysShort }}"
                    weekdays-letter="{{ weekdaysLetter }}"
+                   disable="disable"
+                   min="{{ minDate }}"
+                   max="{{ maxDate }}"
                    today="today"
                    clear="clear"
                    close="close"
@@ -183,6 +187,9 @@
     weekdays-full="{{ weekdaysFull }}"
     weekdays-short="{{ weekdaysShort }}"
     weekdays-letter="{{ weekdaysLetter }}"
+    disable="disable"
+    min="{{ minDate }}"
+    max="{{ maxDate }}"
     today="today"
     clear="clear"
     close="close"
@@ -200,9 +207,13 @@ $scope.month = ['Januar', 'February', 'March', 'April', 'May', 'June', 'July', '
 $scope.monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 $scope.weekdaysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 $scope.weekdaysLetter = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+$scope.disable = [false, 1, 7];
 $scope.today = 'Today';
 $scope.clear = 'Clear';
 $scope.close = 'Close';
+var days = 15;
+$scope.minDate = (new Date($scope.currentTime.getTime() - ( 1000 * 60 * 60 *24 * days ))).toISOString();
+$scope.maxDate = (new Date($scope.currentTime.getTime() + ( 1000 * 60 * 60 *24 * days ))).toISOString();
 $scope.onStart = function () {
     console.log('onStart');
 };
