@@ -524,7 +524,10 @@ $scope.onStop = function () {
 
         <div class="row" id="slider">
             <h2 class="header">Slider</h2>
-            <p>An extremely simple directive, that just enables the slider, without any options. Just add the attribute <code class=" language-markup" data-language="markup">slider</code>, and the slider will be initialized. </p>
+            <p>An extremely simple directive, that just enables the slider. Just add the attribute <code class=" language-markup" data-language="markup">slider</code>, and the slider will be initialized. </p>
+            <p>You can optionally set one of more of the attributes <code class=" language-markup" data-language="markup">height</code>, <code class=" language-markup" data-language="markup">transition</code>,
+                <code class=" language-markup" data-language="markup">interval</code> or <code class=" language-markup" data-language="markup">indicators</code>, and the option will be passed to the slider. <br />
+                Like so: <code class=" language-markup" data-language="markup">&lt;div slider height='500' transition='400'&gt;&lt;/div&gt;</code></p>
         </div>
         <div class="row">
             <div slider>
