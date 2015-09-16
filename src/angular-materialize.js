@@ -125,6 +125,7 @@
             };
         }]);
 
+    // TODO: Add some documentation for this.
     angular.module("ui.materialize.scrollspy", [])
         .directive("scrollspy", ["$timeout", function($timeout){
             return {
