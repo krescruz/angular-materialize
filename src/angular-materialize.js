@@ -20,21 +20,36 @@
                 }
             };
         }]);
+    
 
+    /* example usage: 
+    <div slider height='500' transition='400'></div>
+    */
     angular.module("ui.materialize.slider", [])
         .directive("slider", ["$timeout", function($timeout){
             return {
                 restrict: 'A',
+                scope: { 
+                    height: '=',
+                    transition: '=',
+                    interval: '=',
+                    indicators: '='
+                },
                 link: function(scope, element, attrs) {
                     element.addClass("slider");
                     $timeout(function(){
-                        element.slider();
+                        element.slider({
+                            height: (angular.isDefined(scope.height)) ? scope.height : 400,
+                            transition: (angular.isDefined(scope.transition)) ? scope.transition : 500,
+                            interval: (angular.isDefined(scope.interval)) ? scope.interval : 6000,
+                            indicators: (angular.isDefined(scope.indicators)) ? scope.indicators : true
+                        });
                     });
-                   
                 }
             };
         }]);
-    
+
+
     angular.module("ui.materialize.collapsible", [])
         .directive("collapsible", ["$timeout", function ($timeout) {
             return {
