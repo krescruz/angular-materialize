@@ -26,7 +26,7 @@
     <div slider="{height: 600, transition: 300, interval: 4000}"></div>
     */
     angular.module("ui.materialize.slider", [])
-    .directive("slider", ["$timeout", function($timeout){
+        .directive("slider", ["$timeout", function($timeout){
             return {
                 restrict: 'A',
                 scope: { 
