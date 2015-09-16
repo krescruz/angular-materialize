@@ -23,23 +23,27 @@
     
 
     /* example usage: 
-    <div slider="{height: 600, transition: 300, interval: 4000}"></div>
+    <div slider height='500' transition='400'></div>
     */
     angular.module("ui.materialize.slider", [])
         .directive("slider", ["$timeout", function($timeout){
             return {
                 restrict: 'A',
                 scope: { 
-                    params: '=slider' 
+                    height: '=',
+                    transition: '=',
+                    interval: '=',
+                    indicators: '='
                 },
                 link: function(scope, element, attrs) {
                     element.addClass("slider");
                     $timeout(function(){
-                        if (scope.params !== null && typeof scope.params === 'object') {
-                            element.slider(scope.params);
-                        } else {
-                            element.slider();
-                        }
+                        element.slider({
+                            height: (angular.isDefined(scope.height)) ? scope.height : 400,
+                            transition: (angular.isDefined(scope.transition)) ? scope.transition : 500,
+                            interval: (angular.isDefined(scope.interval)) ? scope.interval : 6000,
+                            indicators: (angular.isDefined(scope.indicators)) ? scope.indicators : true
+                        });
                     });
                 }
             };
