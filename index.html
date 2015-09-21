@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <title>Angularjs directives for Materialize CSS Framework</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -110,8 +110,9 @@
             <p>Materialize uses the class .input-field to manage animating labels and input-fields. But that doesn't work properly when angular dynamically creates element</p>
             <p>Instead of adding the class input-field, use the input-field directive. This way it still works when angular dynamically creates it.</p>
             <p>Just in Materialize, if you add the length attribute, a character-counter will appear (in the below length is set to 150). </p>
+            <p>The <code class="language-markup" data-language="markup">input</code> or <code class="language-markup" data-language="markup">textarea</code> tags has to be direct children of the element with the input-field tag. </p>
         </div>
-        <div class="row" ng-init="showInputLabel = true;dummyInputs.inputFieldInput = 'This is input'">
+        <div class="row" ng-init="showInputLabel = true;dummyInputs.inputFieldInput = 'This is input'; dummyInputs.textAreaInput = 'Textareas \ncan\ncontain\nmultiple\nlines';">
             <div class="col s2">
                 <a class="btn waves-effect waves-light" ng-click="showInputLabel = !showInputLabel">Toggle input</a>
             </div>
@@ -121,12 +122,28 @@
                     <label>Input label</label>
                 </div>
             </div>
+            <div class="col s3" ng-if="showInputLabel">
+                <div input-field>
+                    <textarea ng-model="dummyInputs.textAreaInput" class="materialize-textarea"></textarea>
+                    <label>Textarea</label>
+                </div>
+            </div>
+            <div class="col s3" ng-if="showInputLabel">
+                <div input-field>
+                    <textarea ng-model="dummyInputs.textAreaInput" class="materialize-textarea"></textarea>
+                    <label>Synchronized textarea</label>
+                </div>
+            </div>
         </div>
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
 &lt;div input-field&gt;
     &lt;input type="text" ng-model="dummyInputs.inputFieldInput" length="150"&gt;
     &lt;label&gt;Input label&lt;/label&gt;
+&lt;/div&gt;
+&lt;div input-field&gt;
+    &lt;textarea ng-model="dummyInputs.textAreaInput" class="materialize-textarea"&gt;&lt;/textarea&gt;
+    &lt;label&gt;Textarea&lt;/label&gt;
 &lt;/div&gt;</code></pre>
         </div>
         <div class="row">
@@ -135,6 +152,10 @@
 &lt;input-field&gt;
     &lt;input type="text" ng-model="dummyInputs.inputFieldInput"&gt;
     &lt;label&gt;Input label&lt;/label&gt;
+&lt;/input-field&gt;
+    &lt;input-field&gt;
+    &lt;textarea ng-model="dummyInputs.textAreaInput" class="materialize-textarea"&gt;&lt;/textarea&gt;
+    &lt;label&gt;Textarea&lt;/label&gt;
 &lt;/input-field&gt;</code></pre>
         </div>
 
