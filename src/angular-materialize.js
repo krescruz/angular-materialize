@@ -547,6 +547,8 @@
         pagination-action="changePage(page)"
         ul-class="customClass">
      * ul-class could be either an object or a string
+     *
+     * Based on https://github.com/brantwills/Angular-Paging
      */
     angular.module("ui.materialize.pagination", [])
         .directive('pagination', function () {
