@@ -794,7 +794,7 @@
                 link: function (scope, element, attrs) {
 
                     // Hook in our watched items
-                    scope.$watchCollection('[page, total]', function () {
+                    scope.$watchCollection('[page, total, pageSize]', function () {
                         build(scope, attrs);
                     });
                 }
