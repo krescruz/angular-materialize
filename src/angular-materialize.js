@@ -772,8 +772,8 @@
                 restrict: 'EA',
                 scope: {
                     page: '=',
-                    pageSize: '@',
-                    total: '@',
+                    pageSize: '=',
+                    total: '=',
                     dots: '@',
                     hideIfEmpty: '@',
                     adjacent: '@',
