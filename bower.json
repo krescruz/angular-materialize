@@ -9,7 +9,7 @@
     "package.json"
   ],
   "dependencies": {
-    "materialize": "~0.97.0",
+    "materialize": "~0.97.1",
     "jquery": ">=2.1.1",
     "angular": ">=1.3.5"
   }
