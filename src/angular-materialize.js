@@ -547,6 +547,8 @@
         pagination-action="changePage(page)"
         ul-class="customClass">
      * ul-class could be either an object or a string
+     *
+     * Based on https://github.com/brantwills/Angular-Paging
      */
     angular.module("ui.materialize.pagination", [])
         .directive('pagination', function () {
@@ -565,6 +567,7 @@
 
                 scope.scrollTop = scope.$eval(attrs.scrollTop);
                 scope.hideIfEmpty = scope.$eval(attrs.hideIfEmpty);
+                scope.showPrevNext = scope.$eval(attrs.showPrevNext);
             }
 
             // Validate and clean up any scope values
@@ -612,58 +615,6 @@
                 }
             }
 
-            // Previous text
-            function prev(scope, pageCount) {
-
-                // Ignore if no page prev to display
-                if(pageCount < 1) {
-                    return;
-                }
-
-                // Calculate the previous page and if the click actions are allowed
-                // blocking and disabling where page <= 0
-                var disabled = scope.page - 1 <= 0;
-                var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
-
-                var prev = {
-                    value: '<',
-                    liClass: disabled ? scope.disabledClass : '',
-                    action: function () {
-                        if(!disabled) {
-                            internalAction(scope, prevPage);
-                        }
-                    }
-                };
-
-                scope.List.push(prev);
-            }
-
-            // Next text
-            function next(scope, pageCount) {
-
-                // Ignore if no page next to display
-                if(pageCount < 1) {
-                    return;
-                }
-
-                // Calculate the next page number and if the click actions are allowed
-                // blocking where page is >= pageCount
-                var disabled = scope.page + 1 > pageCount;
-                var nextPage = scope.page + 1 >= pageCount ? pageCount : scope.page + 1;
-
-                var next = {
-                    value: '>',
-                    liClass: disabled ? scope.disabledClass : '',
-                    action: function () {
-                        if(!disabled) {
-                            internalAction(scope, nextPage);
-                        }
-                    }
-                };
-
-                scope.List.push(next);
-            }
-
             // Add Range of Numbers
             function addRange(start, finish, scope) {
                 var i = 0;
@@ -698,6 +649,64 @@
                 }
             }
 
+            /**
+            * Add the first, previous, next, and last buttons if desired   
+            * The logic is defined by the mode of interest
+            * This method will simply return if the scope.showPrevNext is false
+            * This method will simply return if there are no pages to display
+            *
+            * @param {Object} scope - The local directive scope object
+            * @param {int} pageCount - The last page number or total page count
+            * @param {string} mode - The mode of interest either prev or last 
+            */
+            function addPrevNext(scope, pageCount, mode){
+                
+                // Ignore if we are not showing
+                // or there are no pages to display
+                if (!scope.showPrevNext || pageCount < 1) { return; }
+
+                // Local variables to help determine logic
+                var disabled, alpha, beta;
+
+
+                // Determine logic based on the mode of interest
+                // Calculate the previous / next page and if the click actions are allowed
+                if(mode === 'prev') {
+                    
+                    disabled = scope.page - 1 <= 0;
+                    var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
+                    
+                    alpha = { value : "<<", title: 'First Page', page: 1 };
+                    beta = { value: "<", title: 'Previous Page', page: prevPage };
+                     
+                } else {
+                    
+                    disabled = scope.page + 1 > pageCount;
+                    var nextPage = scope.page + 1 >= pageCount ? pageCount : scope.page + 1;
+                    
+                    alpha = { value : ">", title: 'Next Page', page: nextPage };
+                    beta = { value: ">>", title: 'Last Page', page: pageCount };
+                }
+
+                // Create the Add Item Function
+                var addItem = function(item, disabled){           
+                    scope.List.push({
+                        value: item.value,
+                        title: item.title,
+                        liClass: disabled ? scope.disabledClass : '',
+                        action: function(){
+                            if(!disabled) {
+                                internalAction(scope, item.page);
+                            }
+                        }
+                    });
+                };
+
+                // Add our items
+                addItem(alpha, disabled);
+                addItem(beta, disabled);
+            }
+
             function addLast(pageCount, scope, prev) {
                 // We ignore dots if the previous value is one less that our start range
                 // ie: 1 2 3 4 [...] 5 6  becomes just 1 2 3 4 5 6
@@ -728,7 +737,9 @@
                 // Validation Scope
                 validateScopeValues(scope, pageCount);
 
-                prev(scope, pageCount);
+                // Add the Next and Previous buttons to our list
+                addPrevNext(scope, pageCount, 'prev');
+
                 if (pageCount < (5 + size)) {
 
                     start = 1;
@@ -765,7 +776,7 @@
 
                     }
                 }
-                next(scope, pageCount);
+                addPrevNext(scope, pageCount, 'next');
             }
 
             return {
@@ -778,6 +789,7 @@
                     hideIfEmpty: '@',
                     adjacent: '@',
                     scrollTop: '@',
+                    showPrevNext: '@',
                     paginationAction: '&',
                     ulClass: '=?'
                 },
