@@ -8,8 +8,7 @@ This library is a set of AngularJS directives, that makes is possible to use fea
 Just add the module ui.materialize to you dependencies like: 
 
     angular.module('angular-app', [
-      'ui.materialize',
-      'ui.router'
+      'ui.materialize'
     ])
     
 and then you are good to go. 
