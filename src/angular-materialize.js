@@ -838,8 +838,8 @@
                     outDuration: "@"
                 },
                 link: function (scope, element, attrs) {
-                    $compile(element.contents())(scope);
                     $timeout(function () {
+                        $compile(element.contents())(scope);
                         element.leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
