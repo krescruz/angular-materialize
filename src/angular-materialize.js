@@ -138,6 +138,7 @@
                 }
             };
         }]);
+
     angular.module("ui.materialize.tabs", [])
         .directive("tabs", [function(){
             return {
@@ -462,6 +463,7 @@
                     monthsShort: "@",
                     weekdaysFull: "@",
                     weekdaysLetter: "@",
+                    firstDay: "=",
                     disable: "=",
                     today: "=",
                     clear: "=",
@@ -504,6 +506,7 @@
                                 monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
                                 weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
                                 weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
+                                firstDay: (angular.isDefined(scope.firstDay)) ? scope.firstDay : 0,                                
                                 disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
                                 today: (angular.isDefined(scope.today)) ? scope.today : undefined,
                                 clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
@@ -837,8 +840,8 @@
                     outDuration: "@"
                 },
                 link: function (scope, element, attrs) {
-                    $compile(element.contents())(scope);
                     $timeout(function () {
+                        $compile(element.contents())(scope);
                         element.leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
@@ -864,17 +867,13 @@
                 link: function (scope, element, attrs) {
                     element.addClass("tooltipped");
                     $compile(element.contents())(scope);
-                    // TODO: The current Materialize implementation is broken, fixed here: https://github.com/Dogfalo/materialize/commit/30b2e1d525c5c4a721c9c84f2e33524831331e9a
-                    // When that commit reaches a release, the commented out version below will perform way better.
+
                     $timeout(function () {
-                        $('.tooltipped').tooltip();
-                    });
-                    /*$timeout(function () {
                         element.tooltip();
                     });
                     scope.$on('$destroy', function () {
                         element.tooltip("remove");
-                    });*/
+                    });
                 }
             };
         }]);
