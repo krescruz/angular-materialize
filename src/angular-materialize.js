@@ -85,8 +85,7 @@
 
     angular.module("ui.materialize.toast", [])
         .constant("toastConfig", {
-            duration: 3000,
-            rounded: "rounded"
+            duration: 3000
         })
         .directive("toast", ["toastConfig", function (toastConfig) {
             return {
@@ -97,8 +96,8 @@
                 link: function (scope, element, attrs) {
                     element.bind(attrs.toast, function () {
                         var message = (angular.isDefined(scope.message)) ? scope.message : "";
-                        var rounded = (angular.isDefined(attrs.rounded)) ? toastConfig.rounded : null;
-                        Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, rounded);
+                        var toastclass = (angular.isDefined(attrs.toastclass)) ? attrs.toastclass : "";                        
+                        Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, toastclass);
                     });
                 }
             };
