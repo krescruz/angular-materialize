@@ -349,7 +349,7 @@ $scope.onStop = function () {
             <p>Materializes toast is a global function. Using this directive you can call a toast using a custom event (in the below click), and show a message determined by a variable in the scope. <br />
             The message is specified through the message attribute, and the duration is set though the duration attribute (defaults to 3000ms if not set).</p>
         </div>
-        <div class="row">
+        <div class="row" ng-controller="ToastController">
             <div class="col s4" input-field>
                 <input id="message" type="text" ng-model="dummyInputs.message" ng-init="dummyInputs.message = 'I\'m a message'">
                 <label for="message">Message</label>
@@ -359,7 +359,7 @@ $scope.onStop = function () {
                 <label for="toastDuration">Toast duration</label>
             </div>
             <div class="input-field col s4">
-                <a class="waves-effect waves-light btn" message="{{dummyInputs.message}}" duration="{{dummyInputs.duration}}" toast='click'>Toast!</a>
+                <a class="waves-effect waves-light btn" message="{{dummyInputs.message}}" duration="{{dummyInputs.duration}}" callback="callback('Your toast was dismissed')" toast='click'>Toast!</a>
             </div>
         </div>
         <div class="row">

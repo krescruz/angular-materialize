@@ -91,13 +91,14 @@
             return {
                 scope: {
                     message: "@",
-                    duration: "@"
+                    duration: "@",
+                    callback: "&"
                 },
                 link: function (scope, element, attrs) {
                     element.bind(attrs.toast, function () {
                         var message = (angular.isDefined(scope.message)) ? scope.message : "";
                         var toastclass = (angular.isDefined(attrs.toastclass)) ? attrs.toastclass : "";                        
-                        Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, toastclass);
+                        Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, toastclass, scope.callback);
                     });
                 }
             };
