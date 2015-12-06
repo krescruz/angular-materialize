@@ -3,9 +3,9 @@ angular-materialize
 
 **angular-materialize** in action http://krescruz.github.io/angular-materialize/
 
-This library is a set of AngularJS directives, that makes is possible to use features from [Materialize](http://materializecss.com/) with AngularJS. 
+This library is a set of AngularJS directives which make it possible to use features from [Materialize](http://materializecss.com/) with AngularJS. 
 
-Just add the module ui.materialize to you dependencies like: 
+Just add the module ui.materialize to your dependencies like: 
 
     angular.module('angular-app', [
       'ui.materialize'
