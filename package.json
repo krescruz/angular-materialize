@@ -2,7 +2,7 @@
   "name": "angular-materialize",
   "description": "Angularjs directives for Materialize CSS Framework",
   "author": "@krescruz",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "repository": "https://github.com/krescruz/angular-materialize",
   "main": "src/index.js",

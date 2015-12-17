@@ -23,6 +23,10 @@ var app = angular.module('materializeApp', ['ui.materialize'])
             title: 'Third',
             content: 'Lorem ipsum dolor sit amet.'
         }];
+    }]).controller('ToastController', ["$scope", function ($scope) {
+        $scope.callback = function(message) {
+            alert(message);
+        };
     }]).controller('PaginationController', ["$scope", function ($scope) {
         $scope.changePage = function (page) {
             Materialize.toast("Changed to page " + page, 1000);
