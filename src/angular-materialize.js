@@ -173,7 +173,6 @@
             return {
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
-                        $compile(element.contents())(scope);
                         function initSelect() {
                             element.siblings(".caret").remove();
                             element.material_select();
