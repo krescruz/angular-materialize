@@ -169,7 +169,7 @@
 
     // This works, unless the content inside the select changes.
     angular.module("ui.materialize.material_select", [])
-        .directive("materialSelect", ["$compile", "$timeout", function ($compile, $timeout, $scope) {
+        .directive("materialSelect", ["$compile", "$timeout", function ($compile, $timeout) {
             return {
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
