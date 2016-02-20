@@ -498,44 +498,42 @@
 
                     $compile(element.contents())(scope);
                     if (!(scope.ngReadonly)) {
-                        $timeout(function () {
-                            var pickadateInput = element.pickadate({
-                                container : (angular.isDefined(scope.container)) ? scope.container : 'body',
-                                format: (angular.isDefined(scope.format)) ? scope.format : undefined,
-                                formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
-                                monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
-                                monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
-                                weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
-                                weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
-                                firstDay: (angular.isDefined(scope.firstDay)) ? scope.firstDay : 0,
-                                disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
-                                today: (angular.isDefined(scope.today)) ? scope.today : undefined,
-                                clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
-                                close: (angular.isDefined(scope.close)) ? scope.close : undefined,
-                                selectYears: (angular.isDefined(scope.selectYears)) ? scope.selectYears : undefined,
-                                onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
-                                onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
-                                onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
-                                onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
-                                onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
-                                onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
-                            });
-                            //pickadate API
-                            var picker = pickadateInput.pickadate('picker');
+                        var pickadateInput = element.pickadate({
+                            container : (angular.isDefined(scope.container)) ? scope.container : 'body',
+                            format: (angular.isDefined(scope.format)) ? scope.format : undefined,
+                            formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
+                            monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
+                            monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
+                            weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
+                            weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
+                            firstDay: (angular.isDefined(scope.firstDay)) ? scope.firstDay : 0,
+                            disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
+                            today: (angular.isDefined(scope.today)) ? scope.today : undefined,
+                            clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
+                            close: (angular.isDefined(scope.close)) ? scope.close : undefined,
+                            selectYears: (angular.isDefined(scope.selectYears)) ? scope.selectYears : undefined,
+                            onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
+                            onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
+                            onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
+                            onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
+                            onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
+                            onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
+                        });
+                        //pickadate API
+                        var picker = pickadateInput.pickadate('picker');
 
-                            //watcher of min and max
-                            scope.$watch('max', function(newMax) {
-                                if( picker ) {
-                                    var maxDate = new Date(newMax);
-                                    picker.set({max: isValidDate(maxDate) ? maxDate : false});
-                                }
-                            });
-                            scope.$watch('min', function(newMin) {
-                                if( picker ) {
-                                    var minDate = new Date(newMin);
-                                    picker.set({min: isValidDate(minDate) ? minDate : false});
-                                }
-                            });
+                        //watcher of min and max
+                        scope.$watch('max', function(newMax) {
+                            if( picker ) {
+                                var maxDate = new Date(newMax);
+                                picker.set({max: isValidDate(maxDate) ? maxDate : false});
+                            }
+                        });
+                        scope.$watch('min', function(newMin) {
+                            if( picker ) {
+                                var minDate = new Date(newMin);
+                                picker.set({min: isValidDate(minDate) ? minDate : false});
+                            }
                         });
                     }
                 }
