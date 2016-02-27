@@ -838,16 +838,27 @@
                     dismissible: "=",
                     opacity: "@",
                     inDuration: "@",
-                    outDuration: "@"
+                    outDuration: "@",
+                    ready: '&?',
+                    complete: '&?',
+                    open: '='
                 },
                 link: function (scope, element, attrs) {
                     $timeout(function () {
+                        var modalEl = $('#' + attrs.target);
                         $compile(element.contents())(scope);
                         element.leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
                             in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
-                            out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined
+                            out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
+                            ready: (angular.isDefined(scope.ready)) ? function() {scope.$eval(scope.ready())} : undefined,
+                            complete: (angular.isDefined(scope.complete)) ? function() {scope.$eval(scope.complete())} : undefined,
+                        });
+
+                        scope.$watch('open', function(value, lastValue) {
+                          if (!angular.isDefined(value)) { return; }
+                          (value === true) ? modalEl.openModal() : modalEl.closeModal();
                         });
                     });
                 }
