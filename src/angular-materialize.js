@@ -845,9 +845,8 @@
                 },
                 link: function (scope, element, attrs) {
                     $timeout(function () {
-                        var modalEl = $('#' + attrs.target);
                         $compile(element.contents())(scope);
-                        element.leanModal({
+                        var modalEl = $('#' + attrs.target).leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
                             in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
