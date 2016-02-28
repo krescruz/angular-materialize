@@ -845,7 +845,7 @@
                 },
                 link: function (scope, element, attrs) {
                     $timeout(function () {
-                        var modalEl = $('#' + attrs.target);
+                        var modalEl = $(attrs.href ? attrs.href : '#' + attrs.target);
                         $compile(element.contents())(scope);
                         element.leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
@@ -856,7 +856,7 @@
                             complete: (angular.isDefined(scope.complete)) ? function() {scope.$eval(scope.complete())} : undefined,
                         });
 
-                        if (angular.isDefined(attrs.open)) {
+                        if (angular.isDefined(attrs.open) && modalEl.length > 0) {
                           scope.$watch('open', function(value, lastValue) {
                             if (!angular.isDefined(value)) { return; }
                             (value === true) ? modalEl.openModal() : modalEl.closeModal();
