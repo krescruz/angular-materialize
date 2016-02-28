@@ -856,10 +856,12 @@
                             complete: (angular.isDefined(scope.complete)) ? function() {scope.$eval(scope.complete())} : undefined,
                         });
 
-                        scope.$watch('open', function(value, lastValue) {
-                          if (!angular.isDefined(value)) { return; }
-                          (value === true) ? modalEl.openModal() : modalEl.closeModal();
-                        });
+                        if (angular.isDefined(attrs.open)) {
+                          scope.$watch('open', function(value, lastValue) {
+                            if (!angular.isDefined(value)) { return; }
+                            (value === true) ? modalEl.openModal() : modalEl.closeModal();
+                          });
+                        }
                     });
                 }
             };
