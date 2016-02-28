@@ -20,16 +20,16 @@
                 }
             };
         }]);
-    
 
-    /* example usage: 
+
+    /* example usage:
     <div slider height='500' transition='400'></div>
     */
     angular.module("ui.materialize.slider", [])
         .directive("slider", ["$timeout", function($timeout){
             return {
                 restrict: 'A',
-                scope: { 
+                scope: {
                     height: '=',
                     transition: '=',
                     interval: '=',
@@ -97,7 +97,7 @@
                 link: function (scope, element, attrs) {
                     element.bind(attrs.toast, function () {
                         var message = (angular.isDefined(scope.message)) ? scope.message : "";
-                        var toastclass = (angular.isDefined(attrs.toastclass)) ? attrs.toastclass : "";                        
+                        var toastclass = (angular.isDefined(attrs.toastclass)) ? attrs.toastclass : "";
                         Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, toastclass, scope.callback);
                     });
                 }
@@ -173,10 +173,11 @@
             return {
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
-                        $compile(element.contents())(scope);
                         function initSelect() {
                             element.siblings(".caret").remove();
-                            element.material_select();
+                            scope.$evalAsync(function() {
+                              element.material_select();
+                            });
                         }
                         $timeout(initSelect);
                         if (attrs.ngModel) {
@@ -199,7 +200,7 @@
     /*
      Example usage, notice the empty dropdown tag in the dropdown trigger.
      <!-- Dropdown Trigger -->
-     <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown' 
+     <a class='dropdown-button btn' href='javascript:void(0);' data-activates='demoDropdown'
         dropdown constrain-width="false">
         Select a demo
      </a>
@@ -449,7 +450,7 @@
             var isValidDate = function(date) {
                 if( Object.prototype.toString.call(date) === '[object Date]' ) {
                     return !isNaN(date.getTime());
-                } 
+                }
                 return false;
             };
 
@@ -506,7 +507,7 @@
                                 monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
                                 weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
                                 weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
-                                firstDay: (angular.isDefined(scope.firstDay)) ? scope.firstDay : 0,                                
+                                firstDay: (angular.isDefined(scope.firstDay)) ? scope.firstDay : 0,
                                 disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
                                 today: (angular.isDefined(scope.today)) ? scope.today : undefined,
                                 clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
@@ -653,17 +654,17 @@
             }
 
             /**
-            * Add the first, previous, next, and last buttons if desired   
+            * Add the first, previous, next, and last buttons if desired
             * The logic is defined by the mode of interest
             * This method will simply return if the scope.showPrevNext is false
             * This method will simply return if there are no pages to display
             *
             * @param {Object} scope - The local directive scope object
             * @param {int} pageCount - The last page number or total page count
-            * @param {string} mode - The mode of interest either prev or last 
+            * @param {string} mode - The mode of interest either prev or last
             */
             function addPrevNext(scope, pageCount, mode){
-                
+
                 // Ignore if we are not showing
                 // or there are no pages to display
                 if (!scope.showPrevNext || pageCount < 1) { return; }
@@ -675,24 +676,24 @@
                 // Determine logic based on the mode of interest
                 // Calculate the previous / next page and if the click actions are allowed
                 if(mode === 'prev') {
-                    
+
                     disabled = scope.page - 1 <= 0;
                     var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
-                    
+
                     alpha = { value : "<<", title: 'First Page', page: 1 };
                     beta = { value: "<", title: 'Previous Page', page: prevPage };
-                     
+
                 } else {
-                    
+
                     disabled = scope.page + 1 > pageCount;
                     var nextPage = scope.page + 1 >= pageCount ? pageCount : scope.page + 1;
-                    
+
                     alpha = { value : ">", title: 'Next Page', page: nextPage };
                     beta = { value: ">>", title: 'Last Page', page: pageCount };
                 }
 
                 // Create the Add Item Function
-                var addItem = function(item, disabled){           
+                var addItem = function(item, disabled){
                     scope.List.push({
                         value: item.value,
                         title: item.title,
@@ -837,23 +838,36 @@
                     dismissible: "=",
                     opacity: "@",
                     inDuration: "@",
-                    outDuration: "@"
+                    outDuration: "@",
+                    ready: '&?',
+                    complete: '&?',
+                    open: '='
                 },
                 link: function (scope, element, attrs) {
                     $timeout(function () {
+                        var modalEl = $(attrs.href ? attrs.href : '#' + attrs.target);
                         $compile(element.contents())(scope);
                         element.leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
                             in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
-                            out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined
+                            out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
+                            ready: (angular.isDefined(scope.ready)) ? function() {scope.$eval(scope.ready())} : undefined,
+                            complete: (angular.isDefined(scope.complete)) ? function() {scope.$eval(scope.complete())} : undefined,
                         });
+
+                        if (angular.isDefined(attrs.open) && modalEl.length > 0) {
+                          scope.$watch('open', function(value, lastValue) {
+                            if (!angular.isDefined(value)) { return; }
+                            (value === true) ? modalEl.openModal() : modalEl.closeModal();
+                          });
+                        }
                     });
                 }
             };
         }]);
-        
-        
+
+
     /*     example usage:
     <!-- data-position can be : bottom, top, left, or right -->
     <!-- data-delay controls delay before tooltip shows (in milliseconds)-->
@@ -881,21 +895,21 @@
     /*     example usage:
     <!-- normal materialboxed -->
     <img materialboxed class="materialboxed responsive-img" width="650" src="images/sample-1.jpg">
-    
+
     <!-- caption materialboxed -->
     <img materialboxed class="materialboxed" data-caption="A picture of some deer and tons of trees" width="250" src="iamges/nature_portrait_by_pw_fotografie-d63tx0n.jpg">
-            
+
      */
     angular.module("ui.materialize.materialboxed", [])
         .directive("materialboxed", ["$timeout", function($timeout){
             return {
                 restrict: 'A',
                 link: function(scope, element, attrs) {
-                   
+
                     $timeout(function(){
                         element.materialbox();
                     });
-                   
+
                 }
             };
         }]);

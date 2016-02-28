@@ -463,18 +463,21 @@ $scope.onStop = function () {
         </div>
 
 
-        <div class="row" id="modals" ng-init="dummyInputs.modalInput = 'Modal header'">
+        <div class="row" id="modals" ng-init="dummyInputs.modalInput = 'Modal header'" ng-controller="ModalController">
             <h2 class="header">Modals</h2>
             <p>You need a modal trigger, like the below. The trigger should have the modal directive, and the href attribute must point to the ID of the modal structure. <br />
             The modal strcture should be structured <a href="http://materializecss.com/modals.html">just like in materialize</a>. <br>
             In the below example, you can change the header of the modal through the input field. </p>
             <!-- Modal Trigger -->
             <div class="col">
-                <a class='btn' href='#demoModal' modal>Show Modal</a>
+                <a class='btn' href='#demoModal' modal ready="readyCallback" complete="completeCallback" open="openModal">Show Modal</a>
             </div>
             <div input-field  class="col s4">
                 <input type="text" ng-model="dummyInputs.modalInput">
                 <label>Modal header</label>
+            </div>
+            <div class="col s4">
+                <a class='btn' ng-click="openModal = !openModal">Open modal from controller</a>
             </div>
             <!-- Modal Structure -->
             <div id="demoModal" class="modal">
