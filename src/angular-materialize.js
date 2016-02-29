@@ -463,6 +463,7 @@
                     monthsFull: "@",
                     monthsShort: "@",
                     weekdaysFull: "@",
+                    weekdaysShort: "@",
                     weekdaysLetter: "@",
                     firstDay: "=",
                     disable: "=",
@@ -493,6 +494,7 @@
                     var monthsFull = (angular.isDefined(scope.monthsFull)) ? scope.$eval(scope.monthsFull) : undefined,
                         monthsShort = (angular.isDefined(scope.monthsShort)) ? scope.$eval(scope.monthsShort) : undefined,
                         weekdaysFull = (angular.isDefined(scope.weekdaysFull)) ? scope.$eval(scope.weekdaysFull) : undefined,
+                        weekdaysShort = (angular.isDefined(scope.weekdaysShort)) ? scope.$eval(scope.weekdaysShort) : undefined,
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
 
 
@@ -506,6 +508,7 @@
                                 monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
                                 monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
                                 weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
+                                weekdaysShort: (angular.isDefined(weekdaysShort)) ? weekdaysShort : undefined,
                                 weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
                                 firstDay: (angular.isDefined(scope.firstDay)) ? scope.firstDay : 0,
                                 disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
