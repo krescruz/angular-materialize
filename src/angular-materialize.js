@@ -850,19 +850,28 @@
                     $timeout(function () {
                         var modalEl = $(attrs.href ? attrs.href : '#' + attrs.target);
                         $compile(element.contents())(scope);
-                        element.leanModal({
+
+                        var complete = function () {
+                            angular.isDefined(scope.complete) && scope.$eval(scope.complete());
+
+                            scope.open = false;
+                            scope.$apply();
+                        };
+
+                        var options = {
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
                             in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
                             ready: (angular.isDefined(scope.ready)) ? function() {scope.$eval(scope.ready())} : undefined,
-                            complete: (angular.isDefined(scope.complete)) ? function() {scope.$eval(scope.complete())} : undefined,
-                        });
+                            complete: complete,
+                        };
+                        element.leanModal(options);
 
                         if (angular.isDefined(attrs.open) && modalEl.length > 0) {
                           scope.$watch('open', function(value, lastValue) {
                             if (!angular.isDefined(value)) { return; }
-                            (value === true) ? modalEl.openModal() : modalEl.closeModal();
+                            (value === true) ? modalEl.openModal(options) : modalEl.closeModal();
                           });
                         }
                     });
