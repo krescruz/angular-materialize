@@ -846,22 +846,32 @@
                 link: function (scope, element, attrs) {
                     $timeout(function () {
                         var modalEl = $(attrs.href ? attrs.href : '#' + attrs.target);
+                        var readyFn = function() {
+                          if (angular.isFunction(scope.ready)) {
+                            scope.$eval(scope.ready());
+                          }
+                          // If we are using tabs in a modal we need to re-init the tabs
+                          // See https://github.com/Dogfalo/materialize/issues/1634
+                          modalEl.find('ul.tabs').tabs();
+                        };
                         $compile(element.contents())(scope);
                         element.leanModal({
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
                             in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
-                            ready: (angular.isDefined(scope.ready)) ? function() {scope.$eval(scope.ready())} : undefined,
+                            ready: readyFn,
                             complete: (angular.isDefined(scope.complete)) ? function() {scope.$eval(scope.complete())} : undefined,
                         });
 
+                        // Setup watch for opening / closing modal programatically.
                         if (angular.isDefined(attrs.open) && modalEl.length > 0) {
                           scope.$watch('open', function(value, lastValue) {
                             if (!angular.isDefined(value)) { return; }
                             (value === true) ? modalEl.openModal() : modalEl.closeModal();
                           });
                         }
+
                     });
                 }
             };
