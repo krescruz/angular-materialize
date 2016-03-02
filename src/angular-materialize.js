@@ -844,7 +844,8 @@
                     outDuration: "@",
                     ready: '&?',
                     complete: '&?',
-                    open: '='
+                    open: '=',
+                    enableTabs: '@?'
                 },
                 link: function (scope, element, attrs) {
                     $timeout(function () {
@@ -852,22 +853,30 @@
                         $compile(element.contents())(scope);
 
                         var complete = function () {
-                            angular.isDefined(scope.complete) && scope.$eval(scope.complete());
+                            angular.isFunction(scope.complete) && scope.$eval(scope.complete());
 
                             scope.open = false;
                             scope.$apply();
                         };
-
+                        var ready = function() {
+                          angular.isFunction(scope.ready) && scope.$eval(scope.ready());
+                          // If tab support is enabled we need to re-init the tabs
+                          // See https://github.com/Dogfalo/materialize/issues/1634
+                          if (scope.enableTabs) {
+                             modalEl.find('ul.tabs').tabs();
+                          }
+                        };
                         var options = {
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
                             in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
-                            ready: (angular.isDefined(scope.ready)) ? function() {scope.$eval(scope.ready())} : undefined,
+                            ready: ready,
                             complete: complete,
                         };
                         element.leanModal(options);
 
+                        // Setup watch for opening / closing modal programatically.
                         if (angular.isDefined(attrs.open) && modalEl.length > 0) {
                           scope.$watch('open', function(value, lastValue) {
                             if (!angular.isDefined(value)) { return; }
