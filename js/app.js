@@ -64,4 +64,13 @@ var app = angular.module('materializeApp', ['ui.materialize'])
         $scope.onStop = function () {
             console.log('onStop');
         };
+    }]).controller("ModalController", ["$scope", function (scope) {
+        scope.readyCallback = function () {
+            Materialize.toast("Modal ready", 1000);
+        }
+        scope.completeCallback = function () {
+            Materialize.toast("Modal complete", 1000);
+        }
+
+        scope.openModal = false;
     }]);

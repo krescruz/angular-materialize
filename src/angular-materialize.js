@@ -463,6 +463,7 @@
                     monthsFull: "@",
                     monthsShort: "@",
                     weekdaysFull: "@",
+                    weekdaysShort: "@",
                     weekdaysLetter: "@",
                     firstDay: "=",
                     disable: "=",
@@ -493,6 +494,7 @@
                     var monthsFull = (angular.isDefined(scope.monthsFull)) ? scope.$eval(scope.monthsFull) : undefined,
                         monthsShort = (angular.isDefined(scope.monthsShort)) ? scope.$eval(scope.monthsShort) : undefined,
                         weekdaysFull = (angular.isDefined(scope.weekdaysFull)) ? scope.$eval(scope.weekdaysFull) : undefined,
+                        weekdaysShort = (angular.isDefined(scope.weekdaysShort)) ? scope.$eval(scope.weekdaysShort) : undefined,
                         weekdaysLetter = (angular.isDefined(scope.weekdaysLetter)) ? scope.$eval(scope.weekdaysLetter) : undefined;
 
 
@@ -506,6 +508,7 @@
                                 monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
                                 monthsShort: (angular.isDefined(monthsShort)) ? monthsShort : undefined,
                                 weekdaysFull: (angular.isDefined(weekdaysFull)) ? weekdaysFull : undefined,
+                                weekdaysShort: (angular.isDefined(weekdaysShort)) ? weekdaysShort : undefined,
                                 weekdaysLetter: (angular.isDefined(weekdaysLetter)) ? weekdaysLetter : undefined,
                                 firstDay: (angular.isDefined(scope.firstDay)) ? scope.firstDay : 0,
                                 disable: (angular.isDefined(scope.disable)) ? scope.disable : undefined,
@@ -841,37 +844,45 @@
                     outDuration: "@",
                     ready: '&?',
                     complete: '&?',
-                    open: '='
+                    open: '=',
+                    enableTabs: '@?'
                 },
                 link: function (scope, element, attrs) {
                     $timeout(function () {
                         var modalEl = $(attrs.href ? attrs.href : '#' + attrs.target);
-                        var readyFn = function() {
-                          if (angular.isFunction(scope.ready)) {
-                            scope.$eval(scope.ready());
-                          }
-                          // If we are using tabs in a modal we need to re-init the tabs
-                          // See https://github.com/Dogfalo/materialize/issues/1634
-                          modalEl.find('ul.tabs').tabs();
-                        };
                         $compile(element.contents())(scope);
-                        element.leanModal({
+
+                        var complete = function () {
+                            angular.isFunction(scope.complete) && scope.$eval(scope.complete());
+
+                            scope.open = false;
+                            scope.$apply();
+                        };
+                        var ready = function() {
+                          angular.isFunction(scope.ready) && scope.$eval(scope.ready());
+                          // If tab support is enabled we need to re-init the tabs
+                          // See https://github.com/Dogfalo/materialize/issues/1634
+                          if (scope.enableTabs) {
+                             modalEl.find('ul.tabs').tabs();
+                          }
+                        };
+                        var options = {
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
                             in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
-                            ready: readyFn,
-                            complete: (angular.isDefined(scope.complete)) ? function() {scope.$eval(scope.complete())} : undefined,
-                        });
+                            ready: ready,
+                            complete: complete,
+                        };
+                        element.leanModal(options);
 
                         // Setup watch for opening / closing modal programatically.
                         if (angular.isDefined(attrs.open) && modalEl.length > 0) {
                           scope.$watch('open', function(value, lastValue) {
                             if (!angular.isDefined(value)) { return; }
-                            (value === true) ? modalEl.openModal() : modalEl.closeModal();
+                            (value === true) ? modalEl.openModal(options) : modalEl.closeModal();
                           });
                         }
-
                     });
                 }
             };
