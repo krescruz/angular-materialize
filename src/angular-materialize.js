@@ -844,7 +844,7 @@
                     outDuration: "@",
                     ready: '&?',
                     complete: '&?',
-                    open: '=',
+                    open: '=?',
                     enableTabs: '@?'
                 },
                 link: function (scope, element, attrs) {
