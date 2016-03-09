@@ -8,6 +8,10 @@ var app = angular.module('materializeApp', ['ui.materialize'])
 
         $scope.dummyInputs = {};
 
+        $scope.toast = function (message, duration) {
+            Materialize.toast(message, duration);
+        }
+
     }])
     .controller('CollapsibleController', ["$scope", function ($scope) {
         $scope.collapsibleElements = [{
