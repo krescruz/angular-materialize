@@ -57,6 +57,7 @@
                             <li><a href="#dropdown">Dropdown</a></li>
                             <li><a href="#modals">Modals</a></li>
                             <li><a href="#parallax">Parallax</a></li>
+                            <li><a href="#scrollfire">ScrollFire</a></li>
                             <li><a href="#sidenav">SideNav</a></li>
                             <li><a href="#slider">Slider</a></li>
                             <li><a href="#media">Media</a></li>
@@ -536,6 +537,20 @@ $scope.onStop = function () {
 <pre><code class="language-markup" ng-non-bindable>&lt;div class="parallax-container"&gt;
     &lt;div parallax&gt;&lt;img src="images/parallax1.jpg"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+        </div>
+
+
+
+        <div class="row" id="scrollfire">
+            <h2 class="header" scroll-fire="toast('Past scoll-fire', 2000)" offset="500">ScrollFire</h2>
+            <p>It's previously stated that this library is mostly wrappers for Materialize code. <br/>This directive is an exception, since the Materialize code for ScrollFire is crap (as of version 0.97.5). </p>
+            <p>ScrollFire is very simple, you set an attribute <code class="language-markup">scoll-fire</code> on some attribute, with a callback. And this callback fires when the user scrolls past that element. <br />
+            One can further set an <code class="language-markup">offset</code> attribute, to make the callback fire after the user has scrolled a certain amount of pixels beyond the element.</p>
+            <p>If you look at the source of this directive, it is used to alert a message after the user has scrolled 500 pixels past the "ScrollFire" header. <br/>
+            And the code below shows the source-code for that header. That example requires an <code class="language-javascript">toast</code> function to be defined on the scope. </p>
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>&lt;h2 class=&quot;header&quot; scroll-fire=&quot;toast('Past scoll-fire', 2000)&quot; offset=&quot;500&quot;&gt;ScrollFire&lt;/h2&gt;</code></pre>
         </div>
 
 
