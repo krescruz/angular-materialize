@@ -250,7 +250,7 @@
                 },
                 link: function (scope, element, attrs) {
                     element.sideNav({
-                        menuWidth: (angular.isDefined(scope.menuwidth)) ? scope.menuwidth : undefined,
+                        menuWidth: (angular.isDefined(scope.menuwidth)) ? parseInt(scope.menuwidth, 10) : undefined,
                         edge: attrs.sidenav ? attrs.sidenav : "left",
                         closeOnClick: (angular.isDefined(scope.closeonclick)) ? scope.closeonclick == "true" : undefined
                     });
