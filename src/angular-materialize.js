@@ -1052,7 +1052,6 @@
                           		'min': parseFloat(scope.min || 0),
                           		'max': parseFloat(scope.max || 100),
                           	},
-                            tooltips: true,
                             format: wNumb({
                               decimals: 0,
                               encoder: function(a){
