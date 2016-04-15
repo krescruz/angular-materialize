@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider"]);
 
     /*     example usage:
      <div scroll-fire="func('Scrolled', 2000)" ></scroll-fire>
@@ -1022,6 +1022,50 @@
                         element.materialbox();
                     });
 
+                }
+            };
+        }]);
+
+    /* example usage:
+    <div nouislider ng-model='value' min="0" max="100"></div>
+    */
+    angular.module("ui.materialize.nouislider", [])
+        .directive("nouislider", ["$timeout", function($timeout){
+            return {
+                restrict: 'A',
+                scope: {
+                    ngModel: '=',
+                    min: '@',
+                    max: '@',
+                    step: '@?',
+                    connect: '@?',
+                    tooltips: '@?'
+                },
+                link: function (scope, element, attrs) {
+                    $timeout(function () {
+                        noUiSlider.create(element[0], {
+                          	start: scope.ngModel || 0,
+                          	step: parseFloat(scope.step || 1),
+                            tooltips: angular.isDefined(scope.connect) ? scope.tooltips : undefined,
+                          	connect: angular.isDefined(scope.connect) ? scope.connect : 'lower',
+                          	range: {
+                          		'min': parseFloat(scope.min || 0),
+                          		'max': parseFloat(scope.max || 100),
+                          	},
+                            tooltips: true,
+                            format: wNumb({
+                              decimals: 0,
+                              encoder: function(a){
+                                  return Math.round(a * 100) / 100;
+                              }
+                            })
+                        });
+
+                        element[0].noUiSlider.on('update', function(values, input) {
+                          scope.ngModel = parseInt(values[0], 10);
+                          scope.$apply();
+                        });
+                    });
                 }
             };
         }]);
