@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <title>Angularjs directives for Materialize CSS Framework</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -12,7 +12,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -39,6 +39,7 @@
                             <li><a href="#input-field">Input-field</a></li>
                             <li><a href="#input-date">Input-date</a></li>
                             <li><a href="#select">Material select</a></li>
+                            <li><a href="#range">Range select</a></li>
                         </ul>
                     </div>
                 </li>
@@ -298,6 +299,18 @@ $scope.onStop = function () {
 &lt;select class="browser-default" ng-model="select.value2"&gt;
     &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
 &lt;/select&gt;</code></pre>
+        </div>
+
+        <div class="row" id="range">
+          <h2 class="header">Range - noUiSlider</h2>
+          <p>You can use the HTML5 range element without needing to use a directive or extra JavaScript.
+              If you want to use the noUiSlider jQuery plugin that ships with materializecss,
+              you'll need to include <a href="https://cdnjs.com/libraries/noUiSlider">noUiSlider's JS and CSS file</a> and use the <code class="language-markup" data-language="markup">nouislider</code> directive. <br />
+<pre><code class="language-markup" ng-non-bindable>
+&lt;div nouislider ng-model="value" min="5" max="300"&gt;&lt;/div&gt;
+</code></pre>
+        <p>See <a href="http://refreshless.com/nouislider/slider-options/">noUiSlider's docs</a> for how to use it. Supported config options are: ngModel (required), min, max, step, connect, and tooltips.
+          </ul>
         </div>
 
         <div class="row" id="collapsible">
