@@ -1052,12 +1052,14 @@
                           		'min': parseFloat(scope.min || 0),
                           		'max': parseFloat(scope.max || 100),
                           	},
-                            format: wNumb({
-                              decimals: 0,
-                              encoder: function(a){
-                                  return Math.round(a * 100) / 100;
-                              }
-                            })
+                            format: {
+                                to: function (number) {
+                                    return Math.round(number * 100) / 100;
+                                },
+                                from: function (number) {
+                                    return Number(number);
+                                }
+                            }
                         });
 
                         element[0].noUiSlider.on('update', function(values, input) {
