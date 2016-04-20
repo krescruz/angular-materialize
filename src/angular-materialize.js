@@ -98,8 +98,14 @@
                 restrict: 'A',
                 priority: -1, // lower priority than built-in ng-model so it runs first
                 link: function(scope, element, attr) {
-                    scope.$watch(attr.ngModel,function(value){
+                    scope.$watch(attr.ngModel,function(value, oldValue){
                         $timeout(function () {
+                            // To stop an infinite feedback-loop with material multiple-select.
+                            if (value instanceof Array && oldValue instanceof Array) {
+                                if (value.length == oldValue.length) {
+                                    return;
+                                }
+                            }
                             if (value){
                                 element.trigger("change");
                             } else if(element.attr('placeholder') === undefined) {
