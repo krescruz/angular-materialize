@@ -279,8 +279,9 @@
                                       return;
                                   }
                                 }
-                                if (newVal !== undefined && element.siblings("ul.active").length) { // If select is open
-                                    var selectedOptions = element.siblings("ul.active").children("li.active").length; // Number of selected elements
+                                var activeUl = element.siblings("ul.active");
+                                if (newVal !== undefined && activeUl.length) { // If select is open
+                                    var selectedOptions = activeUl.children("li.active").length; // Number of selected elements
                                     if (selectedOptions == newVal.length) {
                                         return;
                                     }
