@@ -294,7 +294,10 @@
                         }
                         $timeout(initSelect);
                         if (attrs.ngModel) {
-                            scope.$watch(attrs.ngModel, initSelect);
+                            scope.$watch(attrs.ngModel, function(newValue,oldValue){
+                                if (newValue != element.parent().find("input").val())
+                                    initSelect();
+                            });
                         }
                         if ("watch" in attrs) {
                             scope.$watch(function () {
