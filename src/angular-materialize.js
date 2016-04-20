@@ -286,6 +286,10 @@
                                         return;
                                     }
                                 }
+                            } else {
+                                if (newVal == element.val()){
+                                    return;
+                                }
                             }
                             element.siblings(".caret").remove();
                             scope.$evalAsync(function() {
@@ -294,10 +298,7 @@
                         }
                         $timeout(initSelect);
                         if (attrs.ngModel) {
-                            scope.$watch(attrs.ngModel, function(newValue,oldValue){
-                                if (newValue != element.parent().find("input").val())
-                                    initSelect();
-                            });
+                            scope.$watch(attrs.ngModel, initSelect);
                         }
                         if ("watch" in attrs) {
                             scope.$watch(function () {
