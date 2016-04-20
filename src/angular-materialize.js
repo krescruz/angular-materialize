@@ -264,7 +264,15 @@
             return {
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
-                        function initSelect() {
+						//BugFix 139: In case of multiple enabled. Avoid the circular looping.
+                        function initSelect(newVal, oldVal) {                            
+                            if(attrs.multiple){
+                                if(oldVal !== undefined && newVal !== undefined){
+                                  if(oldVal.length === newVal.length){
+                                      return;
+                                  }
+                                }
+                            }
                             element.siblings(".caret").remove();
                             scope.$evalAsync(function() {
                               element.material_select();
