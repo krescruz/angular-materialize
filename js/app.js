@@ -3,6 +3,7 @@ var app = angular.module('materializeApp', ['ui.materialize'])
         $scope.select = {
             value1: "Option1",
             value2: "I'm an option",
+            value3: ["Option1", "I'm an option"],
             choices: ["Option1", "I'm an option", "This is materialize", "No, this is Patrick."]
         };
 
