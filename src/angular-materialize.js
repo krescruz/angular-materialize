@@ -1,4 +1,5 @@
 (function (angular) {
+    var undefined;
     angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider"]);
 
     /*     example usage:
@@ -277,6 +278,12 @@
                                   if(oldVal.length === newVal.length){
                                       return;
                                   }
+                                }
+                                if (newVal !== undefined && element.siblings("ul.active").length) { // If select is open
+                                    var selectedOptions = element.siblings("ul.active").children("li.active").length; // Number of selected elements
+                                    if (selectedOptions == newVal.length) {
+                                        return;
+                                    }
                                 }
                             }
                             element.siblings(".caret").remove();
