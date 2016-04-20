@@ -273,7 +273,7 @@ $scope.onStop = function () {
                     <option ng-repeat="value in select.choices">{{value}}</option>
                 </select>
             </div>
-            <div class="section col s4">
+            <div class="section col s8">
                 <h5>You selected: <b>{{select.value1}}</b></h5>
             </div>
         </div>
@@ -283,6 +283,26 @@ $scope.onStop = function () {
     &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
 &lt;/select&gt;</code></pre>
         </div>
+
+        <div class="row">
+            <h5>Multiple select</h5>
+            <div class="section col s4">
+                <select class="" ng-model="select.value3" material-select multiple watch>
+                    <option ng-repeat="value in select.choices">{{value}}</option>
+                </select>
+            </div>
+            <div class="section col s8">
+                <h5>You selected: <b>{{select.value3}}</b></h5>
+            </div>
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>
+&lt;select class="" ng-model="select.value3" material-select multiple watch&gt;
+    &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </div>
+
+
         <div class="row">
             <h5>Using class browser-default</h5>
             <div class="section col s4">
@@ -290,7 +310,7 @@ $scope.onStop = function () {
                     <option ng-repeat="value in select.choices">{{value}}</option>
                 </select>
             </div>
-            <div class="section col s4">
+            <div class="section col s8">
                 <h5>You selected: <b>{{select.value2}}</b></h5>
             </div>
         </div>
