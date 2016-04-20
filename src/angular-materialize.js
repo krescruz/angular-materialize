@@ -271,6 +271,9 @@
                             });
                         }
                         $timeout(initSelect);
+                        if (attrs.ngModel) {
+                            scope.$watch(attrs.ngModel, initSelect);
+                        }
                         if ("watch" in attrs) {
                             scope.$watch(function () {
                                 return element[0].innerHTML;
