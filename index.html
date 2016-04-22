@@ -16,6 +16,10 @@
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
+    <!-- Only for the clockpicker -->
+    <script type="text/javascript" src="js/materialize.clockpicker.js"></script>
+    <link rel="stylesheet" href="css/materialize.clockpicker.css">
+
     <!-- App -->
     <script type="text/javascript" src="js/app.js"></script>
 </head>
@@ -38,6 +42,7 @@
                         <ul>
                             <li><a href="#input-field">Input-field</a></li>
                             <li><a href="#input-date">Input-date</a></li>
+                            <li><a href="#input-clock">Input-clock</a></li>
                             <li><a href="#select">Material select</a></li>
                             <li><a href="#range">Range select</a></li>
                         </ul>
@@ -255,6 +260,25 @@ $scope.onSet = function () {
 $scope.onStop = function () {
     console.log('onStop');
 };</code></pre>
+        </div>
+
+
+
+        <div class="row" id="input-clock">
+            <h2 class="header">Input-clock</h2>
+            <p>This is a wrapper made around the <a href="https://github.com/chingyawhao/materialize-clockpicker">materialize-clockpicker made by chingyawhao</a></p>
+            <p>The bundled JavaScript only includes the wrapper JavaScript, and for this to work you need to include the JavaScript and CSS from <a href="https://github.com/chingyawhao/materialize-clockpicker">materialize-clockpicker</a></p>
+            <p>The options for this wrapper are the same as the options for the original materialize-clockpicker. </p>
+            <p>Below is a small example, where the option <code class=" language-markup" data-language="markup">twelvehour</code> has been set to false. </p>
+        </div>
+        <div class="row">
+            <label for="input_starttime">Time</label>
+            <input id="input_starttime" input-clock data-twelvehour="false" type="text">
+        </div>
+        <div class="row">
+            <pre><code class="language-markup" ng-non-bindable>
+&lt;label for=&quot;input_starttime&quot;&gt;Time&lt;/label&gt;
+&lt;input id=&quot;input_starttime&quot; input-clock data-twelvehour=&quot;false&quot; type=&quot;text&quot;&gt;</code></pre>
         </div>
 
 
@@ -707,9 +731,6 @@ $scope.onStop = function () {
 &lt;img materialboxed class="materialboxed" data-caption="A picture of some deer and tons of trees" width="250" src="iamges/nature_portrait_by_pw_fotografie-d63tx0n.jpg"&gt;
             </code></pre>
 
-        <div class="row">
-
-
         <div class="row" id="tabs" ng-init="showTabs = true">
             <h2 class="header">Tabs</h2>
             <p>This is a very simple directive, that just calls the jQuery plugin when the element is initialized.</p>
@@ -778,6 +799,8 @@ $scope.onStop = function () {
     scroll-top="false"
     pagination-action="changePage(page)" /&gt;</code></pre>
         </div>
+    </div>
+
     </div>
 </main>
 </body>
