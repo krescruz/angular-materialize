@@ -1,6 +1,6 @@
 (function (angular) {
     var undefined;
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock"]);
 
     /*     example usage:
      <div scroll-fire="func('Scrolled', 2000)" ></scroll-fire>
@@ -661,6 +661,48 @@
                 }
             };
         }]);
+
+
+
+    /**
+     * time-picker directive
+     * Example:
+     <label for="input_starttime">Time</label>
+     <input id="input_starttime" input-clock data-twelvehour="false" type="text">
+     */
+    angular.module("ui.materialize.input_clock", [])
+        .directive('inputClock', [function () {
+            return {
+                restrict: 'A',
+                scope: {
+                    default: "@",
+                    fromnow: "=?",
+                    donetext: "@",
+                    autoclose: "=?",
+                    ampmclickable: "=?",
+                    darktheme: "=?",
+                    twelvehour: "=?",
+                    vibrate: "=?"
+                },
+                link: function (scope, element) {
+                    $(element).addClass("timepicker");
+                    if (!(scope.ngReadonly)) {
+                        element.clockpicker({
+                            default: (angular.isDefined(scope.default)) ? scope.default : '',
+                            fromnow: (angular.isDefined(scope.fromnow)) ? scope.fromnow : 0,
+                            donetext: (angular.isDefined(scope.donetext)) ? scope.donetext : 'Done',
+                            autoclose: (angular.isDefined(scope.autoclose)) ? scope.autoclose : false,
+                            ampmclickable: (angular.isDefined(scope.ampmclickable)) ? scope.ampmclickable : false,
+                            darktheme: (angular.isDefined(scope.darktheme)) ? scope.darktheme : false,
+                            twelvehour: (angular.isDefined(scope.twelvehour)) ? scope.twelvehour : true,
+                            vibrate: (angular.isDefined(scope.vibrate)) ? scope.vibrate : true
+                        });
+                    }
+                }
+            };
+        }]);
+
+
 
     /**
      * Example:
