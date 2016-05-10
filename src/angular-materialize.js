@@ -238,10 +238,13 @@
         }]);
 
     angular.module("ui.materialize.tabs", [])
-        .directive("tabs", [function(){
+        .directive("tabs", ["$timeout", function($timeout){
             return {
                 link: function (scope, element, attrs) {
-                    element.tabs();
+                    element.addClass("tabs");
+                    $timeout(function() {
+                        element.tabs();
+                    });
                 }
             };
         }]);

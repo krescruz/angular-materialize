@@ -521,6 +521,7 @@ $scope.onStop = function () {
         </div>
 
 
+        <!-- TODO: Make it clear what the different options do, especially 'open' -->
         <div class="row" id="modals" ng-init="dummyInputs.modalInput = 'Modal header'" ng-controller="ModalController">
             <h2 class="header">Modals</h2>
             <p>You need a modal trigger, like the below. The trigger should have the modal directive, and the href attribute must point to the ID of the modal structure. <br />
@@ -740,7 +741,7 @@ $scope.onStop = function () {
         </div>
         <div class="row" ng-if="showTabs">
             <div class="col s12">
-                <ul class="tabs" tabs>
+                <ul tabs>
                     <li class="tab col s3"><a href="#test1">Test 1</a></li>
                     <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
                     <li class="tab col s3"><a href="#test3">Test 3</a></li>
@@ -756,7 +757,7 @@ $scope.onStop = function () {
 <pre><code class="language-markup" ng-non-bindable>
 &lt;div class="row" ng-if="showTabs"&gt;
     &lt;div class="col s12"&gt;
-        &lt;ul class="tabs" tabs&gt;
+        &lt;ul tabs&gt;
             &lt;li class="tab col s3"&gt;&lt;a href="#test1"&gt;Test 1&lt;/a&gt;&lt;/li&gt;
             &lt;li class="tab col s3"&gt;&lt;a class="active" href="#test2"&gt;Test 2&lt;/a&gt;&lt;/li&gt;
             &lt;li class="tab col s3"&gt;&lt;a href="#test3"&gt;Test 3&lt;/a&gt;&lt;/li&gt;
