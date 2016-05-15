@@ -331,7 +331,7 @@
      </li>
      </ul>*/
     angular.module("ui.materialize.dropdown", [])
-        .directive("dropdown", ["$compile", "$timeout", function ($compile, $timeout) {
+        .directive("dropdown", ["$timeout", function ($timeout) {
             return {
                 scope: {
                     inDuration: "@",
@@ -344,7 +344,6 @@
                 },
                 link: function (scope, element, attrs) {
                     $timeout(function () {
-                        $compile(element.contents())(scope);
                         element.dropdown({
                             inDuration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
                             outDuration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
