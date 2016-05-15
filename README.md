@@ -39,3 +39,9 @@ import angularMaterialize from 'angular-materialize';
 var angularMaterialize = require('angular-materialize');
 angular.module('yourModule', [angularMaterialize]);
 ```
+
+### Missing features
+ - Components
+    - Fixed Action Button
+ - JavaScript
+    - Carousel.
