@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
@@ -775,6 +776,9 @@ $scope.onStop = function () {
             <h2 class="header">Pagination</h2>
             <p>This is only the pagination buttons, it doesn't do anything to change the page. That you'll have to do in the callback</p>
             <p>In the below, changePage is a function defined on the controller. </p>
+            <p>Pr. default the prev/next buttons are icons from <a href="http://google.github.io/material-design-icons/">Material design icons</a>, which needs to be included, like this: <code class="language-markup">&lt;link href=&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot; rel=&quot;stylesheet&quot;&gt;</code> <br/>
+            It is also possible to set the option <code class="language-markup">use-simple-prev-next</code> to false, in which case simple ">" chars will be used.
+            </p>
         </div>
         <div class="row" ng-controller="PaginationController">
             <pagination
@@ -783,6 +787,7 @@ $scope.onStop = function () {
                 total="200"
                 show-prev-next="true"
                 dots="...."
+                use-simple-prev-next="false"
                 hide-if-empty="false"
                 adjacent="2"
                 scroll-top="false"
@@ -794,6 +799,7 @@ $scope.onStop = function () {
     page-size="10"
     total="200"
     show-prev-next="true"
+    use-simple-prev-next="false"
     dots="...."
     hide-if-empty="false"
     adjacent="2"

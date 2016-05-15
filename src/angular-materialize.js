@@ -720,7 +720,7 @@
      * Based on https://github.com/brantwills/Angular-Paging
      */
     angular.module("ui.materialize.pagination", [])
-        .directive('pagination', function () {
+        .directive('pagination', ["$sce", function ($sce) {
 
             // Assign null-able scope values from settings
             function setScopeValues(scope, attrs) {
@@ -737,6 +737,7 @@
                 scope.scrollTop = scope.$eval(attrs.scrollTop);
                 scope.hideIfEmpty = scope.$eval(attrs.hideIfEmpty);
                 scope.showPrevNext = scope.$eval(attrs.showPrevNext);
+                scope.useSimplePrevNext = scope.$eval(attrs.useSimplePrevNext);
             }
 
             // Validate and clean up any scope values
@@ -789,7 +790,7 @@
                 var i = 0;
                 for (i = start; i <= finish; i++) {
                     var item = {
-                        value: i.toString(),
+                        value: $sce.trustAsHtml(i.toString()),
                         liClass: scope.page == i ? scope.activeClass : 'waves-effect',
                         action: function() {
                             internalAction(scope, this.value);
@@ -803,7 +804,7 @@
             // Add Dots ie: 1 2 [...] 10 11 12 [...] 56 57
             function addDots(scope) {
                 scope.List.push({
-                    value: scope.dots
+                    value: $sce.trustAsHtml(scope.dots)
                 });
             }
 
@@ -845,22 +846,33 @@
                     disabled = scope.page - 1 <= 0;
                     var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
 
-                    alpha = { value : "<<", title: 'First Page', page: 1 };
-                    beta = { value: "<", title: 'Previous Page', page: prevPage };
+                    if (scope.useSimplePrevNext) {
+                        alpha = {value: "<<", title: 'First Page', page: 1};
+                        beta = {value: "<", title: 'Previous Page', page: prevPage };
+                    } else {
+                        alpha = {value: "<i class=\"material-icons\">first_page</i>", title: 'First Page', page: 1};
+                        beta = {value: "<i class=\"material-icons\">chevron_left</i>", title: 'Previous Page', page: prevPage };
+                    }
 
                 } else {
 
                     disabled = scope.page + 1 > pageCount;
                     var nextPage = scope.page + 1 >= pageCount ? pageCount : scope.page + 1;
 
-                    alpha = { value : ">", title: 'Next Page', page: nextPage };
-                    beta = { value: ">>", title: 'Last Page', page: pageCount };
+                    if (scope.useSimplePrevNext) {
+                        alpha = { value : ">", title: 'Next Page', page: nextPage };
+                        beta = { value: ">>", title: 'Last Page', page: pageCount };
+                    } else {
+                        alpha = { value : "<i class=\"material-icons\">chevron_right</i>", title: 'Next Page', page: nextPage };
+                        beta = { value: "<i class=\"material-icons\">last_page</i>", title: 'Last Page', page: pageCount };
+                    }
+
                 }
 
                 // Create the Add Item Function
                 var addItem = function(item, disabled){
                     scope.List.push({
-                        value: item.value,
+                        value: $sce.trustAsHtml(item.value),
                         title: item.title,
                         liClass: disabled ? scope.disabledClass : '',
                         action: function(){
@@ -959,6 +971,7 @@
                     adjacent: '@',
                     scrollTop: '@',
                     showPrevNext: '@',
+                    useSimplePrevNext: '@',
                     paginationAction: '&',
                     ulClass: '=?'
                 },
@@ -969,7 +982,7 @@
                         'ng-click="Item.action()" ' +
                         'ng-repeat="Item in List"> ' +
                         '<a href> ' +
-                        '<span ng-bind="Item.value"></span> ' +
+                        '<span ng-bind-html="Item.value"></span> ' +
                         '</a>' +
                     '</ul>',
                 link: function (scope, element, attrs) {
@@ -980,7 +993,7 @@
                     });
                 }
             };
-        });
+        }]);
 
     /*     example usage:
      <!-- Modal Trigger -->
