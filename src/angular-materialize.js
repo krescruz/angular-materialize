@@ -370,7 +370,7 @@
      </inputfield>
      */
     angular.module("ui.materialize.inputfield", [])
-        .directive('inputField', ["$compile", "$timeout", function ($compile, $timeout) {
+        .directive('inputField', ["$timeout", function ($timeout) {
             return {
                 transclude: true,
                 scope: {},
