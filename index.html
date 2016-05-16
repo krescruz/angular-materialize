@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -30,10 +31,8 @@
     <ul id="nav-mobile" class="side-nav fixed">
         <!--Maybe a logo?-->
         <!--<li class="logo" style="margin-left: -15px;"><a id="logo-container" href="http://materializecss.com/"class="brand-logo"><h3></h3></a></li>-->
-        <li class="bold"><a href="http://materializecss.com/" class="waves-effect waves-teal">Materialize</a></li>
-        <li class="bold"><a href="https://angularjs.org/" class="waves-effect waves-teal">AngularJS</a></li>
-
         <li class="bold"><a href="#about" class="waves-effect waves-teal">About angular-materialize</a></li>
+        <li class="bold"><a href="#getting-started" class="waves-effect waves-teal">Getting started</a></li>
 
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
@@ -106,10 +105,59 @@
             <p>This plugin is useful for you if you want to use the <a href="http://materializecss.com/">Materialize UI framework</a> with angular. </p>
             <p>It includes a number of directives, which makes sure that the components in materialize.js, which are mainly initialized on document ready, are handled by Angular in the right way.<p>
             <p>So it is not a complete rewrite of Materialize. And it therefore depends on jQuery, because Materialize depends on jQuery.</p>
-            <p>The following sections are examples of the directives which are included in this plugin,
-                you can also use the menu to the left to see if the directive you are looking for is implemented.<br/>
-                Otherwise, you can <a href="https://github.com/krescruz/angular-materialize/issues/">suggest it to the developers</a>
-                or <a href="https://github.com/krescruz/angular-materialize/pulls">implement it yourself</a>.</p>
+            <p>Below is a small example to get you started, and below that documentation for the directives which are included in this plugin. <br />
+                Some parts of materialize, like the CSS framework, doesn't require anything extra to work in an Angular context, and they are therefore not covered here. <br />
+                A list of the features in Materialize which does not yet work with angular-materialize can be found in <a href="https://github.com/krescruz/angular-materialize/blob/master/README.md#missing-features">the readme on Github</a>.
+            </p>
+        </div>
+
+        <div class="row" id="getting-started">
+            <h2 class="header">Getting started</h2>
+            <p>This plugin and all of its dependencies are hosted on CDNs, which makes setup easy. <br />
+                To get a minimal example up and running, copy the below into index.html and app.js: </p>
+            <pre><code class="language-markup" ng-non-bindable>&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Minimal example&lt;/title&gt;
+
+    &lt;!-- Materialize CSS --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css&quot;&gt;
+
+    &lt;!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. --&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://code.jquery.com/jquery-2.2.3.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.7/angular-materialize.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!-- Your app --&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;app.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;materializeApp&quot; ng-controller=&quot;BodyController&quot;&gt;
+&lt;main&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;section col s4&quot;&gt;
+                &lt;div input-field&gt;
+                    &lt;select ng-model=&quot;select.value&quot; material-select&gt;
+                        &lt;option ng-repeat=&quot;value in select.choices&quot;&gt;{{value}}&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;section col s8&quot;&gt;
+                &lt;h5&gt;You selected: &lt;b&gt;{{select.value}}&lt;/b&gt;&lt;/h5&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<pre><code class="language-javascript" ng-non-bindable>var app = angular.module('materializeApp', ['ui.materialize'])
+    .controller('BodyController', [&quot;$scope&quot;, function ($scope) {
+        $scope.select = {
+            value: &quot;Option1&quot;,
+            choices: [&quot;Option1&quot;, &quot;I'm an option&quot;, &quot;This is materialize&quot;, &quot;No, this is Patrick.&quot;]
+        };
+    }]);</code></pre>
         </div>
 
         <div class="row" id="input-field">
@@ -293,9 +341,11 @@ $scope.onStop = function () {
         </div>
         <div class="row">
             <div class="section col s4">
-                <select class="" ng-model="select.value1" material-select watch>
-                    <option ng-repeat="value in select.choices">{{value}}</option>
-                </select>
+                <div input-field>
+                    <select class="" ng-model="select.value1" material-select watch>
+                        <option ng-repeat="value in select.choices">{{value}}</option>
+                    </select>
+                </div>
             </div>
             <div class="section col s8">
                 <h5>You selected: <b>{{select.value1}}</b></h5>
@@ -303,17 +353,21 @@ $scope.onStop = function () {
         </div>
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
-&lt;select class="" ng-model="select.value1" material-select watch&gt;
-    &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
-&lt;/select&gt;</code></pre>
+&lt;div input-field&gt;
+    &lt;select class="" ng-model="select.value1" material-select watch&gt;
+        &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;</code></pre>
         </div>
 
         <div class="row">
             <h5>Multiple select</h5>
             <div class="section col s4">
-                <select class="" ng-model="select.value3" material-select multiple watch>
-                    <option ng-repeat="value in select.choices">{{value}}</option>
-                </select>
+                <div input-field>
+                    <select class="" ng-model="select.value3" material-select multiple watch>
+                        <option ng-repeat="value in select.choices">{{value}}</option>
+                    </select>
+                </div>
             </div>
             <div class="section col s8">
                 <h5>You selected: <b>{{select.value3}}</b></h5>
@@ -321,18 +375,22 @@ $scope.onStop = function () {
         </div>
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
-&lt;select class="" ng-model="select.value3" material-select multiple watch&gt;
-    &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
-&lt;/select&gt;</code></pre>
+&lt;div input-field&gt;
+    &lt;select class="" ng-model="select.value3" material-select multiple watch&gt;
+        &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;</code></pre>
         </div>
 
 
         <div class="row">
             <h5>Using class browser-default</h5>
             <div class="section col s4">
-                <select class="browser-default" ng-model="select.value2">
-                    <option ng-repeat="value in select.choices">{{value}}</option>
-                </select>
+                <div input-field>
+                    <select class="browser-default" ng-model="select.value2">
+                        <option ng-repeat="value in select.choices">{{value}}</option>
+                    </select>
+                </div>
             </div>
             <div class="section col s8">
                 <h5>You selected: <b>{{select.value2}}</b></h5>
@@ -340,9 +398,11 @@ $scope.onStop = function () {
         </div>
         <div class="row">
 <pre><code class="language-markup" ng-non-bindable>
-&lt;select class="browser-default" ng-model="select.value2"&gt;
-    &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
-&lt;/select&gt;</code></pre>
+&lt;div input-field&gt;
+    &lt;select class="browser-default" ng-model="select.value2"&gt;
+        &lt;option ng-repeat="value in select.choices"&gt;{{value}}&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;</code></pre>
         </div>
 
         <div class="row" id="range">
@@ -521,6 +581,7 @@ $scope.onStop = function () {
         </div>
 
 
+        <!-- TODO: Make it clear what the different options do, especially 'open' -->
         <div class="row" id="modals" ng-init="dummyInputs.modalInput = 'Modal header'" ng-controller="ModalController">
             <h2 class="header">Modals</h2>
             <p>You need a modal trigger, like the below. The trigger should have the modal directive, and the href attribute must point to the ID of the modal structure. <br />
@@ -740,7 +801,7 @@ $scope.onStop = function () {
         </div>
         <div class="row" ng-if="showTabs">
             <div class="col s12">
-                <ul class="tabs" tabs>
+                <ul tabs>
                     <li class="tab col s3"><a href="#test1">Test 1</a></li>
                     <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
                     <li class="tab col s3"><a href="#test3">Test 3</a></li>
@@ -756,7 +817,7 @@ $scope.onStop = function () {
 <pre><code class="language-markup" ng-non-bindable>
 &lt;div class="row" ng-if="showTabs"&gt;
     &lt;div class="col s12"&gt;
-        &lt;ul class="tabs" tabs&gt;
+        &lt;ul tabs&gt;
             &lt;li class="tab col s3"&gt;&lt;a href="#test1"&gt;Test 1&lt;/a&gt;&lt;/li&gt;
             &lt;li class="tab col s3"&gt;&lt;a class="active" href="#test2"&gt;Test 2&lt;/a&gt;&lt;/li&gt;
             &lt;li class="tab col s3"&gt;&lt;a href="#test3"&gt;Test 3&lt;/a&gt;&lt;/li&gt;
@@ -774,6 +835,9 @@ $scope.onStop = function () {
             <h2 class="header">Pagination</h2>
             <p>This is only the pagination buttons, it doesn't do anything to change the page. That you'll have to do in the callback</p>
             <p>In the below, changePage is a function defined on the controller. </p>
+            <p>Pr. default the prev/next buttons are icons from <a href="http://google.github.io/material-design-icons/">Material design icons</a>, which needs to be included, like this: <code class="language-markup">&lt;link href=&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot; rel=&quot;stylesheet&quot;&gt;</code> <br/>
+            It is also possible to set the option <code class="language-markup">use-simple-prev-next</code> to false, in which case simple ">" chars will be used.
+            </p>
         </div>
         <div class="row" ng-controller="PaginationController">
             <pagination
@@ -782,6 +846,7 @@ $scope.onStop = function () {
                 total="200"
                 show-prev-next="true"
                 dots="...."
+                use-simple-prev-next="false"
                 hide-if-empty="false"
                 adjacent="2"
                 scroll-top="false"
@@ -793,6 +858,7 @@ $scope.onStop = function () {
     page-size="10"
     total="200"
     show-prev-next="true"
+    use-simple-prev-next="false"
     dots="...."
     hide-if-empty="false"
     adjacent="2"
