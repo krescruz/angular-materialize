@@ -13,7 +13,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -31,10 +31,8 @@
     <ul id="nav-mobile" class="side-nav fixed">
         <!--Maybe a logo?-->
         <!--<li class="logo" style="margin-left: -15px;"><a id="logo-container" href="http://materializecss.com/"class="brand-logo"><h3></h3></a></li>-->
-        <li class="bold"><a href="http://materializecss.com/" class="waves-effect waves-teal">Materialize</a></li>
-        <li class="bold"><a href="https://angularjs.org/" class="waves-effect waves-teal">AngularJS</a></li>
-
         <li class="bold"><a href="#about" class="waves-effect waves-teal">About angular-materialize</a></li>
+        <li class="bold"><a href="#getting-started" class="waves-effect waves-teal">Getting started</a></li>
 
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
@@ -107,10 +105,59 @@
             <p>This plugin is useful for you if you want to use the <a href="http://materializecss.com/">Materialize UI framework</a> with angular. </p>
             <p>It includes a number of directives, which makes sure that the components in materialize.js, which are mainly initialized on document ready, are handled by Angular in the right way.<p>
             <p>So it is not a complete rewrite of Materialize. And it therefore depends on jQuery, because Materialize depends on jQuery.</p>
-            <p>The following sections are examples of the directives which are included in this plugin,
-                you can also use the menu to the left to see if the directive you are looking for is implemented.<br/>
-                Otherwise, you can <a href="https://github.com/krescruz/angular-materialize/issues/">suggest it to the developers</a>
-                or <a href="https://github.com/krescruz/angular-materialize/pulls">implement it yourself</a>.</p>
+            <p>Below is a small example to get you started, and below that documentation for the directives which are included in this plugin. <br />
+                Some parts of materialize, like the CSS framework, doesn't require anything extra to work in an Angular context, and they are therefore not covered here. <br />
+                A list of the features in Materialize which does not yet work with angular-materialize can be found in <a href="https://github.com/krescruz/angular-materialize/blob/master/README.md#missing-features">the readme on Github</a>.
+            </p>
+        </div>
+
+        <div class="row" id="getting-started">
+            <h2 class="header">Getting started</h2>
+            <p>This plugin and all of its dependencies are hosted on CDNs, which makes setup easy. <br />
+                To get a minimal example up and running, copy the below into index.html and app.js: </p>
+            <pre><code class="language-markup" ng-non-bindable>&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Minimal example&lt;/title&gt;
+
+    &lt;!-- Materialize CSS --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css&quot;&gt;
+
+    &lt;!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. --&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://code.jquery.com/jquery-2.2.3.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.7/angular-materialize.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!-- Your app --&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;app.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;materializeApp&quot; ng-controller=&quot;BodyController&quot;&gt;
+&lt;main&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;section col s4&quot;&gt;
+                &lt;div input-field&gt;
+                    &lt;select ng-model=&quot;select.value&quot; material-select&gt;
+                        &lt;option ng-repeat=&quot;value in select.choices&quot;&gt;{{value}}&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;section col s8&quot;&gt;
+                &lt;h5&gt;You selected: &lt;b&gt;{{select.value}}&lt;/b&gt;&lt;/h5&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<pre><code class="language-javascript" ng-non-bindable>var app = angular.module('materializeApp', ['ui.materialize'])
+    .controller('BodyController', [&quot;$scope&quot;, function ($scope) {
+        $scope.select = {
+            value: &quot;Option1&quot;,
+            choices: [&quot;Option1&quot;, &quot;I'm an option&quot;, &quot;This is materialize&quot;, &quot;No, this is Patrick.&quot;]
+        };
+    }]);</code></pre>
         </div>
 
         <div class="row" id="input-field">
