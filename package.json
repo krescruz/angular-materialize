@@ -2,15 +2,20 @@
   "name": "angular-materialize",
   "description": "Angularjs directives for Materialize CSS Framework",
   "author": "@krescruz",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "repository": "https://github.com/krescruz/angular-materialize",
   "main": "src/index.js",
+  "scripts": {
+    "min": "uglifyjs src/angular-materialize.js > src/angular-materialize.min.js",
+    "prepublish": "npm run min"
+  },
   "dependencies": {
     "node-materialize": "https://github.com/ryepdx/node-materialize/tarball/master"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-connect": "^0.9.0"
+    "grunt-contrib-connect": "^0.9.0",
+    "uglify-js": "^3.0.1"
   }
 }
