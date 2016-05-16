@@ -4,7 +4,10 @@
   "author": "@krescruz",
   "version": "0.1.7",
   "license": "MIT",
-  "repository": "https://github.com/krescruz/angular-materialize",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krescruz/angular-materialize"
+  },
   "main": "src/index.js",
   "scripts": {
     "min": "uglifyjs src/angular-materialize.js > src/angular-materialize.min.js",
