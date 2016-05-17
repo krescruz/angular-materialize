@@ -10,7 +10,7 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "min": "uglifyjs src/angular-materialize.js > src/angular-materialize.min.js",
+    "min": "uglifyjs src/angular-materialize.js -m > src/angular-materialize.min.js",
     "prepublish": "npm run min"
   },
   "dependencies": {
