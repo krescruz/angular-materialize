@@ -767,6 +767,7 @@
 
             // Internal Pagination Click Action
             function internalAction(scope, page) {
+                page = page.valueOf();
                 // Block clicks we try to load the active page
                 if (scope.page == page) {
                     return;
