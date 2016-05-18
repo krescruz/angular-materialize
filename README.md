@@ -14,7 +14,7 @@ You can download this project through our [`bower package`](http://bower.io/sear
 Or just use the cdn:
 
 ```html
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.7/angular-materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.8/angular-materialize.min.js"></script>
 ```
 
 ##### Use with Webpack
