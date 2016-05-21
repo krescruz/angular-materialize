@@ -645,7 +645,7 @@
                             //pickadate API
                             var picker = pickadateInput.pickadate('picker');
 
-                            //watcher of min and max
+                            //watcher of min, max, and disabled dates
                             scope.$watch('max', function(newMax) {
                                 if( picker ) {
                                     var maxDate = new Date(newMax);
@@ -656,6 +656,12 @@
                                 if( picker ) {
                                     var minDate = new Date(newMin);
                                     picker.set({min: isValidDate(minDate) ? minDate : false});
+                                }
+                            });
+                            scope.$watch('disable', function(newDisabled) {
+                                if( picker ) {
+                                    var disabledDates = angular.isDefined(newDisabled) && angular.isArray(newDisabled) ? newDisabled : false;
+                                    picker.set({disable: disabledDates});
                                 }
                             });
                         });
