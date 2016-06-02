@@ -296,7 +296,19 @@
                             }
                             element.siblings(".caret").remove();
                             scope.$evalAsync(function() {
-                              element.material_select();
+                              //element.material_select();
+                              //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed
+                              element.material_select(function () {
+                                    $('input.select-dropdown').trigger('close');
+                                });
+                                var onMouseDown = function (e) {
+                                    // preventing the default still allows the scroll, but blocks the blur.
+                                    // We're inside the scrollbar if the clientX is >= the clientWidth.
+                                    if (e.clientX >= e.target.clientWidth || e.clientY >= e.target.clientHeight) {
+                                        e.preventDefault();
+                                    }
+                                };
+                                element.siblings('input.select-dropdown').on('mousedown', onMouseDown);
                             });
                         }
                         $timeout(initSelect);
