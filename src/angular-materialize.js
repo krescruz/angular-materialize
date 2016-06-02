@@ -295,8 +295,22 @@
                                 }
                             }
                             element.siblings(".caret").remove();
-                            scope.$evalAsync(function() {
-                              element.material_select();
+                            scope.$evalAsync(function () {
+                                //element.material_select();
+                                //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed
+                                element.material_select(function () {
+                                    if (!attrs.multiple) {
+                                        $('input.select-dropdown').trigger('close');
+                                    }
+                                });
+                                var onMouseDown = function (e) {
+                                    // preventing the default still allows the scroll, but blocks the blur.
+                                    // We're inside the scrollbar if the clientX is >= the clientWidth.
+                                    if (e.clientX >= e.target.clientWidth || e.clientY >= e.target.clientHeight) {
+                                        e.preventDefault();
+                                    }
+                                };
+                                element.siblings('input.select-dropdown').on('mousedown', onMouseDown);
                             });
                         }
                         $timeout(initSelect);
@@ -645,7 +659,7 @@
                             //pickadate API
                             var picker = pickadateInput.pickadate('picker');
 
-                            //watcher of min and max
+                            //watcher of min, max, and disabled dates
                             scope.$watch('max', function(newMax) {
                                 if( picker ) {
                                     var maxDate = new Date(newMax);
@@ -656,6 +670,12 @@
                                 if( picker ) {
                                     var minDate = new Date(newMin);
                                     picker.set({min: isValidDate(minDate) ? minDate : false});
+                                }
+                            });
+                            scope.$watch('disable', function(newDisabled) {
+                                if( picker ) {
+                                    var disabledDates = angular.isDefined(newDisabled) && angular.isArray(newDisabled) ? newDisabled : false;
+                                    picker.set({disable: disabledDates});
                                 }
                             });
                         });
