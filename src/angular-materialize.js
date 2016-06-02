@@ -296,6 +296,8 @@
                             }
                             element.siblings(".caret").remove();
                             scope.$evalAsync(function() {
+                              //element.material_select();
+                              //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed
                               element.material_select(function () {
                                     $('input.select-dropdown').trigger('close');
                                 });
