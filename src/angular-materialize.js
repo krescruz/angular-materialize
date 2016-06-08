@@ -23,16 +23,12 @@
 
                     var fired = false;
                     var handler = throttle(function () {
-                        console.log("Handler");
                         if (fired) {
                             return;
                         }
                         var windowScroll = window.pageYOffset + window.innerHeight;
 
                         var elementOffset = element[0].getBoundingClientRect().top + window.pageYOffset;
-
-                        console.log(typeof offset);
-                        console.log((windowScroll - (elementOffset + offset)) + " left");
 
                         if (windowScroll > (elementOffset + offset)) {
                             fired = true;
@@ -315,7 +311,22 @@
                         }
                         $timeout(initSelect);
                         if (attrs.ngModel) {
-                            scope.$watch(attrs.ngModel, initSelect);
+
+                            if (attrs.ngModel && !angular.isDefined(scope.$eval(attrs.ngModel))) {
+                                // This whole thing fixes that if initialized with undefined, then a ghost value option is inserted. If this thing wasn't done, then adding the 'watch' attribute could also fix it. #160
+                                var hasChangedFromUndefined = false;
+                                scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+                                    if (!hasChangedFromUndefined && angular.isDefined(scope.$eval(attrs.ngModel))) {
+                                        hasChangedFromUndefined = true;
+                                        initSelect(); // initSelect without arguments forces it to actually run. 
+                                    } else {
+                                        initSelect(newVal, oldVal);
+                                    }
+                                });
+                            } else {
+                                scope.$watch(attrs.ngModel, initSelect);
+                            }
+
                         }
                         if ("watch" in attrs) {
                             scope.$watch(function () {
