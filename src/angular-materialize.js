@@ -320,8 +320,8 @@
                         if ("watch" in attrs) {
                             scope.$watch(function () {
                                 return element[0].innerHTML;
-                            }, function (oldVal, newVal) {
-                                if (oldVal !== newVal) {
+                            }, function (newValue, oldValue) {
+                                if (newValue !== oldValue) {
                                     $timeout(initSelect);
                                 }
                             });
