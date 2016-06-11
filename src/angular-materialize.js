@@ -234,16 +234,25 @@
         }]);
 
     angular.module("ui.materialize.tabs", [])
-        .directive("tabs", ["$timeout", function($timeout){
-            return {
-                link: function (scope, element, attrs) {
-                    element.addClass("tabs");
-                    $timeout(function() {
-                        element.tabs();
-                    });
-                }
-            };
-        }]);
+      .directive("tabs", ["$timeout", function($timeout){
+          return {
+              scope: {
+                  reload: '='
+              },
+              link: function (scope, element, attrs) {
+                  element.addClass("tabs");
+                  $timeout(function() {
+                      element.tabs();
+                  });
+
+                  scope.$watch('reload', function(oldValue, newValue) {
+                      if (!angular.equals(oldValue, newValue)) {
+                          element.tabs();
+                      }
+                  });
+              }
+          };
+      }]);
 
     // Example: <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true">
     // data-activates is handled by the jQuery plugin.
