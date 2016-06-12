@@ -248,6 +248,7 @@
                   scope.$watch('reload', function(oldValue, newValue) {
                       if (!angular.equals(oldValue, newValue)) {
                           element.tabs();
+                          scope.reload = false;
                       }
                   });
               }
