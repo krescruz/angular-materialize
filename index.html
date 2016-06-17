@@ -797,6 +797,7 @@ $scope.onStop = function () {
             <p>This is a very simple directive, that just calls the jQuery plugin when the element is initialized.</p>
             <p>For the styling to work, you still need to have the class <code class="language-markup">tabs</code> on the <code class="language-markup">ul</code> tag</p>
             <p>Because of the simple implementation, don't expect ng-repeat ng-model or similar to work inside the ul of the tabs (should work inside the content though).</p>
+            <p>It is possible to trigger reload of tabs manually with a simple boolean property on your scope. It can be useful when you want to load your content dynamically with <code class="language-markup">ng-include</code> or so.</p>
             <a class="btn waves-effect waves-light" ng-click="showTabs = !showTabs">Show/hide the below tabs</a>
         </div>
         <div class="row" ng-if="showTabs">
@@ -817,7 +818,7 @@ $scope.onStop = function () {
 <pre><code class="language-markup" ng-non-bindable>
 &lt;div class="row" ng-if="showTabs"&gt;
     &lt;div class="col s12"&gt;
-        &lt;ul tabs&gt;
+        &lt;ul tabs reload="allTabContentLoaded"&gt;
             &lt;li class="tab col s3"&gt;&lt;a href="#test1"&gt;Test 1&lt;/a&gt;&lt;/li&gt;
             &lt;li class="tab col s3"&gt;&lt;a class="active" href="#test2"&gt;Test 2&lt;/a&gt;&lt;/li&gt;
             &lt;li class="tab col s3"&gt;&lt;a href="#test3"&gt;Test 3&lt;/a&gt;&lt;/li&gt;
