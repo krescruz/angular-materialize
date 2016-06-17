@@ -655,8 +655,8 @@
                     $compile(element.contents())(scope);
                     if (!(scope.ngReadonly)) {
                         $timeout(function () {
-                            var pickadateInput = element.pickadate({
-                                container : (angular.isDefined(scope.container)) ? scope.container : 'body',
+                            var options = {
+                                container : scope.container,
                                 format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                                 formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
                                 monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
@@ -676,7 +676,11 @@
                                 onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
                                 onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
                                 onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
-                            });
+                            };
+                            if (!scope.container) {
+                                delete options.container;
+                            }
+                            var pickadateInput = element.pickadate(options);
                             //pickadate API
                             var picker = pickadateInput.pickadate('picker');
 
