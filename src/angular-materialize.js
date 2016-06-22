@@ -23,16 +23,12 @@
 
                     var fired = false;
                     var handler = throttle(function () {
-                        console.log("Handler");
                         if (fired) {
                             return;
                         }
                         var windowScroll = window.pageYOffset + window.innerHeight;
 
                         var elementOffset = element[0].getBoundingClientRect().top + window.pageYOffset;
-
-                        console.log(typeof offset);
-                        console.log((windowScroll - (elementOffset + offset)) + " left");
 
                         if (windowScroll > (elementOffset + offset)) {
                             fired = true;
@@ -238,16 +234,26 @@
         }]);
 
     angular.module("ui.materialize.tabs", [])
-        .directive("tabs", ["$timeout", function($timeout){
-            return {
-                link: function (scope, element, attrs) {
-                    element.addClass("tabs");
-                    $timeout(function() {
-                        element.tabs();
-                    });
-                }
-            };
-        }]);
+      .directive("tabs", ["$timeout", function($timeout){
+          return {
+              scope: {
+                  reload: '='
+              },
+              link: function (scope, element, attrs) {
+                  element.addClass("tabs");
+                  $timeout(function() {
+                      element.tabs();
+                  });
+
+                  scope.$watch('reload', function(newValue) {
+                      if (newValue === true) {
+                          element.tabs();
+                          scope.reload = false;
+                      }
+                  });
+              }
+          };
+      }]);
 
     // Example: <a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-menuwidth="500"  data-closeonclick="true">
     // data-activates is handled by the jQuery plugin.
@@ -315,13 +321,28 @@
                         }
                         $timeout(initSelect);
                         if (attrs.ngModel) {
-                            scope.$watch(attrs.ngModel, initSelect);
+
+                            if (attrs.ngModel && !angular.isDefined(scope.$eval(attrs.ngModel))) {
+                                // This whole thing fixes that if initialized with undefined, then a ghost value option is inserted. If this thing wasn't done, then adding the 'watch' attribute could also fix it. #160
+                                var hasChangedFromUndefined = false;
+                                scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+                                    if (!hasChangedFromUndefined && angular.isDefined(scope.$eval(attrs.ngModel))) {
+                                        hasChangedFromUndefined = true;
+                                        initSelect(); // initSelect without arguments forces it to actually run. 
+                                    } else {
+                                        initSelect(newVal, oldVal);
+                                    }
+                                });
+                            } else {
+                                scope.$watch(attrs.ngModel, initSelect);
+                            }
+
                         }
                         if ("watch" in attrs) {
                             scope.$watch(function () {
                                 return element[0].innerHTML;
-                            }, function (oldVal, newVal) {
-                                if (oldVal !== newVal) {
+                            }, function (newValue, oldValue) {
+                                if (newValue !== oldValue) {
                                     $timeout(initSelect);
                                 }
                             });
@@ -634,8 +655,8 @@
                     $compile(element.contents())(scope);
                     if (!(scope.ngReadonly)) {
                         $timeout(function () {
-                            var pickadateInput = element.pickadate({
-                                container : (angular.isDefined(scope.container)) ? scope.container : 'body',
+                            var options = {
+                                container : scope.container,
                                 format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                                 formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
                                 monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
@@ -655,7 +676,11 @@
                                 onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
                                 onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
                                 onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
-                            });
+                            };
+                            if (!scope.container) {
+                                delete options.container;
+                            }
+                            var pickadateInput = element.pickadate(options);
                             //pickadate API
                             var picker = pickadateInput.pickadate('picker');
 
