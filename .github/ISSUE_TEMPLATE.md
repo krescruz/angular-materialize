@@ -1,23 +1,23 @@
-# Use below template if reporting an error
+## Use below template if reporting an error
 
-# Describe the error in 1 sentence
+## Describe the error in 1 sentence
 
 ...
 
-# Steps to reproduce
+## Steps to reproduce
 
 * Open page
 * .....
 
-# What exactly is supposed to happen
+## What exactly is supposed to happen
 
 ...
 
-# What exactly does happens
+## What exactly does happens
 
 ...
 
-# A link to a page clearly demonstrating the issue
+## A link to a page clearly demonstrating the issue
 
 [INSERT LINK]
 
