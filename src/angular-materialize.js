@@ -734,7 +734,7 @@
                 link: function (scope, element) {
                     $(element).addClass("timepicker");
                     if (!(scope.ngReadonly)) {
-                        element.clockpicker({
+                        element.pickatime({
                             default: (angular.isDefined(scope.default)) ? scope.default : '',
                             fromnow: (angular.isDefined(scope.fromnow)) ? scope.fromnow : 0,
                             donetext: (angular.isDefined(scope.donetext)) ? scope.donetext : 'Done',
