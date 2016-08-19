@@ -499,17 +499,19 @@ $scope.onStop = function () {
             <h2 class="header">Tooltip</h2>
             <p>The tooltipped attribute in the below makes sure that the jQuery plugin is run.<br />
                 You can set attributes on the tag, matching the names of the options in the materializeCSS's version.
+                You can disable tooltip, passing false to tooltipped attribute.
             </p>
-            <div class="col s4" ng-init="showTooltip = true">
-                <a class="btn waves-effect waves-light" ng-click="showTooltip = !showTooltip" style="margin-bottom: 10px;">Toggle Buttons</a>
+            <div class="col s4" >
+                <a class="btn waves-effect waves-light" ng-init="showTooltippedButtons = true" ng-click="showTooltippedButtons = !showTooltippedButtons" style="margin-bottom: 10px;">Toggle Buttons</a>
+                <a class="btn waves-effect waves-light" ng-init="showTooltips = true" ng-click="showTooltips = !showTooltips" style="margin-bottom: 10px;">Toggle Tooltips</a>
             </div>
-            <div class="col s8" ng-if="showTooltip">
+            <div class="col s8" ng-if="showTooltippedButtons">
                 <!-- data-position can be : bottom, top, left, or right -->
                 <!-- data-delay controls delay before tooltip shows (in milliseconds)-->
-                <a tooltipped class="btn col s4 offset-s4 l2 offset-l1" data-position="bottom" data-delay="50" data-tooltip="I am tooltip"> Bottom</a>
-                <a tooltipped class="btn col s4 offset-s4 l2 offset-l1" data-position="top" data-delay="150" data-tooltip="I am tooltip"> Top</a>
-                <a tooltipped class="btn col s4 offset-s4 l2 offset-l1" data-position="left" data-delay="250" data-tooltip="I am tooltip"> Left</a>
-                <a tooltipped class="btn col s4 offset-s4 l2 offset-l1" data-position="right" data-delay="550" data-tooltip="I am tooltip"> Right</a>
+                <a tooltipped="{{showTooltips}}" class="btn col s4 offset-s4 l2 offset-l1" data-position="bottom" data-delay="50" data-tooltip="I am bottom tooltip"> Bottom</a>
+                <a tooltipped="{{showTooltips}}" class="btn col s4 offset-s4 l2 offset-l1" data-position="top" data-delay="150" data-tooltip="I am top tooltip"> Top</a>
+                <a tooltipped="{{showTooltips}}" class="btn col s4 offset-s4 l2 offset-l1" data-position="left" data-delay="250" data-tooltip="I am left tooltip"> Left</a>
+                <a tooltipped="{{showTooltips}}" class="btn col s4 offset-s4 l2 offset-l1" data-position="right" data-delay="550" data-tooltip="I am right tooltip"> Right</a>
             </div>
         </div>
         <div class="row">
