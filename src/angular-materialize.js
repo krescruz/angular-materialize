@@ -1119,16 +1119,45 @@
     angular.module("ui.materialize.tooltipped", [])
         .directive("tooltipped", ["$compile", "$timeout", function ($compile, $timeout) {
             return {
-                restrict: "EA",
+                restrict: "A",
                 scope: true,
                 link: function (scope, element, attrs) {
-                    element.addClass("tooltipped");
-                    $compile(element.contents())(scope);
 
-                    $timeout(function () {
-                        element.tooltip();
+                    var rmDestroyListener = Function.prototype; //assigning to noop
+
+                    function init() {
+                        element.addClass("tooltipped");
+                        $compile(element.contents())(scope);
+
+                        $timeout(function () {
+                            // https://github.com/Dogfalo/materialize/issues/3546
+                            // if element.addClass("tooltipped") would not be executed, then probably this would not be needed
+                            if (element.attr('data-tooltip-id')){
+                                element.tooltip('remove');
+                            }
+                            element.tooltip();
+                        });
+                        rmDestroyListener = scope.$on('$destroy', function () {
+                            element.tooltip("remove");
+                        });
+                    };
+
+                    attrs.$observe('tooltipped', function (value) {
+                        if (value === 'false' && rmDestroyListener !== Function.prototype) {
+                            element.tooltip("remove");
+                            rmDestroyListener();
+                            rmDestroyListener = Function.prototype;
+                        } else if (value !== 'false' && rmDestroyListener === Function.prototype) {
+                            init();
+                        }
                     });
-                    scope.$on('$destroy', function () {
+
+                    if (attrs.tooltipped !== 'false') {
+                        init();
+                    }
+
+                    // just to be sure, that tooltip is removed when somehow element is destroyed, but the parent scope is not
+                    element.on('$destroy', function() {
                         element.tooltip("remove");
                     });
                 }
