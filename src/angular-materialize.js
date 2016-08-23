@@ -296,7 +296,8 @@
                                     }
                                 }
                             } else {
-                                if (newVal == element.val()){
+                                // The last part of the condition, is to support the select being initialized with a disabled option.
+                                if (newVal == element.val() && !(newVal === null && element.val() === '')){
                                     return;
                                 }
                             }
