@@ -8,6 +8,13 @@
     "type": "git",
     "url": "https://github.com/krescruz/angular-materialize"
   },
+  "keywords": [
+    "angularjs",
+    "materializecss",
+    "web",
+    "app",
+    "component"
+  ],
   "main": "src/index.js",
   "scripts": {
     "min": "uglifyjs src/angular-materialize.js -m > src/angular-materialize.min.js",

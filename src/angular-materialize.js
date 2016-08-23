@@ -1080,6 +1080,8 @@
                         };
                         var ready = function() {
                           angular.isFunction(scope.ready) && scope.$eval(scope.ready());
+                          // Need to keep open boolean in sync.
+                          scope.open = true;
                           // If tab support is enabled we need to re-init the tabs
                           // See https://github.com/Dogfalo/materialize/issues/1634
                           if (scope.enableTabs) {
