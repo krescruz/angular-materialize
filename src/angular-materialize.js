@@ -281,29 +281,22 @@
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
 						//BugFix 139: In case of multiple enabled. Avoid the circular looping.
-                        var first = true;
                         function initSelect(newVal, oldVal) {
-                            if (!first) {
-                                if (attrs.multiple) {
-                                    if (oldVal !== undefined && newVal !== undefined) {
-                                        if (oldVal.length === newVal.length) {
-                                            return;
-                                        }
+                            if (attrs.multiple) {
+                                if (oldVal !== undefined && newVal !== undefined) {
+                                    if (oldVal.length === newVal.length) {
+                                        return;
                                     }
-                                    var activeUl = element.siblings("ul.active");
-                                    if (newVal !== undefined && activeUl.length) { // If select is open
-                                        var selectedOptions = activeUl.children("li.active").length; // Number of selected elements
-                                        if (selectedOptions == newVal.length) {
-                                            return;
-                                        }
-                                    }
-                                } else {
-                                    if (newVal == element.val()) {
+                                }
+                                var activeUl = element.siblings("ul.active");
+                                if (newVal !== undefined && activeUl.length) { // If select is open
+                                    var selectedOptions = activeUl.children("li.active").length; // Number of selected elements
+                                    if (selectedOptions == newVal.length) {
                                         return;
                                     }
                                 }
                             }
-                            first = false;
+
                             element.siblings(".caret").remove();
                             scope.$evalAsync(function () {
                                 //element.material_select();
