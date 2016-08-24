@@ -591,7 +591,7 @@ $scope.onStop = function () {
             In the below example, you can change the header of the modal through the input field. </p>
             <!-- Modal Trigger -->
             <div class="col">
-                <a class='btn' href='#demoModal' modal ready="readyCallback" complete="completeCallback" open="openModal">Show Modal</a>
+                <a class='btn' href='#demoModal' modal ready="readyCallback()" complete="completeCallback()" open="openModal">Show Modal</a>
             </div>
             <div input-field  class="col s4">
                 <input type="text" ng-model="dummyInputs.modalInput">

@@ -1080,13 +1080,13 @@
                         $compile(element.contents())(scope);
 
                         var complete = function () {
-                            angular.isFunction(scope.complete) && scope.$eval(scope.complete());
+                            angular.isFunction(scope.complete) && scope.$apply(scope.complete);
 
                             scope.open = false;
                             scope.$apply();
                         };
                         var ready = function() {
-                          angular.isFunction(scope.ready) && scope.$eval(scope.ready());
+                          angular.isFunction(scope.ready) && scope.$apply(scope.ready);
                           // Need to keep open boolean in sync.
                           scope.open = true;
                           // If tab support is enabled we need to re-init the tabs
