@@ -281,12 +281,12 @@
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {
 						//BugFix 139: In case of multiple enabled. Avoid the circular looping.
-                        function initSelect(newVal, oldVal) {                            
-                            if(attrs.multiple){
-                                if(oldVal !== undefined && newVal !== undefined){
-                                  if(oldVal.length === newVal.length){
-                                      return;
-                                  }
+                        function initSelect(newVal, oldVal) {
+                            if (attrs.multiple) {
+                                if (oldVal !== undefined && newVal !== undefined) {
+                                    if (oldVal.length === newVal.length) {
+                                        return;
+                                    }
                                 }
                                 var activeUl = element.siblings("ul.active");
                                 if (newVal !== undefined && activeUl.length) { // If select is open
@@ -295,12 +295,8 @@
                                         return;
                                     }
                                 }
-                            } else {
-                                // The last part of the condition, is to support the select being initialized with a disabled option.
-                                if (newVal == element.val() && !(newVal === null && element.val() === '')){
-                                    return;
-                                }
                             }
+
                             element.siblings(".caret").remove();
                             scope.$evalAsync(function () {
                                 //element.material_select();
@@ -406,11 +402,21 @@
      */
     angular.module("ui.materialize.inputfield", [])
         .directive('inputField', ["$timeout", function ($timeout) {
+            var inputLabelIdCounter = 0;
             return {
                 transclude: true,
                 scope: {},
                 link: function (scope, element) {
                     $timeout(function () {
+                        var input = element.find("> > input, > > textarea");
+                        var label = element.find("> > label");
+
+                        if (input.length == 1 && label.length == 1 && !input.attr("id") && !label.attr("for")) {
+                            var id = "angularMaterializeID" + inputLabelIdCounter++;
+                            input.attr("id", id);
+                            label.attr("for", id);
+                        }
+
                         Materialize.updateTextFields();
 
                         // The "> > [selector]", is to restrict to only those tags that are direct children of the directive element. Otherwise we might hit to many elements with the selectors.
