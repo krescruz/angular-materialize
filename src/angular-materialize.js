@@ -402,11 +402,21 @@
      */
     angular.module("ui.materialize.inputfield", [])
         .directive('inputField', ["$timeout", function ($timeout) {
+            var inputLabelIdCounter = 0;
             return {
                 transclude: true,
                 scope: {},
                 link: function (scope, element) {
                     $timeout(function () {
+                        var input = element.find("> > input, > > textarea");
+                        var label = element.find("> > label");
+
+                        if (input.length == 1 && label.length == 1 && !input.attr("id") && !label.attr("for")) {
+                            var id = "angularMaterializeID" + inputLabelIdCounter++;
+                            input.attr("id", id);
+                            label.attr("for", id);
+                        }
+
                         Materialize.updateTextFields();
 
                         // The "> > [selector]", is to restrict to only those tags that are direct children of the directive element. Otherwise we might hit to many elements with the selectors.
