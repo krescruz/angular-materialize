@@ -143,6 +143,41 @@
             };
         }]);
 
+    /* example usage:
+     <div carousel height='500' transition='400'></div>
+     */
+    angular.module("ui.materialize.slider", [])
+        .directive("carousel", ["$timeout", function($timeout){
+            return {
+                restrict: 'A',
+                scope: {
+                    timeConstant: '@',
+                    dist: '@',
+                    shift: '@',
+                    padding: '@',
+                    fullWidth: '@',
+                    indicators: '@',
+                    noWrap: '@'
+                },
+                link: function(scope, element, attrs) {
+                    element.addClass("carousel");
+
+                    $timeout(function(){
+                        element.carousel({
+                            time_constant: (angular.isDefined(scope.timeConstant)) ? scope.timeConstant : 200,
+                            dist: (angular.isDefined(scope.dist)) ? scope.dist : -100,
+                            shift: (angular.isDefined(scope.shift)) ? scope.shift : 0,
+                            padding: (angular.isDefined(scope.padding)) ? scope.padding : 0,
+                            full_width: (angular.isDefined(scope.fullWidth)) ? scope.fullWidth : false,
+                            indicators: (angular.isDefined(scope.indicators)) ? scope.indicators : false,
+                            no_wrap: (angular.isDefined(scope.noWrap)) ? scope.noWrap : false
+                        });
+                    });
+                }
+            };
+        }]);
+
+
 
     angular.module("ui.materialize.collapsible", [])
         .directive("collapsible", ["$timeout", function ($timeout) {
