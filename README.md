@@ -38,7 +38,5 @@ angular.module('yourModule', [angularMaterialize]);
 ```
 
 ### Missing features
- - Components
-    - Fixed Action Button
  - JavaScript
     - Carousel.
