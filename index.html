@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <title>Angularjs directives for Materialize CSS Framework</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <!-- TODO: Waiting for https://github.com/Dogfalo/materialize/pull/3570 to become part of Materialize, before we can upgrade to jQuery 3 -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -55,6 +56,7 @@
                 <li class="bold"><a class="collapsible-header waves-effect waves-teal active">JavaScript</a>
                     <div class="collapsible-body">
                         <ul>
+                            <li><a href="#carousel">Carousel</a></li>
                             <li><a href="#collapsible">Collapsible</a></li>
                             <li><a href="#toast">Dialogs - Toast</a></li>
                             <li><a href="#tooltip">Tooltip</a></li>
@@ -120,13 +122,13 @@
     &lt;title&gt;Minimal example&lt;/title&gt;
 
     &lt;!-- Materialize CSS --&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css&quot;&gt;
 
     &lt;!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. --&gt;
     &lt;script type=&quot;text/javascript&quot; src=&quot;https://code.jquery.com/jquery-3.0.0.min.js&quot;&gt;&lt;/script&gt;
     &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.1/angular-materialize.min.js&quot;&gt;&lt;/script&gt;
 
     &lt;!-- Your app --&gt;
     &lt;script type=&quot;text/javascript&quot; src=&quot;app.js&quot;&gt;&lt;/script&gt;
@@ -413,8 +415,46 @@ $scope.onStop = function () {
 <pre><code class="language-markup" ng-non-bindable>
 &lt;div nouislider ng-model="value" min="5" max="300"&gt;&lt;/div&gt;
 </code></pre>
-        <p>See <a href="http://refreshless.com/nouislider/slider-options/">noUiSlider's docs</a> for how to use it. Supported config options are: ngModel (required), min, max, step, connect, and tooltips.
-          </ul>
+        <p>
+            See <a href="http://refreshless.com/nouislider/slider-options/">noUiSlider's docs</a> for how to use it. Supported config options are: ngModel (required), min, max, step, connect, and tooltips.
+        </p>
+        </div>
+
+
+        <div class="row" id="carousel">
+            <h2 class="header">Carousel</h2>
+            <p>A simple directive, that enables the carousel. Just add the attribute <code class=" language-markup" data-language="markup">carousel</code>, and the carousel will be initialized. </p>
+            <p>You can optionally set one of more of the attributes
+                <code class=" language-markup" data-language="markup">time-constant</code>,
+                <code class=" language-markup" data-language="markup">dist</code>,
+                <code class=" language-markup" data-language="markup">shift</code>,
+                <code class=" language-markup" data-language="markup">padding</code>,
+                <code class=" language-markup" data-language="markup">full-width</code>,
+                <code class=" language-markup" data-language="markup">height</code>,
+                <code class=" language-markup" data-language="markup">indicators</code> or
+                <code class=" language-markup" data-language="markup">no-wrap</code>, and the option will be passed to the slider. <br />
+                Like so: <code class=" language-markup" data-language="markup">&lt;div carousel time-constant='500' no-wrap='true'&gt;&lt;/div&gt;</code>
+                <br/>
+                The options correspond to the options in the <a href="http://materializecss.com/carousel.html">Materialize documentation</a>
+            </p>
+        </div>
+        <div class="row">
+            <div carousel>
+                <a class="carousel-item" href="javascript:void(0);"><img src="images/nature1.jpg"></a>
+                <a class="carousel-item" href="javascript:void(0);"><img src="images/nature2.jpg"></a>
+                <a class="carousel-item" href="javascript:void(0);"><img src="images/nature3.jpg"></a>
+                <a class="carousel-item" href="javascript:void(0);"><img src="images/nature4.jpg"></a>
+                <a class="carousel-item" href="javascript:void(0);"><img src="images/nature5.jpg"></a>
+            </div>
+        </div>
+        <div class="row">
+<pre><code class="language-markup" ng-non-bindable>&lt;div carousel&gt;
+    &lt;a class=&quot;carousel-item&quot; href=&quot;javascript:void(0);&quot;&gt;&lt;img src=&quot;images/nature1.jpg&quot;&gt;&lt;/a&gt;
+    &lt;a class=&quot;carousel-item&quot; href=&quot;javascript:void(0);&quot;&gt;&lt;img src=&quot;images/nature2.jpg&quot;&gt;&lt;/a&gt;
+    &lt;a class=&quot;carousel-item&quot; href=&quot;javascript:void(0);&quot;&gt;&lt;img src=&quot;images/nature3.jpg&quot;&gt;&lt;/a&gt;
+    &lt;a class=&quot;carousel-item&quot; href=&quot;javascript:void(0);&quot;&gt;&lt;img src=&quot;images/nature4.jpg&quot;&gt;&lt;/a&gt;
+    &lt;a class=&quot;carousel-item&quot; href=&quot;javascript:void(0);&quot;&gt;&lt;img src=&quot;images/nature5.jpg&quot;&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
         </div>
 
         <div class="row" id="collapsible">
@@ -591,7 +631,7 @@ $scope.onStop = function () {
             In the below example, you can change the header of the modal through the input field. </p>
             <!-- Modal Trigger -->
             <div class="col">
-                <a class='btn' href='#demoModal' modal ready="readyCallback" complete="completeCallback" open="openModal">Show Modal</a>
+                <a class='btn' href='#demoModal' modal ready="readyCallback()" complete="completeCallback()" open="openModal">Show Modal</a>
             </div>
             <div input-field  class="col s4">
                 <input type="text" ng-model="dummyInputs.modalInput">
@@ -698,7 +738,8 @@ $scope.onStop = function () {
             <p>An extremely simple directive, that just enables the slider. Just add the attribute <code class=" language-markup" data-language="markup">slider</code>, and the slider will be initialized. </p>
             <p>You can optionally set one of more of the attributes <code class=" language-markup" data-language="markup">height</code>, <code class=" language-markup" data-language="markup">transition</code>,
                 <code class=" language-markup" data-language="markup">interval</code> or <code class=" language-markup" data-language="markup">indicators</code>, and the option will be passed to the slider. <br />
-                Like so: <code class=" language-markup" data-language="markup">&lt;div slider height='500' transition='400'&gt;&lt;/div&gt;</code></p>
+                Like so: <code class=" language-markup" data-language="markup">&lt;div slider height='500' transition='400'&gt;&lt;/div&gt;</code><br />
+                The options correspond to the ones in the <a href="http://materializecss.com/media.html#slider">Materialize documentation</a></p>
         </div>
         <div class="row">
             <div slider>

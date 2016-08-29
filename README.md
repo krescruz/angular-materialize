@@ -14,7 +14,7 @@ You can download this project through our [`bower package`](http://bower.io/sear
 Or just use the cdn:
 
 ```html
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.1/angular-materialize.min.js"></script>
 ```
 
 ##### Use with Webpack
@@ -36,9 +36,3 @@ import angularMaterialize from 'angular-materialize';
 var angularMaterialize = require('angular-materialize');
 angular.module('yourModule', [angularMaterialize]);
 ```
-
-### Missing features
- - Components
-    - Fixed Action Button
- - JavaScript
-    - Carousel.

@@ -1,6 +1,6 @@
 (function (angular) {
     var undefined;
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel"]);
 
     /*     example usage:
      <div scroll-fire="func('Scrolled', 2000)" ></scroll-fire>
@@ -142,6 +142,41 @@
                 }
             };
         }]);
+
+    /* example usage:
+     <div carousel height='500' transition='400'></div>
+     */
+    angular.module("ui.materialize.carousel", [])
+        .directive("carousel", ["$timeout", function($timeout){
+            return {
+                restrict: 'A',
+                scope: {
+                    timeConstant: '@',
+                    dist: '@',
+                    shift: '@',
+                    padding: '@',
+                    fullWidth: '@',
+                    indicators: '@',
+                    noWrap: '@'
+                },
+                link: function(scope, element, attrs) {
+                    element.addClass("carousel");
+
+                    $timeout(function(){
+                        element.carousel({
+                            time_constant: (angular.isDefined(scope.timeConstant)) ? scope.timeConstant : 200,
+                            dist: (angular.isDefined(scope.dist)) ? scope.dist : -100,
+                            shift: (angular.isDefined(scope.shift)) ? scope.shift : 0,
+                            padding: (angular.isDefined(scope.padding)) ? scope.padding : 0,
+                            full_width: (angular.isDefined(scope.fullWidth)) ? scope.fullWidth : false,
+                            indicators: (angular.isDefined(scope.indicators)) ? scope.indicators : false,
+                            no_wrap: (angular.isDefined(scope.noWrap)) ? scope.noWrap : false
+                        });
+                    });
+                }
+            };
+        }]);
+
 
 
     angular.module("ui.materialize.collapsible", [])
@@ -1080,13 +1115,13 @@
                         $compile(element.contents())(scope);
 
                         var complete = function () {
-                            angular.isFunction(scope.complete) && scope.$eval(scope.complete());
+                            angular.isFunction(scope.complete) && scope.$apply(scope.complete);
 
                             scope.open = false;
                             scope.$apply();
                         };
                         var ready = function() {
-                          angular.isFunction(scope.ready) && scope.$eval(scope.ready());
+                          angular.isFunction(scope.ready) && scope.$apply(scope.ready);
                           // Need to keep open boolean in sync.
                           scope.open = true;
                           // If tab support is enabled we need to re-init the tabs
