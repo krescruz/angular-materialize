@@ -1164,7 +1164,6 @@
         .directive("tooltipped", ["$compile", "$timeout", function ($compile, $timeout) {
             return {
                 restrict: "A",
-                scope: true,
                 link: function (scope, element, attrs) {
 
                     var rmDestroyListener = Function.prototype; //assigning to noop
@@ -1184,7 +1183,7 @@
                         rmDestroyListener = scope.$on('$destroy', function () {
                             element.tooltip("remove");
                         });
-                    };
+                    }
 
                     attrs.$observe('tooltipped', function (value) {
                         if (value === 'false' && rmDestroyListener !== Function.prototype) {
