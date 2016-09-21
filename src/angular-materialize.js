@@ -379,6 +379,9 @@
                                 }
                             });
                         }
+                        
+                        if(attrs.ngDisabled)
+                                scope.$watch(attrs.ngDisabled, initSelect)
                     }
                 }
             };
