@@ -380,8 +380,9 @@
                             });
                         }
                         
-                        if(attrs.ngDisabled)
-                                scope.$watch(attrs.ngDisabled, initSelect)
+                        if(attrs.ngDisabled) {
+                            scope.$watch(attrs.ngDisabled, initSelect)
+                        }
                     }
                 }
             };
