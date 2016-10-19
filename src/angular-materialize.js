@@ -3,7 +3,7 @@
     angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel"]);
 
     /*     example usage:
-     <div scroll-fire="func('Scrolled', 2000)" ></scroll-fire>
+     <div scroll-fire="func('Scrolled', 2000)" ></div>
      */
     angular.module("ui.materialize.scrollFire", [])
         .directive("scrollFire", ["$compile", "$timeout", function ($compile, $timeout) {
