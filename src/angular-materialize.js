@@ -350,7 +350,7 @@
                                 //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed
                                 element.material_select(function () {
                                     if (!attrs.multiple) {
-                                        $('input.select-dropdown').trigger('close');
+                                        element.siblings('input.select-dropdown').trigger('close');
                                     }
                                     fixActive();
                                 });
@@ -361,9 +361,13 @@
                                         e.preventDefault();
                                     }
                                 };
-                                element.siblings('input.select-dropdown').on('mousedown', onMouseDown);
+                                element.siblings('input.select-dropdown').off("mousedown.material_select_fix").on('mousedown.material_select_fix', onMouseDown);
 
                                 fixActive();
+
+                                element.siblings('input.select-dropdown').off("click.material_select_fix").on("click.material_select_fix", function () {
+                                    $("input.select-dropdown").not(element.siblings("input.select-dropdown")).trigger("close");
+                                });
                             });
                         }
                         $timeout(initSelect);
