@@ -3,7 +3,7 @@
     angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel"]);
 
     /*     example usage:
-     <div scroll-fire="func('Scrolled', 2000)" ></scroll-fire>
+     <div scroll-fire="func('Scrolled', 2000)" ></div>
      */
     angular.module("ui.materialize.scrollFire", [])
         .directive("scrollFire", ["$compile", "$timeout", function ($compile, $timeout) {
@@ -350,7 +350,7 @@
                                 //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed
                                 element.material_select(function () {
                                     if (!attrs.multiple) {
-                                        $('input.select-dropdown').trigger('close');
+                                        element.siblings('input.select-dropdown').trigger('close');
                                     }
                                     fixActive();
                                 });
@@ -361,9 +361,13 @@
                                         e.preventDefault();
                                     }
                                 };
-                                element.siblings('input.select-dropdown').on('mousedown', onMouseDown);
+                                element.siblings('input.select-dropdown').off("mousedown.material_select_fix").on('mousedown.material_select_fix', onMouseDown);
 
                                 fixActive();
+
+                                element.siblings('input.select-dropdown').off("click.material_select_fix").on("click.material_select_fix", function () {
+                                    $("input.select-dropdown").not(element.siblings("input.select-dropdown")).trigger("close");
+                                });
                             });
                         }
                         $timeout(initSelect);
