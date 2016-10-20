@@ -3,7 +3,7 @@
     angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel"]);
 
     /*     example usage:
-     <div scroll-fire="func('Scrolled', 2000)" ></scroll-fire>
+     <div scroll-fire="func('Scrolled', 2000)" ></div>
      */
     angular.module("ui.materialize.scrollFire", [])
         .directive("scrollFire", ["$compile", "$timeout", function ($compile, $timeout) {
@@ -333,6 +333,18 @@
                             }
 
                             element.siblings(".caret").remove();
+                            function fixActive () {
+                                if (!attrs.multiple) {
+                                    var value = element.val();
+                                    var ul = element.siblings("ul");
+                                    ul.find("li").each(function () {
+                                        var that = $(this);
+                                        if (that.text() === value) {
+                                            that.addClass("active");
+                                        }
+                                    });
+                                }
+                            }
                             scope.$evalAsync(function () {
                                 //element.material_select();
                                 //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed
@@ -340,6 +352,7 @@
                                     if (!attrs.multiple) {
                                         $('input.select-dropdown').trigger('close');
                                     }
+                                    fixActive();
                                 });
                                 var onMouseDown = function (e) {
                                     // preventing the default still allows the scroll, but blocks the blur.
@@ -349,6 +362,8 @@
                                     }
                                 };
                                 element.siblings('input.select-dropdown').on('mousedown', onMouseDown);
+
+                                fixActive();
                             });
                         }
                         $timeout(initSelect);
@@ -379,6 +394,10 @@
                                     $timeout(initSelect);
                                 }
                             });
+                        }
+
+                        if(attrs.ngDisabled) {
+                            scope.$watch(attrs.ngDisabled, initSelect)
                         }
                     }
                 }
@@ -1125,6 +1144,8 @@
                           angular.isFunction(scope.ready) && scope.$apply(scope.ready);
                           // Need to keep open boolean in sync.
                           scope.open = true;
+                          scope.$apply();
+
                           // If tab support is enabled we need to re-init the tabs
                           // See https://github.com/Dogfalo/materialize/issues/1634
                           if (scope.enableTabs) {
@@ -1163,7 +1184,6 @@
         .directive("tooltipped", ["$compile", "$timeout", function ($compile, $timeout) {
             return {
                 restrict: "A",
-                scope: true,
                 link: function (scope, element, attrs) {
 
                     var rmDestroyListener = Function.prototype; //assigning to noop
@@ -1183,7 +1203,7 @@
                         rmDestroyListener = scope.$on('$destroy', function () {
                             element.tooltip("remove");
                         });
-                    };
+                    }
 
                     attrs.$observe('tooltipped', function (value) {
                         if (value === 'false' && rmDestroyListener !== Function.prototype) {
