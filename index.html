@@ -14,7 +14,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -633,7 +633,7 @@ $scope.onStop = function () {
             In the below example, you can change the header of the modal through the input field. </p>
             <!-- Modal Trigger -->
             <div class="col">
-                <a class='btn' href='#demoModal' modal ready="readyCallback()" complete="completeCallback()" open="openModal">Show Modal</a>
+                <a class='btn' data-target='demoModal' modal ready="readyCallback()" complete="completeCallback()" open="openModal">Show Modal</a>
             </div>
             <div input-field  class="col s4">
                 <input type="text" ng-model="dummyInputs.modalInput">
@@ -656,7 +656,7 @@ $scope.onStop = function () {
         <div class="row">
                 <pre><code class="language-markup" ng-non-bindable>&lt;!-- Modal Trigger --&gt;
 &lt;div class="col"&gt;
-    &lt;a class='btn' href='#demoModal' modal&gt;Show Modal&lt;/a&gt;
+    &lt;a class='btn' data-target='demoModal' modal&gt;Show Modal&lt;/a&gt;
 &lt;/div&gt;
 &lt;!-- Modal Structure --&gt;
 &lt;div id="demoModal" class="modal"&gt;
@@ -677,7 +677,7 @@ $scope.onStop = function () {
         <div class="row">
           <pre><code class="language-markup" ng-non-bindable>&lt;!-- Modal Trigger --&gt;
 &lt;div class="col"&gt;
-    &lt;a class='btn' href='#demoModal' enable-tabs="true" modal&gt;Show Modal&lt;/a&gt;
+    &lt;a class='btn' data-target='demoModal' enable-tabs="true" modal&gt;Show Modal&lt;/a&gt;
 &lt;/div&gt;</code></pre>
         </div>
 
