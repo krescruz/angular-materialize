@@ -1107,7 +1107,7 @@
 
     /*     example usage:
      <!-- Modal Trigger -->
-     <a class='btn' href='#demoModal' modal>show Modal</a>
+     <a class='btn' data-target='demoModal' modal>show Modal</a>
      <!-- Modal Structure -->
      <div id="demoModal" class="modal">
      <div class="modal-content">
@@ -1163,13 +1163,14 @@
                             ready: ready,
                             complete: complete,
                         };
-                        element.leanModal(options);
+                        modalEl.modal(options);
+                        element.modal(options);
 
                         // Setup watch for opening / closing modal programatically.
                         if (angular.isDefined(attrs.open) && modalEl.length > 0) {
                           scope.$watch('open', function(value, lastValue) {
                             if (!angular.isDefined(value)) { return; }
-                            (value === true) ? modalEl.openModal(options) : modalEl.closeModal();
+                            (value === true) ? modalEl.modal('open') : modalEl.modal('close');
                           });
                         }
                     });
