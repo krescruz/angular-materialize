@@ -1278,10 +1278,10 @@
                     var modelIsArray = false;
 
                     var watchNgModel = scope.$watch('ngModel', function(newValue) {
-                      if (newValue !== undefined) {
-                          createNoUiSlider();
-                          watchNgModel();
-                      }
+                        if (newValue !== undefined) {
+                            createNoUiSlider();
+                            watchNgModel();
+                        }
                     });
 
                     element[0].noUiSlider.on('update', function(values, input) {
