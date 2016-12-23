@@ -1279,7 +1279,8 @@
                     max: '@',
                     step: '@?',
                     connect: '@?',
-                    tooltips: '@?'
+                    tooltips: '@?',
+                    behaviour: '@?'
                 },
                 link: function (scope, element, attrs) {
                     var modelIsArray = false;
@@ -1305,8 +1306,9 @@
                         noUiSlider.create(element[0], {
                             start: scope.ngModel || 0,
                             step: parseFloat(scope.step || 1),
-                            tooltips: angular.isDefined(scope.connect) ? scope.tooltips : undefined,
-                            connect: angular.isDefined(scope.connect) ? getConnection(scope.connect) : false,
+                            tooltips: angular.isDefined(scope.tooltips) ? scope.tooltips : undefined,
+                            connect: angular.isDefined(scope.connect) ? scope.connect : [false, false],
+                            behaviour: angular.isDefined(scope.behaviour) ? scope.behaviour : undefined,
                             range: {
                                 'min': parseFloat(scope.min || 0),
                                 'max': parseFloat(scope.max || 100),
