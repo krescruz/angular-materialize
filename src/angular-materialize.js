@@ -379,7 +379,7 @@
                                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                                     if (!hasChangedFromUndefined && angular.isDefined(scope.$eval(attrs.ngModel))) {
                                         hasChangedFromUndefined = true;
-                                        initSelect(); // initSelect without arguments forces it to actually run. 
+                                        initSelect(); // initSelect without arguments forces it to actually run.
                                     } else {
                                         initSelect(newVal, oldVal);
                                     }
@@ -398,7 +398,7 @@
                                 }
                             });
                         }
-                        
+
                         if(attrs.ngDisabled) {
                             scope.$watch(attrs.ngDisabled, initSelect)
                         }
@@ -1253,7 +1253,14 @@
         }]);
 
     /* example usage:
-    <div nouislider ng-model='value' min="0" max="100"></div>
+        In controller:
+            $scope.value = [30];
+            $scope.value = 30;
+            $scope.value = [30, 40];
+
+        <div nouislider ng-model='value' min="0" max="100"></div>
+        <div nouislider ng-model='value' connect="lower" min="0" max="100"></div> (green) bar beetwen one handle
+        <div nouislider ng-model='value' connect="true" min="0" max="100"></div> (green) bar beetwen handles
     */
     angular.module("ui.materialize.nouislider", [])
         .directive("nouislider", ["$timeout", function($timeout){
@@ -1268,16 +1275,35 @@
                     tooltips: '@?'
                 },
                 link: function (scope, element, attrs) {
-                    $timeout(function () {
+                    var modelIsArray = false;
+
+                    var watchNgModel = scope.$watch('ngModel', function(newValue) {
+                      if (newValue !== undefined) {
+                          createNoUiSlider();
+                          watchNgModel();
+                      }
+                    });
+
+                    element[0].noUiSlider.on('update', function(values, input) {
+                        $timeout(function() {
+                            scope.ngModel = modelIsArray ? values : values[0];
+                        });
+                    });
+
+                    function createNoUiSlider() {
+                        if (angular.isArray(scope.ngModel)) {
+                            modelIsArray = true;
+                        }
+
                         noUiSlider.create(element[0], {
-                          	start: scope.ngModel || 0,
-                          	step: parseFloat(scope.step || 1),
+                            start: scope.ngModel || 0,
+                            step: parseFloat(scope.step || 1),
                             tooltips: angular.isDefined(scope.connect) ? scope.tooltips : undefined,
-                          	connect: angular.isDefined(scope.connect) ? scope.connect : 'lower',
-                          	range: {
-                          		'min': parseFloat(scope.min || 0),
-                          		'max': parseFloat(scope.max || 100),
-                          	},
+                            connect: angular.isDefined(scope.connect) ? getConnection(scope.connect) : false,
+                            range: {
+                                'min': parseFloat(scope.min || 0),
+                                'max': parseFloat(scope.max || 100),
+                            },
                             format: {
                                 to: function (number) {
                                     return Math.round(number * 100) / 100;
@@ -1288,11 +1314,16 @@
                             }
                         });
 
-                        element[0].noUiSlider.on('update', function(values, input) {
-                          scope.ngModel = parseInt(values[0], 10);
-                          scope.$apply();
-                        });
-                    });
+                        function getConnection(value) {
+                            value.toLowerCase();
+
+                            if ('true' === value || 'false' === value) {
+                                return JSON.parse(value);
+                            }
+
+                            return value;
+                        }
+                    };
                 }
             };
         }]);
