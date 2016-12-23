@@ -103,6 +103,10 @@
                                     return;
                                 }
                             }
+                            if (element.is('select')) {
+                                return;
+                            }
+                            // This fix is mainly to get placeholders to appear correctly, and it apparently screws things for the selects, so only doing this on something that isn't a select.
                             if (value){
                                 element.trigger("change");
                             } else if(element.attr('placeholder') === undefined) {
