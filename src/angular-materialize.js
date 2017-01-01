@@ -1234,16 +1234,6 @@
                         element.tooltip("remove");
                     });
 
-                    attrs.$observe('data-tooltip', function (value) {
-                        if (value === 'false' && rmDestroyListener !== Function.prototype) {
-                            element.tooltip("remove");
-                            rmDestroyListener();
-                            rmDestroyListener = Function.prototype;
-                        } else if (value !== 'false' && rmDestroyListener === Function.prototype) {
-                            init();
-                        }
-                    });
-
                     scope.$watch(function () {
                         return element.attr('data-tooltip');
                     }, function (oldVal, newVal) {
