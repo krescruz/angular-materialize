@@ -1233,6 +1233,17 @@
                     element.on('$destroy', function() {
                         element.tooltip("remove");
                     });
+
+                    scope.$watch(function () {
+                        return element.attr('data-tooltip');
+                    }, function (oldVal, newVal) {
+                        if (oldVal !== newVal && attrs.tooltippify !== 'false') {
+                            $timeout(function () {
+                               element.tooltip();
+                            });
+                        }
+                    });
+
                 }
             };
         }]);
