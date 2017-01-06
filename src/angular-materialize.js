@@ -1,6 +1,6 @@
 (function (angular) {
     var undefined;
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel", "ui.materialize.chips"]);
 
     /*     example usage:
      <div scroll-fire="func('Scrolled', 2000)" ></div>
@@ -119,6 +119,44 @@
             };
         }]);
 
+    //TODO: add some documentation for this.
+    /* example usage:
+    <div input-field>
+        <div chips ng-model="vm.lists" secondary-placeholder="first seen placeholder" placeholder="placeholder on th side of the chips"></div>
+    </div>
+    */
+    angular.module('ui.materialize.chips', [])
+        .directive('chips',['$timeout', function ($timeout) {
+            return {
+                restrict: 'A',
+                scope: {
+                    ngModel: '=',
+                    placeholder: '@',
+                    secondaryPlaceholder: '@',
+                },
+                link: function (scope, element, attrs) {
+                    $timeout(function () {
+                        element.material_chip({
+                            data: scope.ngModel || [],
+                            placeholder: scope.placeholder || '',
+                            secondaryPlaceholder: scope.secondaryPlaceholder || '',
+                        })
+                        element.on('chip.add', function (e, chip) {
+                            scope.ngModel =element.data().chips.map(function (item) {
+                                return item.tag
+                            })
+                            scope.$apply()
+                        })
+                        element.on('chip.delete', function (e, chip) {
+                            scope.ngModel =element.data().chips.map(function (item) {
+                                return item.tag
+                            })
+                            scope.$apply()
+                        })
+                    })
+                }
+            };
+        }]);
 
     /* example usage:
     <div slider height='500' transition='400'></div>
