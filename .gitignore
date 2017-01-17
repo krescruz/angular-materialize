@@ -4,3 +4,4 @@ node_modules/
 angular-materialize.iml
 .project
 test-app/*
+bower_components/

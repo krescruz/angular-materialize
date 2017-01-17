@@ -1,6 +1,6 @@
 (function (angular) {
     var undefined;
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.scrollspy", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped",  "ui.materialize.slider", "ui.materialize.materialboxed", "ui.materialize.scrollFire", "ui.materialize.nouislider", "ui.materialize.input_clock", "ui.materialize.carousel", "ui.materialize.chips"]);
 
     /*     example usage:
      <div scroll-fire="func('Scrolled', 2000)" ></div>
@@ -103,6 +103,10 @@
                                     return;
                                 }
                             }
+                            if (element.is('select')) {
+                                return;
+                            }
+                            // This fix is mainly to get placeholders to appear correctly, and it apparently screws things for the selects, so only doing this on something that isn't a select.
                             if (value){
                                 element.trigger("change");
                             } else if(element.attr('placeholder') === undefined) {
@@ -115,6 +119,43 @@
             };
         }]);
 
+    /* example usage:
+    <div input-field>
+        <div chips ng-model="vm.lists" secondary-placeholder="first seen placeholder" placeholder="placeholder on th side of the chips"></div>
+    </div>
+    */
+    angular.module('ui.materialize.chips', [])
+        .directive('chips',['$timeout', function ($timeout) {
+            return {
+                restrict: 'A',
+                scope: {
+                    ngModel: '=',
+                    placeholder: '@',
+                    secondaryPlaceholder: '@',
+                },
+                link: function (scope, element, attrs) {
+                    $timeout(function () {
+                        element.material_chip({
+                            data: scope.ngModel || [],
+                            placeholder: scope.placeholder || '',
+                            secondaryPlaceholder: scope.secondaryPlaceholder || '',
+                        })
+                        element.on('chip.add', function (e, chip) {
+                            scope.ngModel =element.data().chips.map(function (item) {
+                                return item.tag
+                            })
+                            scope.$apply()
+                        })
+                        element.on('chip.delete', function (e, chip) {
+                            scope.ngModel =element.data().chips.map(function (item) {
+                                return item.tag
+                            })
+                            scope.$apply()
+                        })
+                    })
+                }
+            };
+        }]);
 
     /* example usage:
     <div slider height='500' transition='400'></div>
@@ -379,7 +420,7 @@
                                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                                     if (!hasChangedFromUndefined && angular.isDefined(scope.$eval(attrs.ngModel))) {
                                         hasChangedFromUndefined = true;
-                                        initSelect(); // initSelect without arguments forces it to actually run. 
+                                        initSelect(); // initSelect without arguments forces it to actually run.
                                     } else {
                                         initSelect(newVal, oldVal);
                                     }
@@ -398,7 +439,7 @@
                                 }
                             });
                         }
-                        
+
                         if(attrs.ngDisabled) {
                             scope.$watch(attrs.ngDisabled, initSelect)
                         }
@@ -690,6 +731,7 @@
                     clear: "=",
                     close: "=",
                     selectYears: "=",
+		    selectMonths: "=",
                     onStart: "&",
                     onRender: "&",
                     onOpen: "&",
@@ -735,6 +777,7 @@
                                 clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
                                 close: (angular.isDefined(scope.close)) ? scope.close : undefined,
                                 selectYears: (angular.isDefined(scope.selectYears)) ? scope.selectYears : undefined,
+				selectMonths: (angular.isDefined(scope.selectMonths)) ? scope.selectMonths : undefined,
                                 onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
                                 onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
                                 onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
@@ -1107,7 +1150,7 @@
 
     /*     example usage:
      <!-- Modal Trigger -->
-     <a class='btn' href='#demoModal' modal>show Modal</a>
+     <a class='btn' data-target='demoModal' modal>show Modal</a>
      <!-- Modal Structure -->
      <div id="demoModal" class="modal">
      <div class="modal-content">
@@ -1163,13 +1206,14 @@
                             ready: ready,
                             complete: complete,
                         };
-                        element.leanModal(options);
+                        modalEl.modal(options);
+                        element.modal(options);
 
                         // Setup watch for opening / closing modal programatically.
                         if (angular.isDefined(attrs.open) && modalEl.length > 0) {
                           scope.$watch('open', function(value, lastValue) {
                             if (!angular.isDefined(value)) { return; }
-                            (value === true) ? modalEl.openModal(options) : modalEl.closeModal();
+                            (value === true) ? modalEl.modal('open') : modalEl.modal('close');
                           });
                         }
                     });
@@ -1226,6 +1270,17 @@
                     element.on('$destroy', function() {
                         element.tooltip("remove");
                     });
+
+                    scope.$watch(function () {
+                        return element.attr('data-tooltip');
+                    }, function (oldVal, newVal) {
+                        if (oldVal !== newVal && attrs.tooltippify !== 'false') {
+                            $timeout(function () {
+                               element.tooltip();
+                            });
+                        }
+                    });
+
                 }
             };
         }]);
@@ -1253,7 +1308,14 @@
         }]);
 
     /* example usage:
-    <div nouislider ng-model='value' min="0" max="100"></div>
+        In controller:
+            $scope.value = [30];
+            $scope.value = 30;
+            $scope.value = [30, 40];
+
+        <div nouislider ng-model='value' min="0" max="100"></div>
+        <div nouislider ng-model='value' connect="lower" min="0" max="100"></div> (green) bar beetwen one handle
+        <div nouislider ng-model='value' connect="true" min="0" max="100"></div> (green) bar beetwen handles
     */
     angular.module("ui.materialize.nouislider", [])
         .directive("nouislider", ["$timeout", function($timeout){
@@ -1265,19 +1327,40 @@
                     max: '@',
                     step: '@?',
                     connect: '@?',
-                    tooltips: '@?'
+                    tooltips: '@?',
+                    behaviour: '@?'
                 },
                 link: function (scope, element, attrs) {
-                    $timeout(function () {
+                    var modelIsArray = false;
+
+                    var watchNgModel = scope.$watch('ngModel', function(newValue) {
+                        if (newValue !== undefined) {
+                            createNoUiSlider();
+                            watchNgModel();
+                        }
+                    });
+
+                    element[0].noUiSlider.on('update', function(values, input) {
+                        $timeout(function() {
+                            scope.ngModel = modelIsArray ? values : values[0];
+                        });
+                    });
+
+                    function createNoUiSlider() {
+                        if (angular.isArray(scope.ngModel)) {
+                            modelIsArray = true;
+                        }
+
                         noUiSlider.create(element[0], {
-                          	start: scope.ngModel || 0,
-                          	step: parseFloat(scope.step || 1),
-                            tooltips: angular.isDefined(scope.connect) ? scope.tooltips : undefined,
-                          	connect: angular.isDefined(scope.connect) ? scope.connect : 'lower',
-                          	range: {
-                          		'min': parseFloat(scope.min || 0),
-                          		'max': parseFloat(scope.max || 100),
-                          	},
+                            start: scope.ngModel || 0,
+                            step: parseFloat(scope.step || 1),
+                            tooltips: angular.isDefined(scope.tooltips) ? scope.tooltips : undefined,
+                            connect: angular.isDefined(scope.connect) ? scope.connect : [false, false],
+                            behaviour: angular.isDefined(scope.behaviour) ? scope.behaviour : undefined,
+                            range: {
+                                'min': parseFloat(scope.min || 0),
+                                'max': parseFloat(scope.max || 100),
+                            },
                             format: {
                                 to: function (number) {
                                     return Math.round(number * 100) / 100;
@@ -1288,11 +1371,16 @@
                             }
                         });
 
-                        element[0].noUiSlider.on('update', function(values, input) {
-                          scope.ngModel = parseInt(values[0], 10);
-                          scope.$apply();
-                        });
-                    });
+                        function getConnection(value) {
+                            value.toLowerCase();
+
+                            if ('true' === value || 'false' === value) {
+                                return JSON.parse(value);
+                            }
+
+                            return value;
+                        }
+                    };
                 }
             };
         }]);

@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <title>Angularjs directives for Materialize CSS Framework</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- TODO: Waiting for https://github.com/Dogfalo/materialize/pull/3570 to become part of Materialize, before we can upgrade to jQuery 3 -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="src/angular-materialize.js"></script>
 
@@ -58,6 +58,7 @@
                         <ul>
                             <li><a href="#carousel">Carousel</a></li>
                             <li><a href="#collapsible">Collapsible</a></li>
+                            <li><a href="#chips">Chips</a></li>
                             <li><a href="#toast">Dialogs - Toast</a></li>
                             <li><a href="#tooltip">Tooltip</a></li>
                             <li><a href="#pushpin">Pushpin</a></li>
@@ -122,13 +123,13 @@
     &lt;title&gt;Minimal example&lt;/title&gt;
 
     &lt;!-- Materialize CSS --&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css&quot;&gt;
 
     &lt;!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. --&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;https://code.jquery.com/jquery-3.0.0.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://code.jquery.com/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;
     &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.1/angular-materialize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js&quot;&gt;&lt;/script&gt;
 
     &lt;!-- Your app --&gt;
     &lt;script type=&quot;text/javascript&quot; src=&quot;app.js&quot;&gt;&lt;/script&gt;
@@ -503,6 +504,32 @@ $scope.onStop = function () {
 
         </div>
 
+        <div class="row" id="chips">
+            <h2 class="header">Chips</h2>
+            <p>The chips attribute makes sure the jQuery Plugin is run. Use this directive if you want a dynamic chips functionality.</p>
+            <p>The <code class=" language-markup" data-language="markup">secondary-placeholder</code> is the text you see when there is no item.</p>
+            <p>And <code class=" language-markup" data-language="markup">placeholder</code> is the text you see when there is more than one item.</p>
+        </div>
+        <div class="row" ng-controller="ChipsController">
+          <div>
+              <div chips ng-model="chips" secondary-placeholder="Add" placeholder="Add another"></div>
+          </div>
+        </div>
+        <div class="row">
+            <p>The code in the HTML</p>
+<pre><code class="language-markup" ng-non-bindable>&lt;div&gt;
+    &lt;div chips ng-model="chips" secondary-placeholder="secondary placeholder" placeholder="primary placeholder"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            <p>And the JavaScript in the controller</p>
+<pre><code class="language-javascript">$scope.chips = [{
+        tag: 'Apple',
+    }, {
+        tag: 'Microsoft',
+    },{
+        tag: 'Google',
+    }];</code></pre>
+
+        </div>
 
         <div class="row" id="toast">
             <h2 class="header">Toasts</h2>
@@ -633,7 +660,7 @@ $scope.onStop = function () {
             In the below example, you can change the header of the modal through the input field. </p>
             <!-- Modal Trigger -->
             <div class="col">
-                <a class='btn' href='#demoModal' modal ready="readyCallback()" complete="completeCallback()" open="openModal">Show Modal</a>
+                <a class='btn' data-target='demoModal' modal ready="readyCallback()" complete="completeCallback()" open="openModal">Show Modal</a>
             </div>
             <div input-field  class="col s4">
                 <input type="text" ng-model="dummyInputs.modalInput">
@@ -656,7 +683,7 @@ $scope.onStop = function () {
         <div class="row">
                 <pre><code class="language-markup" ng-non-bindable>&lt;!-- Modal Trigger --&gt;
 &lt;div class="col"&gt;
-    &lt;a class='btn' href='#demoModal' modal&gt;Show Modal&lt;/a&gt;
+    &lt;a class='btn' data-target='demoModal' modal&gt;Show Modal&lt;/a&gt;
 &lt;/div&gt;
 &lt;!-- Modal Structure --&gt;
 &lt;div id="demoModal" class="modal"&gt;
@@ -677,7 +704,7 @@ $scope.onStop = function () {
         <div class="row">
           <pre><code class="language-markup" ng-non-bindable>&lt;!-- Modal Trigger --&gt;
 &lt;div class="col"&gt;
-    &lt;a class='btn' href='#demoModal' enable-tabs="true" modal&gt;Show Modal&lt;/a&gt;
+    &lt;a class='btn' data-target='demoModal' enable-tabs="true" modal&gt;Show Modal&lt;/a&gt;
 &lt;/div&gt;</code></pre>
         </div>
 
