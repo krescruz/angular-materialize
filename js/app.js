@@ -28,7 +28,17 @@ var app = angular.module('materializeApp', ['ui.materialize'])
             title: 'Third',
             content: 'Lorem ipsum dolor sit amet.'
         }];
-    }]).controller('ToastController', ["$scope", function ($scope) {
+    }])
+    .controller('ChipsController', ["$scope", function ($scope) {
+        $scope.chips = [{
+            tag: 'Apple',
+        }, {
+            tag: 'Microsoft',
+        },{
+            tag: 'Google',
+        }];
+    }])
+    .controller('ToastController', ["$scope", function ($scope) {
         $scope.callback = function(message) {
             alert(message);
         };

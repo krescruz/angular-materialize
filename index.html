@@ -58,6 +58,7 @@
                         <ul>
                             <li><a href="#carousel">Carousel</a></li>
                             <li><a href="#collapsible">Collapsible</a></li>
+                            <li><a href="#chips">Chips</a></li>
                             <li><a href="#toast">Dialogs - Toast</a></li>
                             <li><a href="#tooltip">Tooltip</a></li>
                             <li><a href="#pushpin">Pushpin</a></li>
@@ -503,6 +504,32 @@ $scope.onStop = function () {
 
         </div>
 
+        <div class="row" id="chips">
+            <h2 class="header">Chips</h2>
+            <p>The chips attribute makes sure the jQuery Plugin is run. Use this directive if you want a dynamic chips functionality.</p>
+            <p>The <code class=" language-markup" data-language="markup">secondary-placeholder</code> is the text you see when there is no item.</p>
+            <p>And <code class=" language-markup" data-language="markup">placeholder</code> is the text you see when there is more than one item.</p>
+        </div>
+        <div class="row" ng-controller="ChipsController">
+          <div>
+              <div chips ng-model="chips" secondary-placeholder="Add" placeholder="Add another"></div>
+          </div>
+        </div>
+        <div class="row">
+            <p>The code in the HTML</p>
+<pre><code class="language-markup" ng-non-bindable>&lt;div&gt;
+    &lt;div chips ng-model="chips" secondary-placeholder="secondary placeholder" placeholder="primary placeholder"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            <p>And the JavaScript in the controller</p>
+<pre><code class="language-javascript">$scope.chips = [{
+        tag: 'Apple',
+    }, {
+        tag: 'Microsoft',
+    },{
+        tag: 'Google',
+    }];</code></pre>
+
+        </div>
 
         <div class="row" id="toast">
             <h2 class="header">Toasts</h2>

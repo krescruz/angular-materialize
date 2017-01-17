@@ -119,7 +119,6 @@
             };
         }]);
 
-    //TODO: add some documentation for this.
     /* example usage:
     <div input-field>
         <div chips ng-model="vm.lists" secondary-placeholder="first seen placeholder" placeholder="placeholder on th side of the chips"></div>
