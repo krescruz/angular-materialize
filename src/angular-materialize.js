@@ -192,7 +192,7 @@
             return {
                 restrict: 'A',
                 scope: {
-                    timeConstant: '@',
+                    duration: '@',
                     dist: '@',
                     shift: '@',
                     padding: '@',
@@ -205,13 +205,13 @@
 
                     $timeout(function(){
                         element.carousel({
-                            time_constant: (angular.isDefined(scope.timeConstant)) ? scope.timeConstant : 200,
+                            duration: (angular.isDefined(scope.duration)) ? scope.duration : 200,
                             dist: (angular.isDefined(scope.dist)) ? scope.dist : -100,
                             shift: (angular.isDefined(scope.shift)) ? scope.shift : 0,
                             padding: (angular.isDefined(scope.padding)) ? scope.padding : 0,
-                            full_width: (angular.isDefined(scope.fullWidth)) ? scope.fullWidth : false,
+                            fullWidth: (angular.isDefined(scope.fullWidth)) ? scope.fullWidth : false,
                             indicators: (angular.isDefined(scope.indicators)) ? scope.indicators : false,
-                            no_wrap: (angular.isDefined(scope.noWrap)) ? scope.noWrap : false
+                            noWrap: (angular.isDefined(scope.noWrap)) ? scope.noWrap : false
                         });
                     });
                 }
