@@ -418,6 +418,7 @@
                                 // This whole thing fixes that if initialized with undefined, then a ghost value option is inserted. If this thing wasn't done, then adding the 'watch' attribute could also fix it. #160
                                 var hasChangedFromUndefined = false;
                                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+                                    $('input.select-dropdown').trigger('close');
                                     if (!hasChangedFromUndefined && angular.isDefined(scope.$eval(attrs.ngModel))) {
                                         hasChangedFromUndefined = true;
                                         initSelect(); // initSelect without arguments forces it to actually run.
