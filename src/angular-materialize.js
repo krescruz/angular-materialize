@@ -1170,6 +1170,8 @@
                     opacity: "@",
                     inDuration: "@",
                     outDuration: "@",
+                    startingTop: "@",
+                    endingTop: "@",
                     ready: '&?',
                     complete: '&?',
                     open: '=?',
@@ -1201,8 +1203,10 @@
                         var options = {
                             dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
                             opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
-                            in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
-                            out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
+                            inDuration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
+                            outDuration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined,
+                            startingTop: (angular.isDefined(scope.startingTop)) ? scope.startingTop : undefined,
+                            endingTop: (angular.isDefined(scope.endingTop)) ? scope.endingTop : undefined,
                             ready: ready,
                             complete: complete,
                         };
