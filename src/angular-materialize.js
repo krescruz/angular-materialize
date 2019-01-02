@@ -524,6 +524,8 @@
                         element.find("> > .materialize-textarea").each(function () {
                             var that = $(this);
                             that.addClass("materialize-textarea");
+                            that.data("original-height", that.height());
+                            that.data("previous-length", that.val().length);
                             that.trigger("autoresize");
                             var model = that.attr("ng-model");
                             if (model) {
