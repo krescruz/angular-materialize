@@ -21,7 +21,7 @@
     "prepublish": "npm run min"
   },
   "dependencies": {
-    "node-materialize": "https://github.com/ryepdx/node-materialize/tarball/master"
+    "node-materialize": "https://github.com/scriptfarm/node-materialize/tarball/master"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
